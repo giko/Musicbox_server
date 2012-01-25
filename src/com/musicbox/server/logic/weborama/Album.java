@@ -12,74 +12,38 @@ public class Album {
 	private String title;
 
 	public Number getCanPlay() {
-		return this.canPlay;
-	}
-
-	public void setCanPlay(Number canPlay) {
-		this.canPlay = canPlay;
+		return canPlay;
 	}
 
 	public Number getCategory() {
-		return this.category;
-	}
-
-	public void setCategory(Number category) {
-		this.category = category;
+		return category;
 	}
 
 	public String getCreator() {
-		return this.creator;
-	}
-
-	public void setCreator(String creator) {
-		this.creator = creator;
+		return creator;
 	}
 
 	public String getCreatorRu() {
-		return this.creatorRu;
-	}
-
-	public void setCreatorRu(String creatorRu) {
-		this.creatorRu = creatorRu;
+		return creatorRu;
 	}
 
 	public String getIdentifier() {
-		return this.identifier;
-	}
-
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
+		return identifier;
 	}
 
 	public String getImage() {
-		return this.image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
+		return image;
 	}
 
 	public String getInfo() {
-		return this.info;
-	}
-
-	public void setInfo(String info) {
-		this.info = info;
+		return info;
 	}
 
 	public String getSearch() {
-		return this.search;
-	}
-
-	public void setSearch(String search) {
-		this.search = search;
+		return search;
 	}
 
 	public String getTitle() {
-		return this.title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
+		return title;
 	}
 }

@@ -11,66 +11,35 @@ public class Artist {
 	private String titleRu;
 
 	public Number getCanPlay() {
-		return this.canPlay;
-	}
-
-	public void setCanPlay(Number canPlay) {
-		this.canPlay = canPlay;
+		return canPlay;
 	}
 
 	public Number getCategory() {
-		return this.category;
-	}
-
-	public void setCategory(Number category) {
-		this.category = category;
+		return category;
 	}
 
 	public String getIdentifier() {
-		return this.identifier;
-	}
-
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
+		return identifier;
 	}
 
 	public String getImage() {
-		return this.image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
+		return image;
 	}
 
 	public String getInfo() {
-		return this.info;
-	}
-
-	public void setInfo(String info) {
-		this.info = info;
+		return info;
 	}
 
 	public String getSearch() {
-		return this.search;
-	}
-
-	public void setSearch(String search) {
-		this.search = search;
+		return search;
 	}
 
 	public String getTitle() {
-		return this.title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
+		return title;
 	}
 
 	public String getTitleRu() {
-		return this.titleRu;
+		return titleRu;
 	}
 
-	public void setTitleRu(String titleRu) {
-		this.titleRu = titleRu;
-	}
 }
