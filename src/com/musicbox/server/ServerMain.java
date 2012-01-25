@@ -10,32 +10,21 @@ import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
-import com.musicbox.server.logic.weborama.Album;
-import com.musicbox.server.logic.weborama.WeboramaClient;
+import com.musicbox.weborama.WeboramaClient;
+import com.musicbox.weborama.structure.Album;
+import com.musicbox.weborama.structure.Artist;
+import com.musicbox.weborama.structure.TrackList;
 
 public class ServerMain {
 
 	public static void main(String[] args) throws Exception {
-
-		WeboramaClient client = new WeboramaClient();
-		client.Search("rise");
-		if (client.getLastSearch().getErrorCode() == 0) {
-			for (Album album : client.getLastSearch().getAlbums()) {
-				System.out.println(album.getCreator());
-			}
-		}
-
 		ChannelFactory factory = new NioServerSocketChannelFactory(
 				Executors.newCachedThreadPool(),
 				Executors.newCachedThreadPool());
 
 		ServerBootstrap bootstrap = new ServerBootstrap(factory);
 
-		bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
-			public ChannelPipeline getPipeline() {
-				return Channels.pipeline(new DiscardServerHandler());
-			}
-		});
+		bootstrap.setPipelineFactory(new TelnetPipelineFactory());
 
 		bootstrap.setOption("child.tcpNoDelay", true);
 		bootstrap.setOption("child.keepAlive", true);
