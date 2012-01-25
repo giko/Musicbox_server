@@ -10,26 +10,37 @@ import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
+import com.musicbox.server.logic.weborama.Album;
+import com.musicbox.server.logic.weborama.WeboramaClient;
 
 public class ServerMain {
-	
-    public static void main(String[] args) throws Exception {
-        ChannelFactory factory =
-            new NioServerSocketChannelFactory(
-                    Executors.newCachedThreadPool(),
-                    Executors.newCachedThreadPool());
 
-        ServerBootstrap bootstrap = new ServerBootstrap(factory);
+	public static void main(String[] args) throws Exception {
 
-        bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
-            public ChannelPipeline getPipeline() {
-                return Channels.pipeline(new DiscardServerHandler());
-            }
-        });
+		WeboramaClient client = new WeboramaClient();
+		client.Search("rise");
+		if (client.getLastSearch().getErrorCode() == 0) {
+			for (Album album : client.getLastSearch().getAlbums()) {
+				System.out.println(album.getCreator());
+			}
+		}
 
-        bootstrap.setOption("child.tcpNoDelay", true);
-        bootstrap.setOption("child.keepAlive", true);
+		ChannelFactory factory = new NioServerSocketChannelFactory(
+				Executors.newCachedThreadPool(),
+				Executors.newCachedThreadPool());
 
-        bootstrap.bind(new InetSocketAddress(8080));
-    }
+		ServerBootstrap bootstrap = new ServerBootstrap(factory);
+
+		bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
+			public ChannelPipeline getPipeline() {
+				return Channels.pipeline(new DiscardServerHandler());
+			}
+		});
+
+		bootstrap.setOption("child.tcpNoDelay", true);
+		bootstrap.setOption("child.keepAlive", true);
+
+		bootstrap.bind(new InetSocketAddress(8080));
+
+	}
 }
