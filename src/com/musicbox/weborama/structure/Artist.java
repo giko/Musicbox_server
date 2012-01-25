@@ -1,14 +1,14 @@
-package com.musicbox.server.logic.weborama;
+package com.musicbox.weborama.structure;
 
-public class Song {
+public class Artist {
 	private Number canPlay;
 	private Number category;
-	private String creator;
-	private String creatorRu;
 	private String identifier;
+	private String image;
 	private String info;
 	private String search;
 	private String title;
+	private String titleRu;
 
 	public Number getCanPlay() {
 		return canPlay;
@@ -18,16 +18,12 @@ public class Song {
 		return category;
 	}
 
-	public String getCreator() {
-		return creator;
-	}
-
-	public String getCreatorRu() {
-		return creatorRu;
-	}
-
 	public String getIdentifier() {
 		return identifier;
+	}
+
+	public String getImage() {
+		return image;
 	}
 
 	public String getInfo() {
@@ -40,6 +36,10 @@ public class Song {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public String getTitleRu() {
+		return titleRu;
 	}
 
 }

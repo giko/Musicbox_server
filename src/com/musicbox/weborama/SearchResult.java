@@ -1,6 +1,11 @@
-package com.musicbox.server.logic.weborama;
+package com.musicbox.weborama;
 
 import java.util.List;
+
+import com.musicbox.weborama.structure.Album;
+import com.musicbox.weborama.structure.Artist;
+import com.musicbox.weborama.structure.Genre;
+import com.musicbox.weborama.structure.Song;
 
 public class SearchResult {
 	private List<Album> album;
