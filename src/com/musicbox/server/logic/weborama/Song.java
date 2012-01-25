@@ -11,66 +11,35 @@ public class Song {
 	private String title;
 
 	public Number getCanPlay() {
-		return this.canPlay;
-	}
-
-	public void setCanPlay(Number canPlay) {
-		this.canPlay = canPlay;
+		return canPlay;
 	}
 
 	public Number getCategory() {
-		return this.category;
-	}
-
-	public void setCategory(Number category) {
-		this.category = category;
+		return category;
 	}
 
 	public String getCreator() {
-		return this.creator;
-	}
-
-	public void setCreator(String creator) {
-		this.creator = creator;
+		return creator;
 	}
 
 	public String getCreatorRu() {
-		return this.creatorRu;
-	}
-
-	public void setCreatorRu(String creatorRu) {
-		this.creatorRu = creatorRu;
+		return creatorRu;
 	}
 
 	public String getIdentifier() {
-		return this.identifier;
-	}
-
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
+		return identifier;
 	}
 
 	public String getInfo() {
-		return this.info;
-	}
-
-	public void setInfo(String info) {
-		this.info = info;
+		return info;
 	}
 
 	public String getSearch() {
-		return this.search;
-	}
-
-	public void setSearch(String search) {
-		this.search = search;
+		return search;
 	}
 
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
 }
