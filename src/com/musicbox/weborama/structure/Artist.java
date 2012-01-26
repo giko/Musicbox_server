@@ -1,8 +1,12 @@
 package com.musicbox.weborama.structure;
 
+import java.util.List;
+
+import com.musicbox.weborama.WeboramaClient;
+
 public class Artist {
-	private Number canPlay;
-	private Number category;
+	private byte canPlay;
+	private byte category;
 	private String identifier;
 	private String image;
 	private String info;
@@ -10,6 +14,11 @@ public class Artist {
 	private String title;
 	private String titleRu;
 
+	public List<TrackList> getTracks(){
+		WeboramaClient client = new WeboramaClient();
+		return client.GetArtistPlaylistByIdentifier(identifier).getTrackList();
+	}
+	
 	public Number getCanPlay() {
 		return canPlay;
 	}

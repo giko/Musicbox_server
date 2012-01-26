@@ -13,6 +13,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.google.gson.Gson;
 import com.musicbox.server.logic.tools.MD5;
 import com.musicbox.weborama.structure.Playlist;
+import com.musicbox.weborama.structure.SearchResult;
+import com.musicbox.weborama.structure.TrackList;
 
 public class WeboramaClient {
 	SearchResult lastSearch = null;
@@ -54,6 +56,20 @@ public class WeboramaClient {
 
 		lastPlaylist = response;
 		return response;
+	}
+	
+	public TrackList GetTrackBySongIdentifier(String identifier){
+		String url = "http://www.weborama.ru/modules/player/index_json.php?id=".concat(identifier).concat("&type=audio&act=new&mood=3&limit=0");
+		
+		InputStream source = retrieveStream(url);
+
+		Gson gson = new Gson();
+
+		Reader reader = new InputStreamReader(source);
+		
+		Playlist response = gson.fromJson(reader, Playlist.class);
+		
+		return response.getTrackList().get(0);
 	}
 
 	private InputStream retrieveStream(String url) {

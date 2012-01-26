@@ -69,9 +69,7 @@ public class TelnetServerHandler extends SimpleChannelUpstreamHandler {
 
 				if (weborama.getLastSearch().getErrorCode() == 0) {
 					for (Artist artist : weborama.getLastSearch().getArtists()) {
-						for (TrackList track : weborama
-								.GetArtistPlaylistByIdentifier(
-										artist.getIdentifier()).getTrackList()) {
+						for (TrackList track : artist.getTracks()) {
 							response += track.getTitle() + " " + track.getLocation()+"\r\n";
 						}
 					}
