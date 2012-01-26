@@ -11,11 +11,11 @@ public class TrackList {
 	private String info;
 	private String location;
 	private String mimeType;
-	private int mood;
+	private byte mood;
 	private boolean random;
 	private int rating;
 	private String title;
-	private int trackNum;
+	private byte trackNum;
 
 	public String getAlbum() {
 		return album;

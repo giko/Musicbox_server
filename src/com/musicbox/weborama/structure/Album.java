@@ -1,8 +1,8 @@
 package com.musicbox.weborama.structure;
 
 public class Album {
-	private Number canPlay;
-	private Number category;
+	private byte canPlay;
+	private byte category;
 	private String creator;
 	private String creatorRu;
 	private String identifier;
