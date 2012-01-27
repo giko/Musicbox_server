@@ -44,7 +44,22 @@ public class WeboramaClient {
 
 	public Playlist GetArtistPlaylistByIdentifier(String identifier) {
 		String url = "http://www.weborama.ru/modules/player/index_json.php?type=playlist&act=new&limit=10&filter=artistId:"
-				.concat(identifier);
+				.concat(identifier).concat(";air:0");
+
+		InputStream source = retrieveStream(url);
+
+		Gson gson = new Gson();
+
+		Reader reader = new InputStreamReader(source);
+
+		Playlist response = gson.fromJson(reader, Playlist.class);
+
+		lastPlaylist = response;
+		return response;
+	}
+	
+	public Playlist GetAlbumPlaylistByIdentifier(String identifier){
+		String url = "http://www.weborama.ru/modules/player/index_json.php?id=".concat(identifier).concat("&type=album&act=new&limit=10");
 
 		InputStream source = retrieveStream(url);
 

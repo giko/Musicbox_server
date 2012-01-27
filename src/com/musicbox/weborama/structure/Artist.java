@@ -1,6 +1,12 @@
 package com.musicbox.weborama.structure;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import com.musicbox.weborama.WeboramaClient;
 
@@ -14,6 +20,26 @@ public class Artist {
 	private String title;
 	private String titleRu;
 
+	public List<Album> getAlbums(){
+		List<Album> result = new ArrayList<Album>();
+		
+		try {
+			Elements response = Jsoup.connect(info.concat("albums/")).get().select("div[id^=songList_lentaAlbums_]");
+			System.out.println(response.html());
+			for (Element albumElement : response){
+				Album dummy = new Album();
+				dummy.setInfo(albumElement.select("div[class^=cover]").select("a[href]").get(0).attr("href"));
+				result.add(dummy);
+			}
+			
+		} catch (IOException e) {
+			result = null;
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	public List<TrackList> getTracks(){
 		WeboramaClient client = new WeboramaClient();
 		return client.GetArtistPlaylistByIdentifier(identifier).getTrackList();
