@@ -15,6 +15,7 @@ import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
 
 import com.musicbox.weborama.WeboramaClient;
+import com.musicbox.weborama.structure.Album;
 import com.musicbox.weborama.structure.Artist;
 import com.musicbox.weborama.structure.TrackList;
 
@@ -71,6 +72,21 @@ public class TelnetServerHandler extends SimpleChannelUpstreamHandler {
 					for (Artist artist : weborama.getLastSearch().getArtists()) {
 						for (TrackList track : artist.getTracks()) {
 							response += track.getTitle() + " " + track.getLocation()+"\r\n";
+						}
+					}
+				}
+			}
+			
+			if (request.startsWith("lol ")) {
+				response = "";
+				weborama.Search(request.replaceFirst("lol ", ""));
+				logger.info(request.replaceFirst("lol ", ""));
+
+				if (weborama.getLastSearch().getErrorCode() == 0) {
+					for (Artist artist : weborama.getLastSearch().getArtists()) {
+						response += artist.getTitle()+":\r\n";
+						for (Album album : artist.getAlbums()) {
+							response += album.getInfo()+"\r\n";
 						}
 					}
 				}
