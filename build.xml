@@ -8,22 +8,20 @@
 
 	<property name="main-class"  value="com.musicbox.server.ServerMain"/>
 
-	<property name="lib.dir"     value="libs"/>
+    <property name="lib.dir"     value="libs"/>
 
-	<path id="project.class.path">
-		<pathelement location="libs/"/>
-		<pathelement path="${java.class.path}/"/>
-		<pathelement path="${additional.path}"/>
-	</path>
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
 
 	<target name="clean">
 		<delete dir="${build.dir}"/>
 	</target>
 
-	<target name="compile">
-		<mkdir dir="${classes.dir}"/>
-		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}"/>
-	</target>
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+    </target>
 
 	<target name="jar" depends="compile">
 		<mkdir dir="${jar.dir}"/>
@@ -34,9 +32,15 @@
 		</jar>
 	</target>
 
-	<target name="run" depends="jar">
-		<java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
-	</target>
+    <target name="run" depends="jar">
+        <java fork="true" classname="${main-class}">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${jar.dir}/${ant.project.name}.jar"/>
+            </classpath>
+        </java>
+    </target>
+
 	
 	<target name="clean-build" depends="clean,jar"/>
 
