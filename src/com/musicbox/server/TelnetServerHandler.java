@@ -86,7 +86,10 @@ public class TelnetServerHandler extends SimpleChannelUpstreamHandler {
 					for (Artist artist : weborama.getLastSearch().getArtists()) {
 						response += artist.getTitle()+":\r\n";
 						for (Album album : artist.getAlbums()) {
-							response += album.getInfo()+"\r\n";
+							response += "    " + album.getTitle()+"\r\n";
+							for (TrackList track : album.getPlaylist().getTrackList()){
+								response += "        " + track.getTitle() + " " + track.getLocation() + "\r\n";
+							}
 						}
 					}
 				}

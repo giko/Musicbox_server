@@ -28,10 +28,16 @@ public class Artist {
 			System.out.println(response.html());
 			for (Element albumElement : response){
 				Album dummy = new Album();
+				dummy.setCanPlay(canPlay);
+				dummy.setCategory(category);
+				dummy.setCreator(title);
+				dummy.setCreatorRu(titleRu);
+				dummy.setImage(albumElement.select("img[width=150]").get(0).attr("src"));
+				dummy.setTitle(albumElement.select("a[id^=link_album_").get(0).text());
+				dummy.setIdentifier(albumElement.select("a[id^=link_album_").get(0).attr("id").replace("link_album_", ""));
 				dummy.setInfo(albumElement.select("div[class^=cover]").select("a[href]").get(0).attr("href"));
 				result.add(dummy);
 			}
-			
 		} catch (IOException e) {
 			result = null;
 			e.printStackTrace();
