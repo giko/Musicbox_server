@@ -1,6 +1,8 @@
 // Socket reference.
 var ws;
 
+var audioElement = document.createElement('audio');
+
 // Log text to main window.
 function logText(msg) {
     var textArea = document.getElementById('chatlog');
@@ -26,11 +28,18 @@ function login() {
 function onMessage(incoming) {
     switch (incoming.action) {
         case 'SEARCHRESULT':
-			logText(incoming.result.artist[0].title);
+			for (key in incoming.result.artist){
+				logText(incoming.result.artist[key].title);
+			}
+			send({action:'GETSONGBYID', message:incoming.result.song[0].identifier});
             break;
          case 'JOIN':
             logText("* User '" + incoming.username + "' joined.");
             break;
+		case 'SONGS':
+			audioElement.setAttribute('src', incoming.trackList[0].location);
+			audioElement.play();
+			break;
     }
 }
 

@@ -1,55 +1,35 @@
 package com.musicbox.server;
 
 import com.google.gson.Gson;
+import com.musicbox.Packets.Incoming;
+import com.musicbox.Packets.Outgoing;
 import com.musicbox.weborama.WeboramaClient;
-import com.musicbox.weborama.structure.SearchResult;
-import com.musicbox.weborama.structure.ServerOutput;
+import com.musicbox.weborama.structure.TrackList;
 
 import org.webbitserver.BaseWebSocketHandler;
 import org.webbitserver.WebSocketConnection;
-import org.webbitserver.WebSocketHandler;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Musicbox extends BaseWebSocketHandler {
 
 	private final Gson json = new Gson();
 	private static WeboramaClient wclient = new WeboramaClient();
+	private Set<WebSocketConnection> connections = new HashSet<WebSocketConnection>();
 
 	public static final String USERNAME_KEY = "username";
 
-	static class Incoming {
-		enum Action {
-			SEARCH, LISTENING, LOGIN
-		}
-
-		Action action;
-		String loginUsername;
-		String message;
-	}
-
-	static class Outgoing {
-		enum Action {
-			LISTENING, SEARCHRESULT, JOIN, LEAVE
-		}
-
-		Action action;
-		SearchResult result;
-		String message;
-		String username;
-	}
-	
     private void login(WebSocketConnection connection, String username) {
         connection.data(USERNAME_KEY, username); // associate username with connection
 
         Outgoing outgoing = new Outgoing();
-        outgoing.action = Outgoing.Action.JOIN;
-        outgoing.username = username;
+        outgoing.setAction(Outgoing.Action.JOIN);
+        outgoing.setUsername(username);
         broadcast(outgoing);
     }
-
-	private Set<WebSocketConnection> connections = new HashSet<WebSocketConnection>();
 
 	@Override
 	public void onOpen(WebSocketConnection connection) throws Exception {
@@ -60,16 +40,23 @@ public class Musicbox extends BaseWebSocketHandler {
 	public void onMessage(WebSocketConnection connection, String msg)
 			throws Exception {
 		Incoming incoming = json.fromJson(msg, Incoming.class);
-		switch (incoming.action) {
+		switch (incoming.getAction()) {
 		case LOGIN:
-			System.out.println(incoming.loginUsername);
-			login(connection, incoming.loginUsername);
+			login(connection, incoming.getLoginUsername());
 			break;
 		case SEARCH:
 			Outgoing packet = new Outgoing();
-			packet.action = Outgoing.Action.SEARCHRESULT;
-			packet.result = wclient.Search(incoming.message);
+			packet.setAction(Outgoing.Action.SEARCHRESULT);
+			packet.setResult(wclient.Search(incoming.getMessage()));
 			connection.send(this.json.toJson(packet));
+			break;
+		case GETSONGBYID:
+			Outgoing song_packet = new Outgoing();
+			song_packet.setAction(Outgoing.Action.SONGS);
+			List<TrackList> song = new ArrayList<TrackList>();
+			song.add(wclient.GetTrackBySongIdentifier(incoming.getMessage()));
+			song_packet.setTrackList(song);
+			connection.send(this.json.toJson(song_packet));
 			break;
 		}
 	}
@@ -89,11 +76,10 @@ public class Musicbox extends BaseWebSocketHandler {
 		String username = (String) connection.data(USERNAME_KEY);
 		if (username != null) {
 			Outgoing outgoing = new Outgoing();
-			outgoing.action = Outgoing.Action.LEAVE;
-			outgoing.username = username;
+			outgoing.setAction(Outgoing.Action.LEAVE);
+			outgoing.setUsername(username);
 			broadcast(outgoing);
 		}
 		connections.remove(connection);
 	}
-
 }
