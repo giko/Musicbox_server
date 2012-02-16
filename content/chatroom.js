@@ -37,6 +37,7 @@ function onMessage(incoming) {
             logText("* User '" + incoming.username + "' joined.");
             break;
 		case 'SONGS':
+			logText("Playing: " + incoming.trackList[0].title);
 			audioElement.setAttribute('src', incoming.trackList[0].location);
 			audioElement.play();
 			break;
