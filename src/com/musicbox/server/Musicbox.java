@@ -21,7 +21,7 @@ public class Musicbox extends BaseWebSocketHandler {
 
 	static class Incoming {
 		enum Action {
-			SEARCH, LISTENING
+			SEARCH, LISTENING, LOGIN
 		}
 
 		Action action;
@@ -31,14 +31,23 @@ public class Musicbox extends BaseWebSocketHandler {
 
 	static class Outgoing {
 		enum Action {
-			LISTENING, SEARCHRESULT, SAY, LEAVE
+			LISTENING, SEARCHRESULT, JOIN, LEAVE
 		}
 
 		Action action;
-		ServerOutput result;
+		SearchResult result;
 		String message;
 		String username;
 	}
+	
+    private void login(WebSocketConnection connection, String username) {
+        connection.data(USERNAME_KEY, username); // associate username with connection
+
+        Outgoing outgoing = new Outgoing();
+        outgoing.action = Outgoing.Action.JOIN;
+        outgoing.username = username;
+        broadcast(outgoing);
+    }
 
 	private Set<WebSocketConnection> connections = new HashSet<WebSocketConnection>();
 
@@ -52,15 +61,18 @@ public class Musicbox extends BaseWebSocketHandler {
 			throws Exception {
 		Incoming incoming = json.fromJson(msg, Incoming.class);
 		switch (incoming.action) {
+		case LOGIN:
+			System.out.println(incoming.loginUsername);
+			login(connection, incoming.loginUsername);
+			break;
 		case SEARCH:
 			Outgoing packet = new Outgoing();
 			packet.action = Outgoing.Action.SEARCHRESULT;
-			packet.result = (ServerOutput) wclient.Search(msg);
+			packet.result = wclient.Search(incoming.message);
 			connection.send(this.json.toJson(packet));
 			break;
 		}
 	}
-
 	
     private void broadcast(Outgoing outgoing) {
         String jsonStr = this.json.toJson(outgoing);
