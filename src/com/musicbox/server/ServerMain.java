@@ -1,27 +1,23 @@
 package com.musicbox.server;
 
-import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
+import org.webbitserver.WebServer;
+import org.webbitserver.handler.StaticFileHandler;
+import org.webbitserver.handler.logging.LoggingHandler;
+import org.webbitserver.handler.logging.SimpleLogSink;
 
-import org.jboss.netty.bootstrap.ServerBootstrap;
-import org.jboss.netty.channel.ChannelFactory;
-import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
+import static org.webbitserver.WebServers.createWebServer;
 
 public class ServerMain {
 
 	public static void main(String[] args) throws Exception {
-		ChannelFactory factory = new NioServerSocketChannelFactory(
-				Executors.newCachedThreadPool(),
-				Executors.newCachedThreadPool());
+		WebServer webServer = createWebServer(9876)
+				.add(new LoggingHandler(
+						new SimpleLogSink(Musicbox.USERNAME_KEY)))
+				.add("/musicbox", new Musicbox())
+				.add(new StaticFileHandler(
+						"./content")).start()
+				.get();
 
-		ServerBootstrap bootstrap = new ServerBootstrap(factory);
-
-		bootstrap.setPipelineFactory(new TelnetPipelineFactory());
-
-		bootstrap.setOption("child.tcpNoDelay", true);
-		bootstrap.setOption("child.keepAlive", true);
-
-		bootstrap.bind(new InetSocketAddress(8080));
-
+		System.out.println("Webserver on: " + webServer.getUri());
 	}
 }
