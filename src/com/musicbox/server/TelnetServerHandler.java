@@ -66,7 +66,6 @@ public class TelnetServerHandler extends SimpleChannelUpstreamHandler {
 			if (request.startsWith("find ")) {
 				response = "";
 				weborama.Search(request.replaceFirst("find ", ""));
-				logger.info(request.replaceFirst("find ", ""));
 
 				if (weborama.getLastSearch().getErrorCode() == 0) {
 					for (Artist artist : weborama.getLastSearch().getArtists()) {
@@ -80,7 +79,6 @@ public class TelnetServerHandler extends SimpleChannelUpstreamHandler {
 			if (request.startsWith("lol ")) {
 				response = "";
 				weborama.Search(request.replaceFirst("lol ", ""));
-				logger.info(request.replaceFirst("lol ", ""));
 
 				if (weborama.getLastSearch().getErrorCode() == 0) {
 					for (Artist artist : weborama.getLastSearch().getArtists()) {
