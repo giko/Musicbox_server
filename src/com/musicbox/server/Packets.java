@@ -8,7 +8,7 @@ import com.musicbox.weborama.structure.TrackList;
 public class Packets {
 	static public class Incoming {
 		public enum Action {
-			SEARCH, LISTENING, LOGIN, GETSONGBYID
+			SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID
 		}
 
 		private Action action;
@@ -38,7 +38,15 @@ public class Packets {
 
 	static public class Outgoing {
 		public enum Action {
-			LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS
+			LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE
+		}
+		
+		public Outgoing(Action caction){
+			this.action = caction;
+		}
+		
+		public Outgoing() {
+			// TODO Auto-generated constructor stub
 		}
 
 		private Action action;

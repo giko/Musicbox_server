@@ -12,22 +12,38 @@ function logText(msg) {
 }
 
 function login() {
-    var defaultUsername = (window.localStorage && window.localStorage.username) || 'yourname';
-    var username = prompt('Choose a username', defaultUsername);
-    if (username) {
-        if (window.localStorage) { // store in browser localStorage, so we remember next next
-            window.localStorage.username = username;
-        }
-        send({action:'LOGIN', loginUsername:username});
-        document.getElementById('searchfield').focus();
-    } else {
-        ws.close();
+	if (gup('s')){
+	   window.localStorage.vktoken = '';
+	}
+	
+    if (window.localStorage.vktoken){
+    	send({action:'LOGINBYTOKEN', message:window.localStorage.vktoken});
+    }else{
+    	if (gup('code')){
+		send({action:'LOGINBYCODE', message:gup('code')});
+	}else{
+    	location.replace('http://api.vk.com/oauth/authorize?client_id=2810768&redirect_uri='+ document.URL +'&scope=audio,offline&display=page');
+	}
     }
 }
 
+function gup( name )
+{
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( window.location.href );
+  if( results == null )
+    return "";
+  else
+    return results[1];
+}
 
 function onMessage(incoming) {
     switch (incoming.action) {
+    	case 'MESSAGE':
+    		logText(incoming.message);
+    		break
         case 'SEARCHRESULT':
 		for (key in incoming.result.artist){
 			var li = $('<li>',{class:'span3'});
@@ -42,6 +58,10 @@ function onMessage(incoming) {
          case 'JOIN':
             logText("* User '" + incoming.username + "' joined.");
             break;
+         case 'TOKEN':
+         	window.localStorage.vktoken=incoming.message;
+         	send({action:'LOGINBYTOKEN', message:window.localStorage.vktoken});
+         break;
 		case 'SONGS':
 			logText("Playing: " + incoming.songs[0].title);
 			audioElement.setAttribute('src', incoming.songs[0].location);
