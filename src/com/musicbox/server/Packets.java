@@ -1,4 +1,4 @@
-package com.musicbox;
+package com.musicbox.server;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class Packets {
 		private SearchResult result;
 		private String message;
 		private String username;
-		private List<TrackList> trackList;
+		private List<TrackList> songs;
 		
 		public Action getAction() {
 			return action;
@@ -71,11 +71,11 @@ public class Packets {
 		public void setUsername(String username) {
 			this.username = username;
 		}
-		public List<TrackList> getTrackList() {
-			return trackList;
+		public List<TrackList> getSongs() {
+			return songs;
 		}
-		public void setTrackList(List<TrackList> trackList) {
-			this.trackList = trackList;
+		public void setSongs(List<TrackList> songs) {
+			this.songs = songs;
 		}
 	}
 }

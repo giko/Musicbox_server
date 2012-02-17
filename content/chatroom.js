@@ -2,12 +2,13 @@
 var ws;
 
 var audioElement = document.createElement('audio');
+var textArea = document.getElementById('chatlog');
 
 // Log text to main window.
 function logText(msg) {
-    var textArea = document.getElementById('chatlog');
-    textArea.value = textArea.value + msg + '\n';
-    textArea.scrollTop = textArea.scrollHeight; // scroll into view
+	var element = document.createElement('p');
+	element.appendChild(document.createTextNode(msg));
+    textArea.appendChild(element);
 }
 
 function login() {
@@ -18,7 +19,7 @@ function login() {
             window.localStorage.username = username;
         }
         send({action:'LOGIN', loginUsername:username});
-        document.getElementById('entry').focus();
+        document.getElementById('searchfield').focus();
     } else {
         ws.close();
     }
@@ -28,17 +29,22 @@ function login() {
 function onMessage(incoming) {
     switch (incoming.action) {
         case 'SEARCHRESULT':
-			for (key in incoming.result.artist){
-				logText(incoming.result.artist[key].title);
-			}
+		for (key in incoming.result.artist){
+			var li = $('<li>',{class:'span3'});
+			var div = $('<div>',{class:'thumbnail'});
+			div.append($('<img>',{src:incoming.result.artist[key].image}));
+			div.append($('<h5>',{text:incoming.result.artist[key].title}));
+			li.append(div);
+			$('#result').append(li);
+		}
 			send({action:'GETSONGBYID', message:incoming.result.song[0].identifier});
             break;
          case 'JOIN':
             logText("* User '" + incoming.username + "' joined.");
             break;
 		case 'SONGS':
-			logText("Playing: " + incoming.trackList[0].title);
-			audioElement.setAttribute('src', incoming.trackList[0].location);
+			logText("Playing: " + incoming.songs[0].title);
+			audioElement.setAttribute('src', incoming.songs[0].location);
 			audioElement.play();
 			break;
     }
@@ -67,7 +73,7 @@ function connect() {
     };
 
     // wire up text input event
-    var entry = document.getElementById('entry');
+    var entry = document.getElementById('searchfield');
     entry.onkeypress = function(e) {
         if (e.keyCode == 13) { // enter key pressed
             var text = entry.value;

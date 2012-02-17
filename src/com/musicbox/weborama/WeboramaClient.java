@@ -24,6 +24,8 @@ public class WeboramaClient {
 		if (Query.length() > 10) {
 			Query = Query.substring(0, 10);
 		}
+		
+		Query = Query.toLowerCase();
 
 		String md5hash = MD5.getMD5(Query);
 		String url = "http://www.weborama.ru/cache/search/helper/"
