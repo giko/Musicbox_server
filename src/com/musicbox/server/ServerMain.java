@@ -4,6 +4,7 @@ import org.webbitserver.WebServer;
 import org.webbitserver.handler.StaticFileHandler;
 import org.webbitserver.handler.logging.LoggingHandler;
 import org.webbitserver.handler.logging.SimpleLogSink;
+import com.musicbox.lastfm.LastFmClient;
 
 import static org.webbitserver.WebServers.createWebServer;
 
@@ -19,5 +20,8 @@ public class ServerMain {
 				.get();
 
 		System.out.println("Webserver on: " + webServer.getUri());
+		
+		LastFmClient lfclient = new LastFmClient();
+		System.out.println(lfclient.SearchArtist(java.net.URLEncoder.encode("rise against")).get(0).getImages().get(4).getLink());
 	}
 }
