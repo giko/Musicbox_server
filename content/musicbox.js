@@ -106,6 +106,17 @@ function connect() {
             entry.value = '';
         }
     };
+	// Chat text form 
+    var entry = document.getElementById('chat-text');
+    entry.onkeypress = function (e) {
+	    if (e.keyCode == 13) { // enter key pressed
+            var text = entry.value;
+            if (text) {
+			    send({action:'FText', message:text});
+            }
+            entry.value = '';
+        }
+    };
 }
 
 // Send message to server over socket.
