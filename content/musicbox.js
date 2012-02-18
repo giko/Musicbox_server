@@ -112,7 +112,7 @@ function connect() {
 	    if (e.keyCode == 13) { // enter key pressed
             var text = entry.value;
             if (text) {
-			    send({action:'FText', message:text});
+			    send({action:'CHATMESSAGE', message:text});
             }
             entry.value = '';
         }

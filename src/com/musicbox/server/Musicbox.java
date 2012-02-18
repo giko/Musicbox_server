@@ -57,6 +57,13 @@ public class Musicbox extends BaseWebSocketHandler {
                 packet.setSongs(song);
                 connection.send(this.json.toJson(packet));
                 break;
+            case CHATMESSAGE:
+                packet.setAction(Outgoing.Action.MESSAGE);
+                packet.setMessage(connections.get(connection).getFirst_name().concat(" ")
+                        .concat(connections.get(connection).getLast_name())
+                        .concat(" написал: ").concat(incoming.getMessage()));
+                broadcast(packet);
+                break;
         }
     }
 

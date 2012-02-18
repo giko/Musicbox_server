@@ -9,7 +9,7 @@ import java.util.List;
 public class Packets {
     static public class Incoming {
         public enum Action {
-            SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK
+            SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE
         }
 
         private Action action;
