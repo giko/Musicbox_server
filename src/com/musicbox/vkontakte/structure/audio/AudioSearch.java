@@ -1,7 +1,5 @@
 package com.musicbox.vkontakte.structure.audio;
 
-import java.util.List;
-
 /**
  * Created by IntelliJ IDEA.
  * User: giko

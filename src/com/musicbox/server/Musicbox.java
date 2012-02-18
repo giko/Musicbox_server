@@ -80,9 +80,7 @@ public class Musicbox extends BaseWebSocketHandler {
             Outgoing packet = new Outgoing(Packets.Outgoing.Action.MESSAGE);
             packet.setMessage("Welcome ".concat(connections.get(connection)
                     .getFirst_name()));
-            System.out.println(connections.get(connection).getPhoto_big());
             connection.send(json.toJson(packet));
-            System.out.println(vkclient.getURLByTrack("Metallica"));
         } else {
             connection.close();
         }

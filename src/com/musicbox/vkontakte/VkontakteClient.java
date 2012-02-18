@@ -1,6 +1,7 @@
 package com.musicbox.vkontakte;
 
 import com.google.gson.Gson;
+import com.musicbox.Cache;
 import com.musicbox.WebWorker;
 import com.musicbox.vkontakte.structure.audio.AudioSearch;
 import com.musicbox.vkontakte.structure.profiles.Profile;
@@ -21,7 +22,12 @@ public class VkontakteClient {
     }
 
     public String getURLByTrack(String track) {
-        return this.json.fromJson(retrieveReader("execute?code=" + URLEncoder.encode("return API.audio.search({\"q\":\"" + track + "\",\"count\":1, \"sort\":2})@.url[1];")), AudioSearch.class).getResponse();
+        if (!Cache.exists("URLS" + track)) {
+            String url = this.json.fromJson(retrieveReader("execute?code=" + URLEncoder.encode("return API.audio.search({\"q\":\"" + track + "\",\"count\":1, \"sort\":2})@.url[1];")), AudioSearch.class).getResponse();
+            Cache.setVariable("URLS" + track, url);
+            return url;
+        }
+        return Cache.getVariable("URLS" + track);
     }
 
     public Profile getProfile() {
@@ -29,17 +35,21 @@ public class VkontakteClient {
     }
 
     public Profile getProfileById(int id) {
-        Profile profile = this.json
-                .fromJson(
-                        retrieveReader(
-                                "getProfiles?uids="
-                                        .concat(String.valueOf(id))
-                                        .concat("&fields=photo_big,sex,bdate,city,country"),
-                                this.oauth.getAccess_token()), ProfileSearch.class).getResponse()
-                .get(0);
-        profile.setToken(this.oauth);
+        if (!Cache.exists(id, Profile.class)) {
+            Profile profile = this.json
+                    .fromJson(
+                            retrieveReader(
+                                    "getProfiles?uids="
+                                            .concat(String.valueOf(id))
+                                            .concat("&fields=photo_big,sex,bdate,city,country"),
+                                    this.oauth.getAccess_token()), ProfileSearch.class).getResponse()
+                    .get(0);
+            profile.setToken(this.oauth);
 
-        return profile;
+            Cache.cacheObject(id, profile);
+            return profile;
+        }
+        return (Profile) Cache.getObject(id, Profile.class);
     }
 
     private Reader retrieveReader(String query) {

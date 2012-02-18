@@ -1,6 +1,5 @@
 package com.musicbox.server;
 
-import com.musicbox.lastfm.LastFmClient;
 import org.webbitserver.WebServer;
 import org.webbitserver.handler.StaticFileHandler;
 import org.webbitserver.handler.logging.LoggingHandler;
