@@ -1,3 +1,5 @@
+WEB_SOCKET_SWF_LOCATION = "bootstrap/js/WebSocketMain.swf";
+
 // Socket reference.
 var ws;
 
