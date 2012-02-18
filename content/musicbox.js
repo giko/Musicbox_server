@@ -52,7 +52,7 @@ function onMessage(incoming) {
                 li.append(div);
                 $('#result').append(li);
             }
-            send({action:'GETURLBYTRACK', message:incoming.artists[key].name[0]});
+            send({action:'GETURLBYTRACK', message:incoming.artists[0].name});
             break;
         case 'SONGURL':
             audioElement.setAttribute('src', incoming.message);

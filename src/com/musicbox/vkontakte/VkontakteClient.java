@@ -21,7 +21,7 @@ public class VkontakteClient {
     }
 
     public String getURLByTrack(String track) {
-        return this.json.fromJson(retrieveReader("execute?code=" + URLEncoder.encode("return API.audio.search({\"q\":\"" + track + "\",\"count\":1})@.url[1];")), AudioSearch.class).getResponse();
+        return this.json.fromJson(retrieveReader("execute?code=" + URLEncoder.encode("return API.audio.search({\"q\":\"" + track + "\",\"count\":1, \"sort\":2})@.url[1];")), AudioSearch.class).getResponse();
     }
 
     public Profile getProfile() {
@@ -49,7 +49,8 @@ public class VkontakteClient {
     private Reader retrieveReader(String query, String token) {
         String url = "https://api.vkontakte.ru/method/".concat(query)
                 .concat("&access_token=").concat(token);
-        System.out.println(url);
+        //System.out.println(url);
+
         InputStream source = WebWorker.retrieveStream(url);
         try {
             return new InputStreamReader(source, "utf-8");

@@ -37,6 +37,7 @@ public class LastFmClient {
 
     private Reader retrieveReader(String query) {
         String url = "http://ws.audioscrobbler.com/2.0/?api_key=".concat(ApiKey).concat("&format=json&").concat(query);
+        //System.out.println(url);
 
         InputStream source = WebWorker.retrieveStream(url);
         return new InputStreamReader(source);
