@@ -3,51 +3,51 @@ package com.musicbox.weborama.structure;
 import com.musicbox.weborama.WeboramaClient;
 
 public class Song {
-	private byte canPlay;
-	private byte category;
-	private String creator;
-	private String creatorRu;
-	private String identifier;
-	private String info;
-	private String search;
-	private String title;
-	
-	public TrackList getTrack(){
-		WeboramaClient client = new WeboramaClient();
-		
-		return client.GetTrackBySongIdentifier(identifier);
-	}
+    private byte canPlay;
+    private byte category;
+    private String creator;
+    private String creatorRu;
+    private String identifier;
+    private String info;
+    private String search;
+    private String title;
 
-	public Number getCanPlay() {
-		return canPlay;
-	}
+    public TrackList getTrack() {
+        WeboramaClient client = new WeboramaClient();
 
-	public Number getCategory() {
-		return category;
-	}
+        return client.GetTrackBySongIdentifier(identifier);
+    }
 
-	public String getCreator() {
-		return creator;
-	}
+    public Number getCanPlay() {
+        return canPlay;
+    }
 
-	public String getCreatorRu() {
-		return creatorRu;
-	}
+    public Number getCategory() {
+        return category;
+    }
 
-	public String getIdentifier() {
-		return identifier;
-	}
+    public String getCreator() {
+        return creator;
+    }
 
-	public String getInfo() {
-		return info;
-	}
+    public String getCreatorRu() {
+        return creatorRu;
+    }
 
-	public String getSearch() {
-		return search;
-	}
+    public String getIdentifier() {
+        return identifier;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getInfo() {
+        return info;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 
 }
