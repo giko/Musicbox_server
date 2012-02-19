@@ -38,7 +38,7 @@ public class Musicbox extends BaseWebSocketHandler {
                 break;
             case SEARCH:
                 packet.setAction(Outgoing.Action.SEARCHRESULT);
-                packet.setArtists(lfclient.SearchArtist(incoming.getMessage()));
+                packet.setArtists(lfclient.SearchArtist(incoming.getMessage().trim()));
                 connection.send(this.json.toJson(packet));
                 break;
             case GETURLBYTRACK:

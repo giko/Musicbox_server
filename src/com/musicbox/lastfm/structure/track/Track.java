@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Track {
     private Artist artist;
-    private String duration;
+    private int duration;
     private List<Image> image;
     private String listeners;
     private String mbid;
@@ -24,11 +24,11 @@ public class Track {
         this.artist = artist;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return this.duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 

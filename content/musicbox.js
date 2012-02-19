@@ -39,13 +39,30 @@ function gup(name) {
     else
         return results[1];
 }
+function secondsToTime(secs) {
+    var hours = Math.floor(secs / (60 * 60));
 
+    var divisor_for_minutes = secs % (60 * 60);
+    var minutes = Math.floor(divisor_for_minutes / 60);
+
+    var divisor_for_seconds = divisor_for_minutes % 60;
+    var seconds = Math.ceil(divisor_for_seconds);
+
+    var obj = {
+        "h":hours,
+        "m":minutes,
+        "s":seconds
+    };
+    return obj;
+}
 function onMessage(incoming) {
     switch (incoming.action) {
         case 'MESSAGE':
             logText(incoming.message);
             break;
         case 'SEARCHRESULT':
+            $('#tracks').hide();
+            $('#artists').show();
             var li;
             var div;
             for (key in incoming.artists) {
@@ -65,7 +82,7 @@ function onMessage(incoming) {
                 div.append($('<img>', {src:incoming.artists[key].image[3]['#text']}));
                 div.append($('<h5>', {text:incoming.artists[key].name}));
                 li.append(div);
-                $('#result').append(li);
+                $('#artists').append(li);
             }
             send({action:'GETURLBYTRACK', message:incoming.artists[0].name});
             break;
@@ -81,8 +98,24 @@ function onMessage(incoming) {
             send({action:'LOGINBYTOKEN', message:window.localStorage.vktoken});
             break;
         case 'SONGS':
-            send({action:'CHATMESSAGE', message:'Слушаю ' + incoming.songs[0].artist.name + " - " + incoming.songs[0].name});
-            send({action:'GETURLBYTRACK', message:incoming.songs[0].artist.name + " " + incoming.songs[0].name});
+            $('#artists').hide();
+            $('#tracks').empty();
+            $('#tracks').show();
+            for (key in incoming.songs) {
+                li = $('<li>', {class:'span3', id:incoming.songs[key].artist.name + ' ' + incoming.songs[key].name});
+                li.click(function () {
+                    send({action:'GETURLBYTRACK', message:this.getAttribute("id")});
+                });
+                div = $('<div>', {class:'thumbnail'});
+                //if (incoming.songs[key].image[3]['#text'] != undefined) {
+                //  div.append($('<img>', {src:incoming.songs[key].image[3]['#text']}));
+                //}
+                div.append($('<h5>', {text:incoming.songs[key].name + '   ' + secondsToTime(incoming.songs[key].duration).m + ':' + secondsToTime(incoming.songs[key].duration).s}));
+                li.append(div);
+                $('#tracks').append(li);
+            }
+
+            //send({action:'CHATMESSAGE', message:'Слушаю ' + incoming.songs[0].artist.name + " - " + incoming.songs[0].name});
             break;
     }
 }
