@@ -15,11 +15,14 @@ public class Artist {
     private String streamable;
     private String url;
 
-    public List<Track> getTopTracks(){
-        LastFmClient lfclient= new LastFmClient();
-        return lfclient.getTopTracksByArtistID(id);
+    public List<Track> getTopTracks() {
+        LastFmClient lfclient = new LastFmClient();
+        if (this.getId() != null && !this.getId().equals("")) {
+            return lfclient.getTopTracksByArtistID(this.getId());
+        }
+        return lfclient.getTopTracksByArtistName(this.getName());
     }
-    
+
     public List<Album> getTopAlbums() {
         LastFmClient lfclient = new LastFmClient();
         return lfclient.getTopAlbumsByArtistID(id);

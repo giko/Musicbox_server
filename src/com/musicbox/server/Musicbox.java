@@ -8,13 +8,11 @@ import com.musicbox.vkontakte.OAuthToken;
 import com.musicbox.vkontakte.VkontakteClient;
 import com.musicbox.vkontakte.structure.profiles.Profile;
 import com.musicbox.weborama.WeboramaClient;
-import com.musicbox.weborama.structure.TrackList;
 import org.webbitserver.BaseWebSocketHandler;
 import org.webbitserver.WebSocketConnection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Musicbox extends BaseWebSocketHandler {
 
@@ -61,6 +59,11 @@ public class Musicbox extends BaseWebSocketHandler {
             case GETTOPSONGSBYARTISTID:
                 packet.setAction(Outgoing.Action.SONGS);
                 packet.setSongs(lfclient.getTopTracksByArtistID(incoming.getMessage()));
+                connection.send(this.json.toJson(packet));
+                break;
+            case GETTOPSONGSBYARTISTNAME:
+                packet.setAction(Outgoing.Action.SONGS);
+                packet.setSongs(lfclient.getTopTracksByArtistName(incoming.getMessage()));
                 connection.send(this.json.toJson(packet));
                 break;
         }

@@ -3,14 +3,13 @@ package com.musicbox.server;
 import com.musicbox.lastfm.structure.artist.Artist;
 import com.musicbox.lastfm.structure.track.Track;
 import com.musicbox.weborama.structure.SearchResult;
-import com.musicbox.weborama.structure.TrackList;
 
 import java.util.List;
 
 public class Packets {
     static public class Incoming {
         public enum Action {
-            SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID
+            SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME
         }
 
         private Action action;

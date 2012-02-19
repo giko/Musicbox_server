@@ -54,12 +54,18 @@ function onMessage(incoming) {
                     li.click(function () {
                         send({action:'GETTOPSONGSBYARTISTID', message:this.getAttribute("id")});
                     });
-                    div = $('<div>', {class:'thumbnail'});
-                    div.append($('<img>', {src:incoming.artists[key].image[3]['#text']}));
-                    div.append($('<h5>', {text:incoming.artists[key].name}));
-                    li.append(div);
-                    $('#result').append(li);
                 }
+                else {
+                    li = $('<li>', {class:'span3', id:incoming.artists[key].name});
+                    li.click(function () {
+                        send({action:'GETTOPSONGSBYARTISTNAME', message:this.getAttribute("id")});
+                    });
+                }
+                div = $('<div>', {class:'thumbnail'});
+                div.append($('<img>', {src:incoming.artists[key].image[3]['#text']}));
+                div.append($('<h5>', {text:incoming.artists[key].name}));
+                li.append(div);
+                $('#result').append(li);
             }
             send({action:'GETURLBYTRACK', message:incoming.artists[0].name});
             break;
@@ -75,7 +81,7 @@ function onMessage(incoming) {
             send({action:'LOGINBYTOKEN', message:window.localStorage.vktoken});
             break;
         case 'SONGS':
-            logText("Playing: " + incoming.songs[0].name);
+            send({action:'CHATMESSAGE', message:'Слушаю ' + incoming.songs[0].artist.name + " - " + incoming.songs[0].name});
             send({action:'GETURLBYTRACK', message:incoming.songs[0].artist.name + " " + incoming.songs[0].name});
             break;
     }

@@ -5,43 +5,28 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 public class Cache {
-    private static HashMap<String, String> cache = new HashMap<String, String>();
-    private static Gson json = new Gson();
+    private HashMap<String, String> cache = new HashMap<String, String>();
+    private Gson json = new Gson();
 
-    public static void cacheObject(int key, Object object) {
-        cacheObject(String.valueOf(key), object);
+    public CacheAllocator getAllocator(String method, String query, Class objclass) {
+        return new CacheAllocator(this, method, query, objclass);
     }
 
-    public static void cacheObject(String key, Object object) {
-        System.out.println(object.getClass().getName());
-        cache.put(object.getClass().getName() + key, json.toJson(object));
+    public void cacheObject(String method, String query, Object object) {
+        cache.put(method + query + object.getClass().getName(), json.toJson(object));
     }
 
-    public static Object getObject(int key, Class oclass) {
-        return getObject(String.valueOf(key), oclass);
+    public Object getObject(String method, String query, Class objclass) {
+        return json.fromJson(cache.get(method + query + objclass.getName()), objclass);
     }
 
-    public static Object getObject(String key, Class oclass) {
-        return json.fromJson(cache.get(oclass.getName() + key), oclass);
+    public String getObjectData(String method, String query, Class objclass) {
+        return cache.get(method + query + objclass.getName());
     }
 
-    public static void setVariable(String key, String value) {
-        cache.put(key, value);
-    }
-
-    public static String getVariable(String key) {
-        return cache.get(key);
-    }
-
-    public static boolean exists(int key, Class oclass) {
-        return exists(oclass.getName() + String.valueOf(key));
-    }
-
-    public static boolean exists(String key, Class oclass) {
-        return exists(oclass.getName() + key);
-    }
-
-    public static boolean exists(String key) {
-        return cache.containsKey(key);
+    public boolean exists(String method, String query, Class objclass) {
+        System.out.println(method + query);
+        System.out.println(cache.containsKey(method + query + objclass.getName()));
+        return cache.containsKey(method + query + objclass.getName());
     }
 }

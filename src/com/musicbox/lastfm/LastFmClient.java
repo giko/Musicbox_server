@@ -2,6 +2,7 @@ package com.musicbox.lastfm;
 
 import com.google.gson.Gson;
 import com.musicbox.Cache;
+import com.musicbox.CacheAllocator;
 import com.musicbox.WebWorker;
 import com.musicbox.lastfm.structure.artist.Album;
 import com.musicbox.lastfm.structure.artist.Artist;
@@ -13,20 +14,35 @@ import com.musicbox.lastfm.structure.track.Track;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LastFmClient {
     private final String ApiKey = "1b726929f182175e22372a9a52ca76b0";
     private final Gson json = new Gson();
+    private static final Cache cache = new Cache();
 
-    public List<Track> getTopTracksByArtistID(String query) {
-        if (!Cache.exists(query, ArrayList.class)) {
-            List<Track> toptracks = this.json.fromJson(retrieveReader("method=artist.gettoptracks&mbid=".concat(query)), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
-            Cache.cacheObject(query, toptracks);
+
+    public List<Track> getTopTracksByArtistName(String query) {
+        CacheAllocator cacheAllocator = cache.getAllocator("getTopTracksByArtistName", query, ArrayList.class);
+        if (!cacheAllocator.exists()) {
+            List<Track> toptracks = this.json.fromJson(retrieveReader("method=artist.gettoptracks&artist=".concat(URLEncoder.encode(query))), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
+            cacheAllocator.cacheObject(toptracks);
             return toptracks;
         }
-        return (List<Track>) Cache.getObject(query, ArrayList.class);
+        return (List<Track>) cacheAllocator.getObject();
+    }
+
+    public List<Track> getTopTracksByArtistID(String query) {
+        CacheAllocator cacheAllocator = cache.getAllocator("getTopTracksByArtistID", query, ArrayList.class);
+        if (!cacheAllocator.exists()) {
+            List<Track> toptracks = this.json.fromJson(retrieveReader("method=artist.gettoptracks&mbid=".concat(query)), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
+            cacheAllocator.cacheObject(toptracks);
+            return toptracks;
+        }
+        return (List<Track>) cacheAllocator.getObject();
     }
 
     public List<Album> getTopAlbumsByArtistID(String query) {
@@ -38,17 +54,20 @@ public class LastFmClient {
     }
 
     public List<Artist> SearchArtist(String query) {
-        if (!Cache.exists(query, ArrayList.class)) {
+        query = query.toLowerCase();
+        CacheAllocator cacheAllocator = cache.getAllocator("SearchArtist", query, ArrayList.class);
+
+        if (!cacheAllocator.exists()) {
             List<Artist> searchresult = json
                     .fromJson(
                             retrieveReader("method=artist.search&limit=3&artist=".concat(java.net.URLEncoder
                                     .encode(query))), ArtistSearchResult.class)
                     .getResults().getArtistmatches().getArtist();
-            Cache.cacheObject(query, searchresult);
+            cacheAllocator.cacheObject(searchresult);
             return searchresult;
         }
-        System.out.println("Arists loaded from cache");
-        return (List<Artist>) Cache.getObject(query, ArrayList.class);
+
+        return (List<Artist>) cacheAllocator.getObject();
     }
 
     private Reader retrieveReader(String query) {
@@ -56,6 +75,11 @@ public class LastFmClient {
         //System.out.println(url);
 
         InputStream source = WebWorker.retrieveStream(url);
-        return new InputStreamReader(source);
+        try {
+            return new InputStreamReader(source, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return null;
     }
 }

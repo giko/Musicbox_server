@@ -2,6 +2,7 @@ package com.musicbox.vkontakte;
 
 import com.google.gson.Gson;
 import com.musicbox.Cache;
+import com.musicbox.CacheAllocator;
 import com.musicbox.WebWorker;
 import com.musicbox.vkontakte.structure.audio.AudioSearch;
 import com.musicbox.vkontakte.structure.profiles.Profile;
@@ -16,18 +17,21 @@ import java.net.URLEncoder;
 public class VkontakteClient {
     private OAuthToken oauth;
     private Gson json = new Gson();
+    private static final Cache cache = new Cache();
 
     public VkontakteClient(OAuthToken token) {
         this.oauth = token;
     }
 
     public String getURLByTrack(String track) {
-        if (!Cache.exists("URLS" + track)) {
+        CacheAllocator cacheAllocator = cache.getAllocator("getURLByTrack", track, String.class);
+
+        if (!cacheAllocator.exists()) {
             String url = this.json.fromJson(retrieveReader("execute?code=" + URLEncoder.encode("return API.audio.search({\"q\":\"" + track + "\",\"count\":1, \"sort\":2})@.url[1];")), AudioSearch.class).getResponse();
-            Cache.setVariable("URLS" + track, url);
+            cacheAllocator.cacheObject(url);
             return url;
         }
-        return Cache.getVariable("URLS" + track);
+        return (String) cacheAllocator.getObject();
     }
 
     public Profile getProfile() {
@@ -35,7 +39,9 @@ public class VkontakteClient {
     }
 
     public Profile getProfileById(int id) {
-        if (!Cache.exists(id, Profile.class)) {
+        CacheAllocator cacheAllocator = cache.getAllocator("getProfileById", String.valueOf(id), Profile.class);
+
+        if (!cacheAllocator.exists()) {
             Profile profile = this.json
                     .fromJson(
                             retrieveReader(
@@ -46,10 +52,10 @@ public class VkontakteClient {
                     .get(0);
             profile.setToken(this.oauth);
 
-            Cache.cacheObject(id, profile);
+            cacheAllocator.cacheObject(profile);
             return profile;
         }
-        return (Profile) Cache.getObject(id, Profile.class);
+        return (Profile) cacheAllocator.getObject();
     }
 
     private Reader retrieveReader(String query) {
