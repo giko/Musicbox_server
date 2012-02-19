@@ -44,15 +44,22 @@ function onMessage(incoming) {
     switch (incoming.action) {
         case 'MESSAGE':
             logText(incoming.message);
-            break
+            break;
         case 'SEARCHRESULT':
+            var li;
+            var div;
             for (key in incoming.artists) {
-                var li = $('<li>', {class:'span3'});
-                var div = $('<div>', {class:'thumbnail'});
-                div.append($('<img>', {src:incoming.artists[key].image[3]['#text']}));
-                div.append($('<h5>', {text:incoming.artists[key].name}));
-                li.append(div);
-                $('#result').append(li);
+                if (incoming.artists[key].mbid) {
+                    li = $('<li>', {class:'span3', id:incoming.artists[key].mbid});
+                    li.click(function () {
+                        send({action:'GETTOPSONGSBYARTISTID', message:this.getAttribute("id")});
+                    });
+                    div = $('<div>', {class:'thumbnail'});
+                    div.append($('<img>', {src:incoming.artists[key].image[3]['#text']}));
+                    div.append($('<h5>', {text:incoming.artists[key].name}));
+                    li.append(div);
+                    $('#result').append(li);
+                }
             }
             send({action:'GETURLBYTRACK', message:incoming.artists[0].name});
             break;
@@ -69,8 +76,7 @@ function onMessage(incoming) {
             break;
         case 'SONGS':
             logText("Playing: " + incoming.songs[0].title);
-            audioElement.setAttribute('src', incoming.songs[0].location);
-            audioElement.play();
+            send({action:'GETURLBYTRACK', message:incoming.songs[0].artist.name + " " + incoming.songs[0].name});
             break;
     }
 }
@@ -108,15 +114,15 @@ function connect() {
             entry.value = '';
         }
     };
-	// Chat text form 
-    var entry = document.getElementById('chat-text');
-    entry.onkeypress = function (e) {
-	    if (e.keyCode == 13) { // enter key pressed
-            var text = entry.value;
+    // Chat text form
+    var chatentry = document.getElementById('chat-text');
+    chatentry.onkeypress = function (e) {
+        if (e.keyCode == 13) { // enter key pressed
+            var text = chatentry.value;
             if (text) {
-			    send({action:'CHATMESSAGE', message:text});
+                send({action:'CHATMESSAGE', message:text});
             }
-            entry.value = '';
+            chatentry.value = '';
         }
     };
 }

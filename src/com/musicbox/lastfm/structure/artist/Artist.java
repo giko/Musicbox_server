@@ -2,6 +2,7 @@ package com.musicbox.lastfm.structure.artist;
 
 import com.google.gson.annotations.SerializedName;
 import com.musicbox.lastfm.LastFmClient;
+import com.musicbox.lastfm.structure.track.Track;
 
 import java.util.List;
 
@@ -14,9 +15,14 @@ public class Artist {
     private String streamable;
     private String url;
 
+    public List<Track> getTopTracks(){
+        LastFmClient lfclient= new LastFmClient();
+        return lfclient.getTopTracksByArtistID(id);
+    }
+    
     public List<Album> getTopAlbums() {
         LastFmClient lfclient = new LastFmClient();
-        return lfclient.GetTopAlbumsByArtistID(id);
+        return lfclient.getTopAlbumsByArtistID(id);
     }
 
     public List<Image> getImages() {

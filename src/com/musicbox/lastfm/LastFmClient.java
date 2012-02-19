@@ -7,6 +7,8 @@ import com.musicbox.lastfm.structure.artist.Album;
 import com.musicbox.lastfm.structure.artist.Artist;
 import com.musicbox.lastfm.structure.artist.ArtistSearchResult;
 import com.musicbox.lastfm.structure.artist.TopAlbumSearchResult;
+import com.musicbox.lastfm.structure.track.ArtistTopTracksSearchResult;
+import com.musicbox.lastfm.structure.track.Track;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,7 +20,16 @@ public class LastFmClient {
     private final String ApiKey = "1b726929f182175e22372a9a52ca76b0";
     private final Gson json = new Gson();
 
-    public List<Album> GetTopAlbumsByArtistID(String query) {
+    public List<Track> getTopTracksByArtistID(String query) {
+        if (!Cache.exists(query, ArrayList.class)) {
+            List<Track> toptracks = this.json.fromJson(retrieveReader("method=artist.gettoptracks&mbid=".concat(query)), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
+            Cache.cacheObject(query, toptracks);
+            return toptracks;
+        }
+        return (List<Track>) Cache.getObject(query, ArrayList.class);
+    }
+
+    public List<Album> getTopAlbumsByArtistID(String query) {
         return this.json
                 .fromJson(
                         retrieveReader("method=artist.getTopAlbums&mbid="

@@ -50,12 +50,6 @@ public class Musicbox extends BaseWebSocketHandler {
                 connection.send(this.json.toJson(packet));
                 break;
             case GETSONGBYID:
-                List<TrackList> song = new ArrayList<TrackList>();
-                song.add(wclient.GetTrackBySongIdentifier(incoming.getMessage()));
-
-                packet.setAction(Outgoing.Action.SONGS);
-                packet.setSongs(song);
-                connection.send(this.json.toJson(packet));
                 break;
             case CHATMESSAGE:
                 packet.setAction(Outgoing.Action.MESSAGE);
@@ -63,6 +57,11 @@ public class Musicbox extends BaseWebSocketHandler {
                         .concat(connections.get(connection).getLast_name())
                         .concat(" написал: ").concat(incoming.getMessage()));
                 broadcast(packet);
+                break;
+            case GETTOPSONGSBYARTISTID:
+                packet.setAction(Outgoing.Action.SONGS);
+                packet.setSongs(lfclient.getTopTracksByArtistID(incoming.getMessage()));
+                connection.send(this.json.toJson(packet));
                 break;
         }
     }

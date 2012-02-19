@@ -1,6 +1,7 @@
 package com.musicbox.server;
 
 import com.musicbox.lastfm.structure.artist.Artist;
+import com.musicbox.lastfm.structure.track.Track;
 import com.musicbox.weborama.structure.SearchResult;
 import com.musicbox.weborama.structure.TrackList;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public class Packets {
     static public class Incoming {
         public enum Action {
-            SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE
+            SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID
         }
 
         private Action action;
@@ -59,7 +60,7 @@ public class Packets {
         private SearchResult result;
         private String message;
         private String username;
-        private List<TrackList> songs;
+        private List<Track> songs;
 
         public List<Artist> getArtists() {
             return artists;
@@ -103,11 +104,11 @@ public class Packets {
             this.username = username;
         }
 
-        public List<TrackList> getSongs() {
+        public List<Track> getSongs() {
             return songs;
         }
 
-        public void setSongs(List<TrackList> songs) {
+        public void setSongs(List<Track> songs) {
             this.songs = songs;
         }
     }
