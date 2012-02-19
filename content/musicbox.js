@@ -3,7 +3,7 @@ WEB_SOCKET_SWF_LOCATION = "bootstrap/js/WebSocketMain.swf";
 // Socket reference.
 var ws;
 
-var audioElement = document.createElement('audio');
+var audioElement = document.getElementById('audio');
 var textArea = document.getElementById('chatlog');
 
 // Log text to main window.
