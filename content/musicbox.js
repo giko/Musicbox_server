@@ -75,7 +75,7 @@ function onMessage(incoming) {
             send({action:'LOGINBYTOKEN', message:window.localStorage.vktoken});
             break;
         case 'SONGS':
-            logText("Playing: " + incoming.songs[0].title);
+            logText("Playing: " + incoming.songs[0].name);
             send({action:'GETURLBYTRACK', message:incoming.songs[0].artist.name + " " + incoming.songs[0].name});
             break;
     }
