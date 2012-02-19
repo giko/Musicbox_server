@@ -12,34 +12,22 @@ public class Packets {
             SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME
         }
 
-        private Action action;
-        private String loginUsername;
-        private String message;
-
-
-        public Action getAction() {
-            return action;
-        }
-
-        public void setAction(Action action) {
-            this.action = action;
-        }
-
         public String getLoginUsername() {
             return loginUsername;
         }
 
-        public void setLoginUsername(String loginUsername) {
-            this.loginUsername = loginUsername;
+        public Action getAction() {
+            return action;
         }
 
         public String getMessage() {
             return message;
         }
 
-        public void setMessage(String message) {
-            this.message = message;
-        }
+        private Action action;
+        private String loginUsername;
+        private String message;
+
     }
 
     static public class Outgoing {

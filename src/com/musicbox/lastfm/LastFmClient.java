@@ -1,13 +1,12 @@
 package com.musicbox.lastfm;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.musicbox.Cache;
 import com.musicbox.CacheAllocator;
 import com.musicbox.WebWorker;
-import com.musicbox.lastfm.structure.artist.Album;
-import com.musicbox.lastfm.structure.artist.Artist;
-import com.musicbox.lastfm.structure.artist.ArtistSearchResult;
-import com.musicbox.lastfm.structure.artist.TopAlbumSearchResult;
+import com.musicbox.lastfm.structure.artist.*;
 import com.musicbox.lastfm.structure.track.ArtistTopTracksSearchResult;
 import com.musicbox.lastfm.structure.track.Track;
 
@@ -15,13 +14,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LastFmClient {
     private final String ApiKey = "1b726929f182175e22372a9a52ca76b0";
-    private final Gson json = new Gson();
+    Type locationInfoListType = new TypeToken<List<Artist>>() {
+    }.getType();
+    Gson json = new GsonBuilder()
+            .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
+            .create();
     private static final Cache cache = new Cache();
 
 

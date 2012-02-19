@@ -24,7 +24,6 @@ public class Artist {
 
         try {
             Elements response = Jsoup.connect(info.concat("albums/")).get().select("div[id^=songList_lentaAlbums_]");
-            System.out.println(response.html());
             for (Element albumElement : response) {
                 Album dummy = new Album();
                 dummy.setCanPlay(canPlay);

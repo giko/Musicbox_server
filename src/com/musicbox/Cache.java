@@ -25,8 +25,6 @@ public class Cache {
     }
 
     public boolean exists(String method, String query, Class objclass) {
-        System.out.println(method + query);
-        System.out.println(cache.containsKey(method + query + objclass.getName()));
         return cache.containsKey(method + query + objclass.getName());
     }
 }

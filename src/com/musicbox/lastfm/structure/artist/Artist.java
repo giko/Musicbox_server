@@ -8,11 +8,10 @@ import java.util.List;
 
 public class Artist {
     private List<Image> image;
-    private String listeners;
+    private int listeners;
     @SerializedName("mbid")
     private String id;
     private String name;
-    private String streamable;
     private String url;
 
     public List<Track> getTopTracks() {
@@ -36,11 +35,11 @@ public class Artist {
         this.image = image;
     }
 
-    public String getListeners() {
+    public int getListeners() {
         return this.listeners;
     }
 
-    public void setListeners(String listeners) {
+    public void setListeners(int listeners) {
         this.listeners = listeners;
     }
 
@@ -50,14 +49,6 @@ public class Artist {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getStreamable() {
-        return this.streamable;
-    }
-
-    public void setStreamable(String streamable) {
-        this.streamable = streamable;
     }
 
     public String getUrl() {
