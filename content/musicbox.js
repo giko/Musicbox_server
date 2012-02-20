@@ -62,6 +62,7 @@ function onMessage(incoming) {
             break;
         case 'SEARCHRESULT':
             $('#tracks').hide();
+            $('#artists').empty();
             $('#artists').show();
             var li;
             var div;
@@ -84,7 +85,7 @@ function onMessage(incoming) {
                 li.append(div);
                 $('#artists').append(li);
             }
-            send({action:'GETURLBYTRACK', message:incoming.artists[0].name});
+            //send({action:'GETURLBYTRACK', message:incoming.artists[0].name});
             break;
         case 'SONGURL':
             audioElement.setAttribute('src', incoming.message);

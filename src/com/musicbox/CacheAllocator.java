@@ -32,7 +32,7 @@ public class CacheAllocator {
         cache.cacheObject(this.method, this.query, object);
     }
 
-    public String getObjectData() {
-        return cache.getObjectData(this.method, this.query, this.objclass);
-    }
+    //public String getObjectData() {
+    //   return cache.getObjectData(this.method, this.query, this.objclass);
+    //}
 }

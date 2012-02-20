@@ -90,6 +90,9 @@ public class Musicbox extends BaseWebSocketHandler {
             packet.setMessage("Welcome ".concat(connections.get(connection)
                     .getFirst_name()));
             connection.send(json.toJson(packet));
+            packet = new Outgoing(Outgoing.Action.SEARCHRESULT);
+            packet.setArtists(lfclient.getTopArtists());
+            connection.send(this.json.toJson(packet));
         } else {
             connection.close();
         }

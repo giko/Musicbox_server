@@ -74,6 +74,19 @@ public class LastFmClient {
         return (List<Artist>) cacheAllocator.getObject();
     }
 
+    public List<Artist> getTopArtists() {
+        CacheAllocator cacheAllocator = cache.getAllocator("getTopArtists", "", ArrayList.class);
+        if (!cacheAllocator.exists()) {
+            List<Artist> searchresult = json
+                    .fromJson(
+                            retrieveReader("method=chart.gettopartists&limit=10"), TopArtistsResult.class)
+                    .getArtists().getArtist();
+            cacheAllocator.cacheObject(searchresult);
+            return searchresult;
+        }
+        return (List<Artist>) cacheAllocator.getObject();
+    }
+
     private Reader retrieveReader(String query) {
         String url = "http://ws.audioscrobbler.com/2.0/?api_key=".concat(ApiKey).concat("&format=json&").concat(query);
         //System.out.println(url);
