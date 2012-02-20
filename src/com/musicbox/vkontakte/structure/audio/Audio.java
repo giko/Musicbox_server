@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
  * User: giko
  * Date: 18.02.12
  * Time: 10:51
- * To change this template use File | Settings | File Templates.
  */
 public class Audio {
     @SerializedName("")

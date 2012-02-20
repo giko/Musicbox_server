@@ -1,11 +1,13 @@
 package com.musicbox.server.logic.tools;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MD5 {
-    public static String getMD5(String input) {
+    public static String getMD5(@NotNull String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] messageDigest = md.digest(input.getBytes());

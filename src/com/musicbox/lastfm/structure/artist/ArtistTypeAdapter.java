@@ -4,6 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -14,13 +15,13 @@ import java.util.List;
  * User: giko
  * Date: 19.02.12
  * Time: 14:34
- * To change this template use File | Settings | File Templates.
  */
 public class ArtistTypeAdapter implements JsonDeserializer<List<Artist>> {
 
 
+    @NotNull
     @Override
-    public List<Artist> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    public List<Artist> deserialize(@NotNull JsonElement jsonElement, Type type, @NotNull JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         List<Artist> vals = new ArrayList<Artist>();
         if (jsonElement.isJsonArray()) {
             for (JsonElement e : jsonElement.getAsJsonArray()) {

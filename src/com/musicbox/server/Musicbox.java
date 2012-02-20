@@ -8,6 +8,7 @@ import com.musicbox.vkontakte.OAuthToken;
 import com.musicbox.vkontakte.VkontakteClient;
 import com.musicbox.vkontakte.structure.profiles.Profile;
 import com.musicbox.weborama.WeboramaClient;
+import org.jetbrains.annotations.NotNull;
 import org.webbitserver.BaseWebSocketHandler;
 import org.webbitserver.WebSocketConnection;
 
@@ -16,16 +17,21 @@ import java.util.HashMap;
 
 public class Musicbox extends BaseWebSocketHandler {
 
+    @NotNull
     private final Gson json = new Gson();
+    @NotNull
     private static final WeboramaClient wclient = new WeboramaClient();
+    @NotNull
     private static final LastFmClient lfclient = new LastFmClient();
 
+    @NotNull
     private HashMap<WebSocketConnection, Profile> connections = new HashMap<WebSocketConnection, Profile>();
 
+    @NotNull
     public static final String USERNAME_KEY = "vktoken";
 
     @Override
-    public void onMessage(WebSocketConnection connection, String msg)
+    public void onMessage(@NotNull WebSocketConnection connection, @NotNull String msg)
             throws Exception {
         Incoming incoming = json.fromJson(msg, Incoming.class);
         Outgoing packet = new Outgoing();
@@ -69,7 +75,7 @@ public class Musicbox extends BaseWebSocketHandler {
         }
     }
 
-    private void prelogin(WebSocketConnection connection, String code) {
+    private void prelogin(@NotNull WebSocketConnection connection, @NotNull String code) {
         OAuthToken oauth = VkontakteClient.getOauthTokenByCode(code);
         if (oauth.getError() == null || oauth.getError().equals("")) {
             Outgoing packet = new Outgoing(Packets.Outgoing.Action.TOKEN);
@@ -78,7 +84,7 @@ public class Musicbox extends BaseWebSocketHandler {
         }
     }
 
-    private void login(WebSocketConnection connection, String token) {
+    private void login(@NotNull WebSocketConnection connection, @NotNull String token) {
         connection.data(USERNAME_KEY, token); // associate username with
         // connection
         OAuthToken oauth = this.json.fromJson(token, OAuthToken.class);
@@ -98,7 +104,7 @@ public class Musicbox extends BaseWebSocketHandler {
         }
     }
 
-    private void broadcast(Outgoing packet) {
+    private void broadcast(@NotNull Outgoing packet) {
         String jsonStr = this.json.toJson(packet);
         for (WebSocketConnection connection : new ArrayList<WebSocketConnection>(
                 connections.keySet())) {
@@ -111,13 +117,13 @@ public class Musicbox extends BaseWebSocketHandler {
     }
 
     @Override
-    public void onOpen(WebSocketConnection connection) throws Exception {
+    public void onOpen(@NotNull WebSocketConnection connection) throws Exception {
         connections.put(connection, null);
     }
 
     @Override
-    public void onClose(WebSocketConnection connection) throws Exception {
-        if ((String) connection.data(USERNAME_KEY) != null) {
+    public void onClose(@NotNull WebSocketConnection connection) throws Exception {
+        if (connection.data(USERNAME_KEY) != null) {
             Outgoing outgoing = new Outgoing(Outgoing.Action.LEAVE);
             outgoing.setUsername(connections.get(connection).getFirst_name());
             broadcast(outgoing);

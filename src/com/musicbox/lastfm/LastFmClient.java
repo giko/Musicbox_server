@@ -9,6 +9,8 @@ import com.musicbox.WebWorker;
 import com.musicbox.lastfm.structure.artist.*;
 import com.musicbox.lastfm.structure.track.ArtistTopTracksSearchResult;
 import com.musicbox.lastfm.structure.track.Track;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,16 +22,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LastFmClient {
+    @NotNull
     private final String ApiKey = "1b726929f182175e22372a9a52ca76b0";
     Type locationInfoListType = new TypeToken<List<Artist>>() {
     }.getType();
     Gson json = new GsonBuilder()
             .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
             .create();
+    @NotNull
     private static final Cache cache = new Cache();
 
-
-    public List<Track> getTopTracksByArtistName(String query) {
+    @NotNull
+    public List<Track> getTopTracksByArtistName(@NotNull String query) {
         CacheAllocator cacheAllocator = cache.getAllocator("getTopTracksByArtistName", query, ArrayList.class);
         if (!cacheAllocator.exists()) {
             List<Track> toptracks = this.json.fromJson(retrieveReader("method=artist.gettoptracks&artist=".concat(URLEncoder.encode(query))), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
@@ -39,7 +43,8 @@ public class LastFmClient {
         return (List<Track>) cacheAllocator.getObject();
     }
 
-    public List<Track> getTopTracksByArtistID(String query) {
+    @NotNull
+    public List<Track> getTopTracksByArtistID(@NotNull String query) {
         CacheAllocator cacheAllocator = cache.getAllocator("getTopTracksByArtistID", query, ArrayList.class);
         if (!cacheAllocator.exists()) {
             List<Track> toptracks = this.json.fromJson(retrieveReader("method=artist.gettoptracks&mbid=".concat(query)), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
@@ -49,7 +54,8 @@ public class LastFmClient {
         return (List<Track>) cacheAllocator.getObject();
     }
 
-    public List<Album> getTopAlbumsByArtistID(String query) {
+    @NotNull
+    public List<Album> getTopAlbumsByArtistID(@NotNull String query) {
         return this.json
                 .fromJson(
                         retrieveReader("method=artist.getTopAlbums&mbid="
@@ -57,7 +63,8 @@ public class LastFmClient {
                         TopAlbumSearchResult.class).getTopalbums().getAlbums();
     }
 
-    public List<Artist> SearchArtist(String query) {
+    @NotNull
+    public List<Artist> SearchArtist(@NotNull String query) {
         query = query.toLowerCase();
         CacheAllocator cacheAllocator = cache.getAllocator("SearchArtist", query, ArrayList.class);
 
@@ -74,6 +81,7 @@ public class LastFmClient {
         return (List<Artist>) cacheAllocator.getObject();
     }
 
+    @NotNull
     public List<Artist> getTopArtists() {
         CacheAllocator cacheAllocator = cache.getAllocator("getTopArtists", "", ArrayList.class);
         if (!cacheAllocator.exists()) {
@@ -87,7 +95,8 @@ public class LastFmClient {
         return (List<Artist>) cacheAllocator.getObject();
     }
 
-    private Reader retrieveReader(String query) {
+    @Nullable
+    private Reader retrieveReader(@NotNull String query) {
         String url = "http://ws.audioscrobbler.com/2.0/?api_key=".concat(ApiKey).concat("&format=json&").concat(query);
         //System.out.println(url);
 

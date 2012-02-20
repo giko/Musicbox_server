@@ -1,5 +1,7 @@
 package com.musicbox;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created by IntelliJ IDEA.
  * User: giko
@@ -28,7 +30,7 @@ public class CacheAllocator {
         return cache.getObject(this.method, this.query, this.objclass);
     }
 
-    public void cacheObject(Object object) {
+    public void cacheObject(@NotNull Object object) {
         cache.cacheObject(this.method, this.query, object);
     }
 

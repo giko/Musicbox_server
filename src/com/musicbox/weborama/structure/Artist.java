@@ -1,6 +1,7 @@
 package com.musicbox.weborama.structure;
 
 import com.musicbox.weborama.WeboramaClient;
+import org.jetbrains.annotations.Nullable;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -19,6 +20,7 @@ public class Artist {
     private String title;
     private String titleRu;
 
+    @Nullable
     public List<Album> getAlbums() {
         List<Album> result = new ArrayList<Album>();
 

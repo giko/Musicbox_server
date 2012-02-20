@@ -6,16 +6,20 @@ import com.musicbox.server.logic.tools.MD5;
 import com.musicbox.weborama.structure.Playlist;
 import com.musicbox.weborama.structure.SearchResult;
 import com.musicbox.weborama.structure.TrackList;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
 public class WeboramaClient {
+    @Nullable
     SearchResult lastSearch = null;
+    @Nullable
     Playlist lastPlaylist = null;
 
-    public SearchResult Search(String Query) {
+    public SearchResult Search(@NotNull String Query) {
         if (Query.length() > 10) {
             Query = Query.substring(0, 10);
         }
@@ -84,6 +88,7 @@ public class WeboramaClient {
         return response.getTrackList().get(0);
     }
 
+    @Nullable
     public SearchResult getLastSearch() {
         return lastSearch;
     }

@@ -7,6 +7,8 @@ import com.musicbox.WebWorker;
 import com.musicbox.vkontakte.structure.audio.AudioSearch;
 import com.musicbox.vkontakte.structure.profiles.Profile;
 import com.musicbox.vkontakte.structure.profiles.ProfileSearch;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,14 +18,16 @@ import java.net.URLEncoder;
 
 public class VkontakteClient {
     private OAuthToken oauth;
+    @NotNull
     private Gson json = new Gson();
+    @NotNull
     private static final Cache cache = new Cache();
 
     public VkontakteClient(OAuthToken token) {
         this.oauth = token;
     }
 
-    public String getURLByTrack(String track) {
+    public String getURLByTrack(@NotNull String track) {
         CacheAllocator cacheAllocator = cache.getAllocator("getURLByTrack", track, String.class);
 
         if (!cacheAllocator.exists()) {
@@ -58,11 +62,13 @@ public class VkontakteClient {
         return (Profile) cacheAllocator.getObject();
     }
 
-    private Reader retrieveReader(String query) {
+    @Nullable
+    private Reader retrieveReader(@NotNull String query) {
         return retrieveReader(query, this.oauth.getAccess_token());
     }
 
-    private Reader retrieveReader(String query, String token) {
+    @Nullable
+    private Reader retrieveReader(@NotNull String query, @NotNull String token) {
         String url = "https://api.vkontakte.ru/method/".concat(query)
                 .concat("&access_token=").concat(token);
         //System.out.println(url);
@@ -77,7 +83,7 @@ public class VkontakteClient {
         return null;
     }
 
-    public static OAuthToken getOauthTokenByCode(String code) {
+    public static OAuthToken getOauthTokenByCode(@NotNull String code) {
         String query = "https://oauth.vkontakte.ru/access_token?client_id=2810768&client_secret=OP1L2XAhJHfgEHg8Y1Vu&code="
                 .concat(code);
         Gson json = new Gson();
