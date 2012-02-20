@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Track {
     private Artist artist;
-    private int duration;
+    private String duration;
     private List<Image> image;
     private String listeners;
     private String mbid;
@@ -15,33 +15,32 @@ public class Track {
     private String playcount;
     private String url;
 
-
     public Artist getArtist() {
-        return this.artist;
+        return artist;
     }
 
     public void setArtist(Artist artist) {
         this.artist = artist;
     }
 
-    public int getDuration() {
-        return this.duration;
+    public String getDuration() {
+        return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
-    public List getImage() {
-        return this.image;
+    public List<Image> getImage() {
+        return image;
     }
 
-    public void setImage(List image) {
+    public void setImage(List<Image> image) {
         this.image = image;
     }
 
     public String getListeners() {
-        return this.listeners;
+        return listeners;
     }
 
     public void setListeners(String listeners) {
@@ -49,7 +48,7 @@ public class Track {
     }
 
     public String getMbid() {
-        return this.mbid;
+        return mbid;
     }
 
     public void setMbid(String mbid) {
@@ -57,7 +56,7 @@ public class Track {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -65,7 +64,7 @@ public class Track {
     }
 
     public String getPlaycount() {
-        return this.playcount;
+        return playcount;
     }
 
     public void setPlaycount(String playcount) {
@@ -73,7 +72,7 @@ public class Track {
     }
 
     public String getUrl() {
-        return this.url;
+        return url;
     }
 
     public void setUrl(String url) {
