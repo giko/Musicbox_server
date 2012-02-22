@@ -33,7 +33,7 @@ function gup(name) {
     if (results == null)
         return "";
     else
-        return results[1];
+        return decodeURIComponent(results[1]);
 }
 function secondsToTime(secs) {
     var hours = Math.floor(secs / (60 * 60));
@@ -93,6 +93,15 @@ function onMessage(incoming) {
             break;
         case 'JOIN':
             logText("* User '" + incoming.username + "' joined.");
+            break;
+        case 'LOGINSUCCESS':
+            if (gup('track')) {
+                send({action:'GETURLBYTRACK', message:gup('track')});
+            }
+            if (gup('search')) {
+                send({action:'SEARCH', message:gup('search')});
+            } else
+                send({action:'SEARCH', message:''});
             break;
         case 'TOKEN':
             window.localStorage.token = incoming.message;

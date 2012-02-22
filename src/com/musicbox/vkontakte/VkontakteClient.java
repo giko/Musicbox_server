@@ -24,12 +24,15 @@ public class VkontakteClient {
     @NotNull
     private static final Cache cache = new Cache();
 
+    private static final String appid = "2810768";
+    private static final String appsecret = "OP1L2XAhJHfgEHg8Y1Vu";
+
     public VkontakteClient(final OAuthToken token) {
         this.oauth = token;
     }
 
     public static OAuthToken getOauthTokenByCode(@NotNull final String code) {
-        String query = "https://oauth.vkontakte.ru/access_token?client_id=2810768&client_secret=OP1L2XAhJHfgEHg8Y1Vu&code="
+        String query = "https://oauth.vkontakte.ru/access_token?client_id=" + appid + "&client_secret=" + appsecret + "&code="
                 .concat(code);
         Gson json = new Gson();
         return json.fromJson(

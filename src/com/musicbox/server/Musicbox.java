@@ -45,8 +45,12 @@ public class Musicbox extends BaseWebSocketHandler {
                 prelogin(connection, incoming.getMessage());
                 break;
             case SEARCH:
-                packet.setAction(Outgoing.Action.SEARCHRESULT);
-                packet.setArtists(lfclient.SearchArtist(incoming.getMessage().trim()));
+                packet = new Outgoing(Outgoing.Action.SEARCHRESULT);
+                if (incoming.getMessage().equals("")) {
+                    packet.setArtists(lfclient.getTopArtists());
+                } else {
+                    packet.setArtists(lfclient.SearchArtist(incoming.getMessage().trim()));
+                }
                 connection.send(this.json.toJson(packet));
                 break;
             case GETURLBYTRACK:
@@ -96,13 +100,8 @@ public class Musicbox extends BaseWebSocketHandler {
             connection.data(USERNAME_KEY, logintokens.get(token).getUser_id());
             VkontakteClient vkclient = new VkontakteClient(logintokens.get(token));
             connections.put(connection, vkclient.getProfile());
-            Outgoing packet = new Outgoing(Packets.Outgoing.Action.MESSAGE);
-            packet.setMessage("Welcome ".concat(connections.get(connection)
-                    .getFirst_name()));
+            Outgoing packet = new Outgoing(Outgoing.Action.LOGINSUCCESS);
             connection.send(json.toJson(packet));
-            packet = new Outgoing(Outgoing.Action.SEARCHRESULT);
-            packet.setArtists(lfclient.getTopArtists());
-            connection.send(this.json.toJson(packet));
         } else {
             connection.send(json.toJson(new Outgoing(Outgoing.Action.REDIRECTTOVK)));
         }

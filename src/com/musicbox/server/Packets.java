@@ -32,7 +32,7 @@ public class Packets {
 
     static public class Outgoing {
         public enum Action {
-            LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK
+            LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS
         }
 
         public Outgoing(Action caction) {
