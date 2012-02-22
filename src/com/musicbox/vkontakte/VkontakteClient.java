@@ -17,17 +17,28 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class VkontakteClient {
-    private OAuthToken oauth;
     @NotNull
-    private Gson json = new Gson();
+    private final OAuthToken oauth;
+    @NotNull
+    private final Gson json = new Gson();
     @NotNull
     private static final Cache cache = new Cache();
 
-    public VkontakteClient(OAuthToken token) {
+    public VkontakteClient(final OAuthToken token) {
         this.oauth = token;
     }
 
-    public String getURLByTrack(@NotNull String track) {
+    public static OAuthToken getOauthTokenByCode(@NotNull final String code) {
+        String query = "https://oauth.vkontakte.ru/access_token?client_id=2810768&client_secret=OP1L2XAhJHfgEHg8Y1Vu&code="
+                .concat(code);
+        Gson json = new Gson();
+        return json.fromJson(
+                new InputStreamReader(WebWorker.retrieveStream(query)),
+                OAuthToken.class);
+    }
+
+    @NotNull
+    public final String getURLByTrack(@NotNull final String track) {
         CacheAllocator cacheAllocator = cache.getAllocator("getURLByTrack", track, String.class);
 
         if (!cacheAllocator.exists()) {
@@ -38,11 +49,13 @@ public class VkontakteClient {
         return (String) cacheAllocator.getObject();
     }
 
-    public Profile getProfile() {
+    @NotNull
+    public final Profile getProfile() {
         return getProfileById(oauth.getUser_id());
     }
 
-    public Profile getProfileById(int id) {
+    @NotNull
+    public final Profile getProfileById(final int id) {
         CacheAllocator cacheAllocator = cache.getAllocator("getProfileById", String.valueOf(id), Profile.class);
 
         if (!cacheAllocator.exists()) {
@@ -68,7 +81,7 @@ public class VkontakteClient {
     }
 
     @Nullable
-    private Reader retrieveReader(@NotNull String query, @NotNull String token) {
+    private Reader retrieveReader(@NotNull final String query, @NotNull final String token) {
         String url = "https://api.vkontakte.ru/method/".concat(query)
                 .concat("&access_token=").concat(token);
         //System.out.println(url);
@@ -81,14 +94,5 @@ public class VkontakteClient {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static OAuthToken getOauthTokenByCode(@NotNull String code) {
-        String query = "https://oauth.vkontakte.ru/access_token?client_id=2810768&client_secret=OP1L2XAhJHfgEHg8Y1Vu&code="
-                .concat(code);
-        Gson json = new Gson();
-        return json.fromJson(
-                new InputStreamReader(WebWorker.retrieveStream(query)),
-                OAuthToken.class);
     }
 }

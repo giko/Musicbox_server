@@ -15,17 +15,13 @@ function logText(msg) {
 
 function login() {
     if (gup('s')) {
-        window.localStorage.vktoken = '';
+        window.localStorage.token = '';
     }
 
-    if (window.localStorage.vktoken) {
-        send({action:'LOGINBYTOKEN', message:window.localStorage.vktoken});
+    if (window.localStorage.token) {
+        send({action:'LOGIN', message:window.localStorage.token});
     } else {
-        if (gup('code')) {
-            send({action:'LOGINBYCODE', message:gup('code')});
-        } else {
-            location.replace('http://api.vk.com/oauth/authorize?client_id=2810768&redirect_uri=' + document.URL + '&scope=audio,offline&display=page');
-        }
+        send({action:'LOGINBYCODE', message:gup('code')});
     }
 }
 
@@ -87,6 +83,10 @@ function onMessage(incoming) {
             }
             //send({action:'GETURLBYTRACK', message:incoming.artists[0].name});
             break;
+        case 'REDIRECTTOVK':
+            window.localStorage.token = '';
+            location.replace('http://api.vk.com/oauth/authorize?client_id=2810768&redirect_uri=' + document.domain + '&scope=audio,offline&display=page');
+            break;
         case 'SONGURL':
             audioElement.setAttribute('src', incoming.message);
             audioElement.play();
@@ -95,8 +95,8 @@ function onMessage(incoming) {
             logText("* User '" + incoming.username + "' joined.");
             break;
         case 'TOKEN':
-            window.localStorage.vktoken = incoming.message;
-            send({action:'LOGINBYTOKEN', message:window.localStorage.vktoken});
+            window.localStorage.token = incoming.message;
+            send({action:'LOGIN', message:window.localStorage.token});
             break;
         case 'SONGS':
             $('#artists').hide();

@@ -10,7 +10,8 @@ import static org.webbitserver.WebServers.createWebServer;
 public class ServerMain {
 
     public static void main(String[] args) throws Exception {
-        WebServer webServer = createWebServer(9876)
+        int port = 80;
+        WebServer webServer = createWebServer(port)
                 .add(new LoggingHandler(
                         new SimpleLogSink(Musicbox.USERNAME_KEY)))
                 .add("/musicbox", new Musicbox())

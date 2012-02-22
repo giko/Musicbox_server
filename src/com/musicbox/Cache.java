@@ -8,9 +8,9 @@ import java.util.HashMap;
 
 public class Cache {
     @NotNull
-    private HashMap<String, JsonElement> cache = new HashMap<String, JsonElement>();
+    private final HashMap<String, JsonElement> cache = new HashMap<String, JsonElement>();
     @NotNull
-    private Gson json = new Gson();
+    private final Gson json = new Gson();
     private static int totalcount = 0;
 
     @NotNull

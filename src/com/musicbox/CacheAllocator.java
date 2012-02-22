@@ -10,10 +10,10 @@ import org.jetbrains.annotations.NotNull;
  * To change this template use File | Settings | File Templates.
  */
 public class CacheAllocator {
-    private Cache cache;
-    private Class objclass;
-    private String method;
-    private String query;
+    private final Cache cache;
+    private final Class objclass;
+    private final String method;
+    private final String query;
 
     public CacheAllocator(Cache cache, String method, String query, Class objclass) {
         this.cache = cache;

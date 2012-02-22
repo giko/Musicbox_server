@@ -22,11 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LastFmClient {
-    @NotNull
-    private final String ApiKey = "1b726929f182175e22372a9a52ca76b0";
-    Type locationInfoListType = new TypeToken<List<Artist>>() {
+    final Type locationInfoListType = new TypeToken<List<Artist>>() {
     }.getType();
-    Gson json = new GsonBuilder()
+    final Gson json = new GsonBuilder()
             .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
             .create();
     @NotNull
@@ -97,7 +95,8 @@ public class LastFmClient {
 
     @Nullable
     private Reader retrieveReader(@NotNull String query) {
-        String url = "http://ws.audioscrobbler.com/2.0/?api_key=".concat(ApiKey).concat("&format=json&").concat(query);
+        String apiKey = "1b726929f182175e22372a9a52ca76b0";
+        String url = "http://ws.audioscrobbler.com/2.0/?api_key=".concat(apiKey).concat("&format=json&").concat(query);
         //System.out.println(url);
 
         InputStream source = WebWorker.retrieveStream(url);

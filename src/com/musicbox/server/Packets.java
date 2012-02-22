@@ -3,19 +3,18 @@ package com.musicbox.server;
 import com.musicbox.lastfm.structure.artist.Artist;
 import com.musicbox.lastfm.structure.track.Track;
 import com.musicbox.weborama.structure.SearchResult;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class Packets {
     static public class Incoming {
         public enum Action {
-            SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME
+            LOGIN, SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME
         }
 
-        public String getLoginUsername() {
-            return loginUsername;
-        }
-
+        @NotNull
         public Action getAction() {
             return action;
         }
@@ -24,15 +23,16 @@ public class Packets {
             return message;
         }
 
+        @NotNull
         private Action action;
-        private String loginUsername;
+        @Nullable
         private String message;
 
     }
 
     static public class Outgoing {
         public enum Action {
-            LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL
+            LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK
         }
 
         public Outgoing(Action caction) {
@@ -43,6 +43,7 @@ public class Packets {
             // TODO Auto-generated constructor stub
         }
 
+        @NotNull
         private Action action;
         private SearchResult result;
         private String message;
