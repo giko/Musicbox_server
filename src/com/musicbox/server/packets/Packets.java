@@ -1,5 +1,6 @@
-package com.musicbox.server;
+package com.musicbox.server.packets;
 
+import com.google.gson.Gson;
 import com.musicbox.lastfm.structure.artist.Artist;
 import com.musicbox.lastfm.structure.track.Track;
 import com.musicbox.weborama.structure.SearchResult;
@@ -9,6 +10,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class Packets {
+    protected static Gson json = new Gson();
+
     static public class Incoming {
         public enum Action {
             LOGIN, SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME
@@ -27,6 +30,10 @@ public class Packets {
         private Action action;
         @Nullable
         private String message;
+
+        public String toJson() {
+            return Packets.json.toJson(this);
+        }
 
     }
 
@@ -98,6 +105,10 @@ public class Packets {
 
         public void setSongs(List<Track> songs) {
             this.songs = songs;
+        }
+
+        public String toJson() {
+            return Packets.json.toJson(this);
         }
     }
 }

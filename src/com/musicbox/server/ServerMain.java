@@ -13,8 +13,8 @@ public class ServerMain {
         int port = 80;
         WebServer webServer = createWebServer(port)
                 .add(new LoggingHandler(
-                        new SimpleLogSink(Musicbox.USERNAME_KEY)))
-                .add("/musicbox", new Musicbox())
+                        new SimpleLogSink(MusicboxServer.USERNAME_KEY)))
+                .add("/musicbox", new MusicboxServer())
                 .add(new StaticFileHandler(
                         "./content")).start()
                 .get();

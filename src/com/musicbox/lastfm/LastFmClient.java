@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LastFmClient {
-    final Type locationInfoListType = new TypeToken<List<Artist>>() {
-    }.getType();
+    final Type locationInfoListType = new TypeToken<List<Artist>>() {}.getType();
     final Gson json = new GsonBuilder()
             .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
             .create();
