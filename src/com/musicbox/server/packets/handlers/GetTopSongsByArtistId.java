@@ -18,7 +18,7 @@ public class GetTopSongsByArtistId extends AbstractHandler{
 
     @Override
     public void HandlePacket(WebSocketConnection connection, Packets.Incoming incoming) {
-        Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.SONGS);
+        Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.SEARCHRESULT);
         packet.setSongs(lfclient.getTopTracksByArtistID(incoming.getMessage()));
         connection.send(packet.toJson());
     }

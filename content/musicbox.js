@@ -35,6 +35,7 @@ function gup(name) {
     else
         return decodeURIComponent(results[1]);
 }
+
 function secondsToTime(secs) {
     var hours = Math.floor(secs / (60 * 60));
 
@@ -51,15 +52,27 @@ function secondsToTime(secs) {
     };
     return obj;
 }
+
 function onMessage(incoming) {
     switch (incoming.action) {
         case 'MESSAGE':
             logText(incoming.message);
             break;
         case 'SEARCHRESULT':
-            $('#tracks').hide();
+            $('#tracks').empty();
             $('#artists').empty();
-            $('#artists').show();
+
+            if (typeof(incoming.artists) != 'undefined') {
+                $('#artistsunit').show();
+            } else {
+                $('#artistsunit').hide();
+            }
+            if (typeof(incoming.songs) != 'undefined') {
+                $('#tracksunit').show();
+            } else {
+                $('#tracksunit').hide();
+            }
+
             var li;
             var div;
             for (key in incoming.artists) {
@@ -80,6 +93,16 @@ function onMessage(incoming) {
                 div.append($('<h5>', {text:incoming.artists[key].name}));
                 li.append(div);
                 $('#artists').append(li);
+            }
+            for (key in incoming.songs) {
+                li = $('<li>', {class:'span3', id:incoming.songs[key].artist.name + ' ' + incoming.songs[key].name});
+                li.click(function () {
+                    send({action:'GETURLBYTRACK', message:this.getAttribute("id")});
+                });
+                div = $('<div>', {class:'thumbnail'});
+                div.append($('<h5>', {text:incoming.songs[key].artist.name + ' - ' + incoming.songs[key].name}));
+                li.append(div);
+                $('#tracks').append(li);
             }
             //send({action:'GETURLBYTRACK', message:incoming.artists[0].name});
             break;
@@ -106,26 +129,6 @@ function onMessage(incoming) {
         case 'TOKEN':
             window.localStorage.token = incoming.message;
             send({action:'LOGIN', message:window.localStorage.token});
-            break;
-        case 'SONGS':
-            $('#artists').hide();
-            $('#tracks').empty();
-            $('#tracks').show();
-            for (key in incoming.songs) {
-                li = $('<li>', {class:'span3', id:incoming.songs[key].artist.name + ' ' + incoming.songs[key].name});
-                li.click(function () {
-                    send({action:'GETURLBYTRACK', message:this.getAttribute("id")});
-                });
-                div = $('<div>', {class:'thumbnail'});
-                //if (incoming.songs[key].image[3]['#text'] != undefined) {
-                //  div.append($('<img>', {src:incoming.songs[key].image[3]['#text']}));
-                //}
-                div.append($('<h5>', {text:incoming.songs[key].name + '   ' + secondsToTime(incoming.songs[key].duration).m + ':' + secondsToTime(incoming.songs[key].duration).s}));
-                li.append(div);
-                $('#tracks').append(li);
-            }
-
-            //send({action:'CHATMESSAGE', message:'Слушаю ' + incoming.songs[0].artist.name + " - " + incoming.songs[0].name});
             break;
     }
 }
@@ -156,10 +159,7 @@ function connect() {
     var entry = document.getElementById('searchfield');
     entry.onkeypress = function (e) {
         if (e.keyCode == 13) { // enter key pressed
-            var text = entry.value;
-            if (text) {
-                send({action:'SEARCH', message:text});
-            }
+            send({action:'SEARCH', message:entry.value});
             entry.value = '';
         }
     };

@@ -3,7 +3,6 @@ package com.musicbox.server.packets;
 import com.google.gson.Gson;
 import com.musicbox.lastfm.structure.artist.Artist;
 import com.musicbox.lastfm.structure.track.Track;
-import com.musicbox.weborama.structure.SearchResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +33,6 @@ public class Packets {
         public String toJson() {
             return Packets.json.toJson(this);
         }
-
     }
 
     static public class Outgoing {
@@ -52,10 +50,9 @@ public class Packets {
 
         @NotNull
         private Action action;
-        private SearchResult result;
         private String message;
-        private String username;
         private List<Track> songs;
+        private List<Artist> artists;
 
         public List<Artist> getArtists() {
             return artists;
@@ -65,8 +62,6 @@ public class Packets {
             this.artists = artists;
         }
 
-        private List<Artist> artists;
-
         public Action getAction() {
             return action;
         }
@@ -75,28 +70,12 @@ public class Packets {
             this.action = action;
         }
 
-        public SearchResult getResult() {
-            return result;
-        }
-
-        public void setResult(SearchResult result) {
-            this.result = result;
-        }
-
         public String getMessage() {
             return message;
         }
 
         public void setMessage(String message) {
             this.message = message;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
         }
 
         public List<Track> getSongs() {

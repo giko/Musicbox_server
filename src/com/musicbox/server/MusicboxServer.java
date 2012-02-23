@@ -79,7 +79,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
     public void onClose(@NotNull WebSocketConnection connection) throws Exception {
         if (connection.data(USERNAME_KEY) != null) {
             Outgoing outgoing = new Outgoing(Outgoing.Action.LEAVE);
-            outgoing.setUsername(connections.get(connection).getFirst_name());
+ //           outgoing.setUsername(connections.get(connection).getFirst_name());
             broadcast(outgoing);
         }
         connections.remove(connection);

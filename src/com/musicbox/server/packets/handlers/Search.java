@@ -22,6 +22,7 @@ public class Search extends AbstractHandler{
         if (incoming.getMessage().equals("")) {
             packet.setArtists(lfclient.getTopArtists());
         } else {
+            packet.setSongs(lfclient.SearchTrack(incoming.getMessage().trim()));
             packet.setArtists(lfclient.SearchArtist(incoming.getMessage().trim()));
         }
         connection.send(packet.toJson());
