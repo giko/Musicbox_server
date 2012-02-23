@@ -10,7 +10,7 @@ import org.webbitserver.WebSocketConnection;
  * Date: 23.02.12
  * Time: 10:47
  */
-public class Search extends AbstractHandler{
+public class Search extends AbstractHandler {
 
     public Search(MusicboxServer server) {
         super(server);

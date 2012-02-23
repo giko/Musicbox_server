@@ -75,6 +75,7 @@ function onMessage(incoming) {
 
             var li;
             var div;
+            var btn;
             for (key in incoming.artists) {
                 if (incoming.artists[key].mbid) {
                     li = $('<li>', {class:'span3', id:incoming.artists[key].mbid});
@@ -101,6 +102,12 @@ function onMessage(incoming) {
                 });
                 div = $('<div>', {class:'thumbnail'});
                 div.append($('<h5>', {text:incoming.songs[key].artist.name + ' - ' + incoming.songs[key].name}));
+                btn = $('<a>', {class:"btn", href:"#", id:""});
+                btn.click(function () {
+                    send({action:'ADDTOLIBRARY', message:this.parentElement.parentElement.getAttribute("id")});
+                });
+                btn.append('<i class="icon-plus"></i> add');
+                div.append(btn);
                 li.append(div);
                 $('#tracks').append(li);
             }

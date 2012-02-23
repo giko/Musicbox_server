@@ -11,7 +11,7 @@ import org.webbitserver.WebSocketConnection;
  * Date: 23.02.12
  * Time: 10:50
  */
-public class GetUrlByTrack extends AbstractHandler{
+public class GetUrlByTrack extends AbstractHandler {
 
     public GetUrlByTrack(MusicboxServer server) {
         super(server);
@@ -21,7 +21,7 @@ public class GetUrlByTrack extends AbstractHandler{
     public void HandlePacket(WebSocketConnection connection, Packets.Incoming incoming) {
         VkontakteClient vkclient = new VkontakteClient(connections.get(connection).getToken());
         Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.SONGURL);
-        packet.setMessage(vkclient.getURLByTrack(incoming.getMessage()));
+        packet.setMessage(vkclient.getAudioByTrack(incoming.getMessage()).getUrl());
         connection.send(packet.toJson());
     }
 }

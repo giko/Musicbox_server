@@ -8,9 +8,9 @@ package com.musicbox.vkontakte.structure.audio;
  * To change this template use File | Settings | File Templates.
  */
 public class AudioSearch {
-    private String response;
+    private Audio response;
 
-    public String getResponse() {
+    public Audio getResponse() {
         return response;
     }
 }

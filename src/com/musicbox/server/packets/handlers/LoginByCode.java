@@ -13,7 +13,7 @@ import org.webbitserver.WebSocketConnection;
  * Date: 23.02.12
  * Time: 10:44
  */
-public class LoginByCode extends AbstractHandler{
+public class LoginByCode extends AbstractHandler {
 
     public LoginByCode(MusicboxServer server) {
         super(server);

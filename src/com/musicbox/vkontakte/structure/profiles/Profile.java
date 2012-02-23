@@ -1,6 +1,7 @@
 package com.musicbox.vkontakte.structure.profiles;
 
 import com.musicbox.vkontakte.OAuthToken;
+import com.musicbox.vkontakte.VkontakteClient;
 
 public class Profile {
     private String bdate;
@@ -14,6 +15,10 @@ public class Profile {
 
     public OAuthToken getToken() {
         return token;
+    }
+
+    public VkontakteClient getVkontakteClient(){
+        return new VkontakteClient(token);
     }
 
     public void setToken(OAuthToken token) {

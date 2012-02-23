@@ -10,7 +10,7 @@ import org.webbitserver.WebSocketConnection;
  * Date: 23.02.12
  * Time: 10:54
  */
-public class GetTopSongsByArtistId extends AbstractHandler{
+public class GetTopSongsByArtistId extends AbstractHandler {
 
     public GetTopSongsByArtistId(MusicboxServer server) {
         super(server);

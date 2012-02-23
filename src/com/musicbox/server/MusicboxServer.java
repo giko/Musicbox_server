@@ -42,6 +42,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
         packethandlers.put(Incoming.Action.CHATMESSAGE, new ChatMessage(this));
         packethandlers.put(Incoming.Action.GETTOPSONGSBYARTISTID, new GetTopSongsByArtistId(this));
         packethandlers.put(Incoming.Action.GETTOPSONGSBYARTISTNAME, new GetTopSongsByArtistName(this));
+        packethandlers.put(Incoming.Action.ADDTOLIBRARY, new AddToLibrary(this));
     }
 
     public HashMap<WebSocketConnection, Profile> getConnections() {
@@ -79,7 +80,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
     public void onClose(@NotNull WebSocketConnection connection) throws Exception {
         if (connection.data(USERNAME_KEY) != null) {
             Outgoing outgoing = new Outgoing(Outgoing.Action.LEAVE);
- //           outgoing.setUsername(connections.get(connection).getFirst_name());
+            //           outgoing.setUsername(connections.get(connection).getFirst_name());
             broadcast(outgoing);
         }
         connections.remove(connection);

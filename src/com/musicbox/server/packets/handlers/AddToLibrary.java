@@ -8,18 +8,16 @@ import org.webbitserver.WebSocketConnection;
  * Created by IntelliJ IDEA.
  * User: giko
  * Date: 23.02.12
- * Time: 10:55
+ * Time: 19:36
  */
-public class GetTopSongsByArtistName extends AbstractHandler {
+public class AddToLibrary extends AbstractHandler {
 
-    public GetTopSongsByArtistName(MusicboxServer server) {
+    public AddToLibrary(MusicboxServer server) {
         super(server);
     }
 
     @Override
     public void HandlePacket(WebSocketConnection connection, Packets.Incoming incoming) {
-        Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.SEARCHRESULT);
-        packet.setSongs(lfclient.getTopTracksByArtistName(incoming.getMessage()));
-        connection.send(packet.toJson());
+        connections.get(connection).getVkontakteClient().addSongToFavoriteByTrack(incoming.getMessage());
     }
 }

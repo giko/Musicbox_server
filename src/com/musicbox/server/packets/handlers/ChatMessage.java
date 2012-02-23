@@ -1,8 +1,8 @@
 package com.musicbox.server.packets.handlers;
 
 import com.musicbox.server.MusicboxServer;
-import com.musicbox.server.packets.Packets.Outgoing;
 import com.musicbox.server.packets.Packets.Incoming;
+import com.musicbox.server.packets.Packets.Outgoing;
 import org.webbitserver.WebSocketConnection;
 
 /**

@@ -4,16 +4,14 @@ import com.google.gson.Gson;
 import com.musicbox.Cache;
 import com.musicbox.CacheAllocator;
 import com.musicbox.WebWorker;
+import com.musicbox.vkontakte.structure.audio.Audio;
 import com.musicbox.vkontakte.structure.audio.AudioSearch;
 import com.musicbox.vkontakte.structure.profiles.Profile;
 import com.musicbox.vkontakte.structure.profiles.ProfileSearch;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLEncoder;
 
 public class VkontakteClient {
@@ -41,15 +39,15 @@ public class VkontakteClient {
     }
 
     @NotNull
-    public final String getURLByTrack(@NotNull final String track) {
-        CacheAllocator cacheAllocator = cache.getAllocator("getURLByTrack", track, String.class);
+    public final Audio getAudioByTrack(@NotNull final String track) {
+        CacheAllocator cacheAllocator = cache.getAllocator("getURLByTrack", track, Audio.class);
 
         if (!cacheAllocator.exists()) {
-            String url = this.json.fromJson(retrieveReader("execute?code=" + URLEncoder.encode("return API.audio.search({\"q\":\"" + track + "\",\"count\":1, \"sort\":2})@.url[1];")), AudioSearch.class).getResponse();
-            cacheAllocator.cacheObject(url);
-            return url;
+            Audio audio = this.json.fromJson(retrieveReader("execute?code=" + URLEncoder.encode("return API.audio.search({\"q\":\"" + track + "\",\"count\":1, \"sort\":2})[1];")), AudioSearch.class).getResponse();
+            cacheAllocator.cacheObject(audio);
+            return audio;
         }
-        return (String) cacheAllocator.getObject();
+        return (Audio) cacheAllocator.getObject();
     }
 
     @NotNull
@@ -78,6 +76,16 @@ public class VkontakteClient {
         return (Profile) cacheAllocator.getObject();
     }
 
+    public boolean addSongToFavoriteByTrack(String query) {
+        Audio audio = getAudioByTrack(query);
+        try {
+            retrieveReader("audio.add?aid=" + audio.getAid() + "&oid=" + audio.getOwner_id()).read();
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
     @Nullable
     private Reader retrieveReader(@NotNull String query) {
         return retrieveReader(query, this.oauth.getAccess_token());
@@ -87,7 +95,7 @@ public class VkontakteClient {
     private Reader retrieveReader(@NotNull final String query, @NotNull final String token) {
         String url = "https://api.vkontakte.ru/method/".concat(query)
                 .concat("&access_token=").concat(token);
-        //System.out.println(url);
+        System.out.println(url);
 
         InputStream source = WebWorker.retrieveStream(url);
         try {
