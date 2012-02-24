@@ -7,6 +7,9 @@ import com.musicbox.Cache;
 import com.musicbox.CacheAllocator;
 import com.musicbox.WebWorker;
 import com.musicbox.lastfm.structure.artist.*;
+import com.musicbox.lastfm.structure.tag.Tag;
+import com.musicbox.lastfm.structure.tag.TagSearchResult;
+import com.musicbox.lastfm.structure.tag.TopArtistSearch;
 import com.musicbox.lastfm.structure.track.ArtistTopTracksSearchResult;
 import com.musicbox.lastfm.structure.track.Track;
 import com.musicbox.lastfm.structure.track.TrackArtistTypeAdapter;
@@ -109,6 +112,35 @@ public class LastFmClient {
         }
 
         return (List<Track>) cacheAllocator.getObject();
+    }
+
+    @NotNull
+    public List<Artist> SearchArtistByTag(String query) {
+        query = URLEncoder.encode(query.toLowerCase().trim());
+        CacheAllocator cacheAllocator = cache.getAllocator("SearchArtistByTag", query, ArrayList.class);
+        if (!cacheAllocator.exists()) {
+            final Gson json = new Gson();
+            List<Artist> searchresult = json.fromJson(retrieveReader("method=tag.gettopartists&limit=10&tag=" + query), TopArtistSearch.class)
+                    .getTopartists().getArtist();
+            cacheAllocator.cacheObject(searchresult);
+            return searchresult;
+        }
+
+        return (List<Artist>) cacheAllocator.getObject();
+    }
+
+    @NotNull
+    public List<Tag> SearchTag(String query) {
+        query = URLEncoder.encode(query.toLowerCase().trim());
+        CacheAllocator cacheAllocator = cache.getAllocator("SearchTag", query, ArrayList.class);
+        if (!cacheAllocator.exists()) {
+            final Gson json = new Gson();
+            List<Tag> searchresult = json.fromJson(retrieveReader("method=tag.search&limit=3&tag=" + query), TagSearchResult.class)
+                    .getResults().getTagmatches().getTags();
+            cacheAllocator.cacheObject(searchresult);
+            return searchresult;
+        }
+        return (List<Tag>) cacheAllocator.getObject();
     }
 
     @NotNull

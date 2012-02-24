@@ -61,7 +61,7 @@ function onMessage(incoming) {
         case 'SEARCHRESULT':
             $('#tracks').empty();
             $('#artists').empty();
-
+            $('#tags').empty();
             if (typeof(incoming.artists) != 'undefined') {
                 $('#artistsunit').show();
             } else {
@@ -72,10 +72,25 @@ function onMessage(incoming) {
             } else {
                 $('#tracksunit').hide();
             }
+            if (typeof(incoming.tags) != 'undefined') {
+                $('#tagsunit').show();
+            } else {
+                $('#tagsunit').hide();
+            }
 
             var li;
             var div;
             var btn;
+            for (key in incoming.tags) {
+                li = $('<li>', {class:'span3', id:incoming.tags[key].name});
+                li.click(function () {
+                    send({action:'SEARCHBYTAG', message:this.getAttribute("id")});
+                });
+                div = $('<div>', {class:'thumbnail'});
+                div.append($('<h5>', {text:incoming.tags[key].name}));
+                li.append(div);
+                $('#tags').append(li);
+            }
             for (key in incoming.artists) {
                 if (incoming.artists[key].mbid) {
                     li = $('<li>', {class:'span3', id:incoming.artists[key].mbid});

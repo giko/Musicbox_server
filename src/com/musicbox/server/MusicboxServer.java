@@ -43,6 +43,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
         packethandlers.put(Incoming.Action.GETTOPSONGSBYARTISTID, new GetTopSongsByArtistId(this));
         packethandlers.put(Incoming.Action.GETTOPSONGSBYARTISTNAME, new GetTopSongsByArtistName(this));
         packethandlers.put(Incoming.Action.ADDTOLIBRARY, new AddToLibrary(this));
+        packethandlers.put(Incoming.Action.SEARCHBYTAG, new SearchByTag(this));
     }
 
     public HashMap<WebSocketConnection, Profile> getConnections() {

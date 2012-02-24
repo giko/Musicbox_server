@@ -17,7 +17,7 @@ public class Profile {
         return token;
     }
 
-    public VkontakteClient getVkontakteClient(){
+    public VkontakteClient getVkontakteClient() {
         return new VkontakteClient(token);
     }
 

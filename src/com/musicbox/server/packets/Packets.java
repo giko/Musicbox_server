@@ -2,6 +2,7 @@ package com.musicbox.server.packets;
 
 import com.google.gson.Gson;
 import com.musicbox.lastfm.structure.artist.Artist;
+import com.musicbox.lastfm.structure.tag.Tag;
 import com.musicbox.lastfm.structure.track.Track;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,7 +14,7 @@ public class Packets {
 
     static public class Incoming {
         public enum Action {
-            LOGIN, SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME, ADDTOLIBRARY
+            LOGIN, SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME, ADDTOLIBRARY, SEARCHBYTAG
         }
 
         @NotNull
@@ -53,6 +54,15 @@ public class Packets {
         private String message;
         private List<Track> songs;
         private List<Artist> artists;
+        private List<Tag> tags;
+
+        public List<Tag> getTags() {
+            return tags;
+        }
+
+        public void setTags(List<Tag> tags) {
+            this.tags = tags;
+        }
 
         public List<Artist> getArtists() {
             return artists;
