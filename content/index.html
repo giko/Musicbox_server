@@ -10,28 +10,28 @@
             padding-bottom: 40px;
         }
     </style>
+    <script type="text/javascript" src="bootstrap/js/soundmanager2-jsmin.js"></script>
     <script type="text/javascript" src="bootstrap/js/minified.js"></script>
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
             <a class="brand" href="#">MusicBox</a>
 
-            <div class="nav-collapse">
-                <div class="navbar-search pull-left">
-                    <input id="searchfield" type="text" class="search-query" placeholder="Search">
+            <div class="navbar-search pull-left">
+                <input id="searchfield" type="text" class="search-query" placeholder="Search">
+            </div>
+            <div class="navbar-search pull-left">
+                <input id="chat-text" type="text" class="search-query" placeholder="Input text">
+            </div>
+
+            <a id="playbtn" class="btn pull-left" href="#"><i id="playbtnico" class="icon-play"></i> Play</a>
+
+            <div class="progress navbar-static">
+                <div class="bar"
+                     style="width: 60%;">
                 </div>
-                <div class="navbar-search pull-left">
-                    <input id="chat-text" type="text" class="search-query" placeholder="Input text">
-                </div>
-                <audio id="audio" controls>
-                </audio>
             </div>
         </div>
     </div>

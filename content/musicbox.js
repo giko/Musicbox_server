@@ -6,6 +6,18 @@ var ws;
 var audioElement = document.getElementById('audio');
 var textArea = document.getElementById('chatlog');
 
+soundManager.url = '/bootstrap/swf';
+soundManager.flashVersion = 9; // optional: shiny features (default = 8)
+soundManager.useFlashBlock = false; // optionally, enable when you're ready to dive in
+var sound;
+/*
+ * read up on HTML5 audio support, if you're feeling adventurous.
+ * iPad/iPhone and devices without flash installed will always attempt to use it.
+ */
+soundManager.onready(function () {
+    // Ready to use; soundManager.createSound() etc. can now be called.
+
+});
 // Log text to main window.
 function logText(msg) {
     var element = document.createElement('p');
@@ -82,7 +94,7 @@ function onMessage(incoming) {
             var div;
             var btn;
             for (key in incoming.tags) {
-                li = $('<li>', {class:'span3', id:incoming.tags[key].name});
+                li = $('<li>', {class:'span4', id:incoming.tags[key].name});
                 li.click(function () {
                     send({action:'SEARCHBYTAG', message:this.getAttribute("id")});
                 });
@@ -93,13 +105,13 @@ function onMessage(incoming) {
             }
             for (key in incoming.artists) {
                 if (incoming.artists[key].mbid) {
-                    li = $('<li>', {class:'span3', id:incoming.artists[key].mbid});
+                    li = $('<li>', {class:'span4', id:incoming.artists[key].mbid});
                     li.click(function () {
                         send({action:'GETTOPSONGSBYARTISTID', message:this.getAttribute("id")});
                     });
                 }
                 else {
-                    li = $('<li>', {class:'span3', id:incoming.artists[key].name});
+                    li = $('<li>', {class:'span4', id:incoming.artists[key].name});
                     li.click(function () {
                         send({action:'GETTOPSONGSBYARTISTNAME', message:this.getAttribute("id")});
                     });
@@ -133,8 +145,16 @@ function onMessage(incoming) {
             location.replace('http://api.vk.com/oauth/authorize?client_id=2810768&redirect_uri=' + document.domain + '&scope=audio,offline&display=page');
             break;
         case 'SONGURL':
-            audioElement.setAttribute('src', incoming.message);
-            audioElement.play();
+            if (typeof(sound) != 'undefined') {
+                sound.destruct();
+            }
+            sound = soundManager.createSound({
+                id:'mySound', // required
+                url:incoming.message, // required
+                autoPlay:true
+            });
+            $('#playbtnico').removeClass('icon-play');
+            $('#playbtnico').addClass('icon-pause');
             break;
         case 'JOIN':
             logText("* User '" + incoming.username + "' joined.");
@@ -196,6 +216,20 @@ function connect() {
             chatentry.value = '';
         }
     };
+
+    $('#playbtn').click(function () {
+        if (typeof(sound) != 'undefined') {
+            if (sound.paused) {
+                $('#playbtnico').removeClass('icon-play');
+                $('#playbtnico').addClass('icon-pause');
+                sound.resume();
+            } else {
+                $('#playbtnico').removeClass('icon-pause');
+                $('#playbtnico').addClass('icon-play');
+                sound.pause();
+            }
+        }
+    });
 }
 
 // Send message to server over socket.
