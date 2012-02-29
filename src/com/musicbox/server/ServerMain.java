@@ -1,6 +1,5 @@
 package com.musicbox.server;
 
-import com.musicbox.lastfm.LastFmClient;
 import org.webbitserver.WebServer;
 import org.webbitserver.handler.StaticFileHandler;
 import org.webbitserver.handler.logging.LoggingHandler;
@@ -19,8 +18,5 @@ public class ServerMain {
                 .add(new StaticFileHandler(
                         "./content")).start()
                 .get();
-
-        System.out.println("Webserver on: " + webServer.getUri());
-        System.out.println((new LastFmClient()).SearchTag("disco").get(0).getName());
     }
 }

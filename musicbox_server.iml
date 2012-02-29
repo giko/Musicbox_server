@@ -8,6 +8,7 @@
     <libelement value="jar://$MODULE_DIR$/libs/commons-logging-1.1.1.jar!/" />
     <libelement value="jar://$MODULE_DIR$/libs/jsoup-1.6.1.jar!/" />
     <libelement value="jar://$MODULE_DIR$/libs/webbit-0.4.0.jar!/" />
+    <libelement value="file://libs/webbit-0.4.0.jar" />
     <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
     </src_description>
@@ -75,9 +76,9 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library>
+      <library name="webbit-0.4.0.jar">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/annotations.jar!/" />
+          <root url="file://libs/webbit-0.4.0.jar" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

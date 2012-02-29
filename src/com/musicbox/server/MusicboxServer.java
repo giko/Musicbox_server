@@ -13,7 +13,7 @@ import org.webbitserver.WebSocketConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MusicboxServer extends BaseWebSocketHandler {
+public class    MusicboxServer extends BaseWebSocketHandler {
 
     @NotNull
     private final Gson json = new Gson();
@@ -44,6 +44,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
         packethandlers.put(Incoming.Action.GETTOPSONGSBYARTISTNAME, new GetTopSongsByArtistName(this));
         packethandlers.put(Incoming.Action.ADDTOLIBRARY, new AddToLibrary(this));
         packethandlers.put(Incoming.Action.SEARCHBYTAG, new SearchByTag(this));
+        packethandlers.put(Incoming.Action.GETAUDIOBYTRACK, new GetAudioByTrack(this));
     }
 
     public HashMap<WebSocketConnection, Profile> getConnections() {
@@ -51,11 +52,20 @@ public class MusicboxServer extends BaseWebSocketHandler {
     }
 
     @Override
-    public void onMessage(@NotNull WebSocketConnection connection, @NotNull String msg)
+    public void onMessage(@NotNull final WebSocketConnection connection, @NotNull String msg)
             throws Exception {
-        Incoming incoming = json.fromJson(msg, Incoming.class);
+        final Incoming incoming = json.fromJson(msg, Incoming.class);
         if (packethandlers.containsKey(incoming.getAction())) {
-            packethandlers.get(incoming.getAction()).HandlePacket(connection, incoming);
+            Thread thread = new Thread()
+            {
+                @Override
+                public void run()
+                {
+                    packethandlers.get(incoming.getAction()).HandlePacket(connection, incoming);
+                }
+            };
+            thread.setDaemon(true);
+            thread.start();
         } else {
             //Ошибка, пакета нет
         }

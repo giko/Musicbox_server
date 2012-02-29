@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.musicbox.lastfm.structure.artist.Artist;
 import com.musicbox.lastfm.structure.tag.Tag;
 import com.musicbox.lastfm.structure.track.Track;
+import com.musicbox.vkontakte.structure.audio.Audio;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,7 +15,7 @@ public class Packets {
 
     static public class Incoming {
         public enum Action {
-            LOGIN, SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME, ADDTOLIBRARY, SEARCHBYTAG
+            GETAUDIOBYTRACK, LOGIN, SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME, ADDTOLIBRARY, SEARCHBYTAG
         }
 
         @NotNull
@@ -38,7 +39,7 @@ public class Packets {
 
     static public class Outgoing {
         public enum Action {
-            LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS
+            LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS ,AUDIO
         }
 
         public Outgoing(Action caction) {
@@ -55,6 +56,15 @@ public class Packets {
         private List<Track> songs;
         private List<Artist> artists;
         private List<Tag> tags;
+        private Audio audio;
+
+        public Audio getAudio() {
+            return audio;
+        }
+
+        public void setAudio(Audio audio) {
+            this.audio = audio;
+        }
 
         public List<Tag> getTags() {
             return tags;

@@ -1,0 +1,50 @@
+#barContainer{
+    background: #006cb7;
+    height: 118px;
+    color: #fff;
+
+    position: fixed;
+    top: 89%;
+    left: 20%;
+    border-top: 1px solid #00c6ff;
+    -moz-border-radius: 20px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 20px;
+}
+#bar{
+    width: 1000px;
+    line-height: 118px;
+    margin: 0pt auto;
+}
+#bar #play{
+    float: left;
+    width: 100px;
+    background: transparent url(../images/play.jpg) no-repeat scroll center 22px;
+}
+#bar #play a{
+    display: block;
+}
+#bar #song{
+    width: 800px;
+    float: left;
+    background: transparent url(../images/barBackground.jpg) no-repeat scroll center top;
+    text-align: center;
+    font-size: 24px;
+    margin: 0pt auto;
+}
+#bar #song #previous{
+    float: left;
+    background: red;
+}
+#bar #song span.title{
+    margin: 0 15px 0 15px;
+}
+#bar #song #next{
+    float: left;
+    background: blue;
+}
+#bar #volume{
+    float: left;
+    width: 100px;
+    background: transparent url(../images/vol3.jpg) no-repeat scroll center 22px;
+}

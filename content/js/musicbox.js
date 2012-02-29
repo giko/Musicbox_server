@@ -3,21 +3,8 @@ WEB_SOCKET_SWF_LOCATION = "bootstrap/js/WebSocketMain.swf";
 // Socket reference.
 var ws;
 
-var audioElement = document.getElementById('audio');
 var textArea = document.getElementById('chatlog');
 
-soundManager.url = '/bootstrap/swf';
-soundManager.flashVersion = 9; // optional: shiny features (default = 8)
-soundManager.useFlashBlock = false; // optionally, enable when you're ready to dive in
-var sound;
-/*
- * read up on HTML5 audio support, if you're feeling adventurous.
- * iPad/iPhone and devices without flash installed will always attempt to use it.
- */
-soundManager.onready(function () {
-    // Ready to use; soundManager.createSound() etc. can now be called.
-
-});
 // Log text to main window.
 function logText(msg) {
     var element = document.createElement('p');
@@ -125,7 +112,7 @@ function onMessage(incoming) {
             for (key in incoming.songs) {
                 li = $('<li>', {class:'span3', id:incoming.songs[key].artist.name + ' ' + incoming.songs[key].name});
                 li.click(function () {
-                    send({action:'GETURLBYTRACK', message:this.getAttribute("id")});
+                    send({action:'GETAUDIOBYTRACK', message:this.getAttribute("id")});
                 });
                 div = $('<div>', {class:'thumbnail'});
                 div.append($('<h5>', {text:incoming.songs[key].artist.name + ' - ' + incoming.songs[key].name}));
@@ -145,23 +132,17 @@ function onMessage(incoming) {
             location.replace('http://api.vk.com/oauth/authorize?client_id=2810768&redirect_uri=' + document.domain + '&scope=audio,offline&display=page');
             break;
         case 'SONGURL':
-            if (typeof(sound) != 'undefined') {
-                sound.destruct();
-            }
-            sound = soundManager.createSound({
-                id:'mySound', // required
-                url:incoming.message, // required
-                autoPlay:true
-            });
-            $('#playbtnico').removeClass('icon-play');
-            $('#playbtnico').addClass('icon-pause');
+            player.play(incoming.message);
+            break;
+        case 'AUDIO':
+            player.play(incoming.audio);
             break;
         case 'JOIN':
             logText("* User '" + incoming.username + "' joined.");
             break;
         case 'LOGINSUCCESS':
             if (gup('track')) {
-                send({action:'GETURLBYTRACK', message:gup('track')});
+                send({action:'GETAUDIOBYTRACK', message:gup('track')});
             }
             if (gup('search')) {
                 send({action:'SEARCH', message:gup('search')});
@@ -218,17 +199,7 @@ function connect() {
     };
 
     $('#playbtn').click(function () {
-        if (typeof(sound) != 'undefined') {
-            if (sound.paused) {
-                $('#playbtnico').removeClass('icon-play');
-                $('#playbtnico').addClass('icon-pause');
-                sound.resume();
-            } else {
-                $('#playbtnico').removeClass('icon-pause');
-                $('#playbtnico').addClass('icon-play');
-                sound.pause();
-            }
-        }
+
     });
 }
 

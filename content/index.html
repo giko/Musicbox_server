@@ -4,6 +4,7 @@
     <title>MusicBox</title>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -11,6 +12,7 @@
         }
     </style>
     <script type="text/javascript" src="bootstrap/js/soundmanager2-jsmin.js"></script>
+    <script type="text/javascript" src="js/player.js"></script>
     <script type="text/javascript" src="bootstrap/js/minified.js"></script>
 </head>
 <body>
@@ -24,14 +26,6 @@
             </div>
             <div class="navbar-search pull-left">
                 <input id="chat-text" type="text" class="search-query" placeholder="Input text">
-            </div>
-
-            <a id="playbtn" class="btn pull-left" href="#"><i id="playbtnico" class="icon-play"></i> Play</a>
-
-            <div class="progress navbar-static">
-                <div class="bar"
-                     style="width: 60%;">
-                </div>
             </div>
         </div>
     </div>
@@ -61,6 +55,21 @@
     </div>
 </div>
 
-<script type="text/javascript" src="musicbox.js"></script>
+<div id="barContainer">
+    <div id="bar">
+        <div id="play">
+            <a href="" onclick="player.playPause(); return false;">&nbsp;</a>
+        </div>
+        <div id="song">
+            <a href="/" onclick="player.nextSong(); return false;"><img src="images/prev.jpg" alt="PREVIOUS"/></a>
+            <span class="title">Musicbox :D</span>
+            <a href="/" onclick="player.prevSong(); return false;"><img src="images/next.jpg" alt="NEXT"/></a>
+        </div>
+        <div id="volume">&nbsp;</div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="js/musicbox.js"></script>
 </body>
 </html>
