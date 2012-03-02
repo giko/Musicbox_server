@@ -53,7 +53,7 @@ var player = new (function () {
     }
     this.play = function (audio) {
         canvas = document.getElementById("example");
-        canvas.height = 256;
+        canvas.height = 135;
 
         canvas.width = 640;
         ctx = canvas.getContext('2d');
@@ -75,22 +75,22 @@ var player = new (function () {
                 $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
-                ctx.moveTo(0, 64);
+                ctx.moveTo(0, 128);
                 ctx.lineWidth = 3;
                 ctx.strokeStyle = "#000000";
                 for (var i = 0; i < 256; i++) {
-                    ctx.lineTo(i * 2.5, (this.eqData.right[i]*2-1) * 64 + 128);
+                    ctx.lineTo(i * 2.5, (-this.eqData.right[i]*2-1) * 32 + 158);
                 }
-                ctx.moveTo(0, 64);
+                ctx.moveTo(0, 128);
                 for (var i = 0; i < 256; i++) {
-                    ctx.lineTo(i * 2.5, (this.eqData.left[i]*2-1) * 64 + 128);
+                    ctx.lineTo(i * 2.5, (-this.eqData.left[i]*2-1) * 32 + 158);
                 }
                 ctx.stroke();
                 ctx.closePath();
 
                 ctx.beginPath();
-                ctx.moveTo(0, 64);
-                ctx.lineTo(640, 64);
+                ctx.moveTo(0, 128);
+                ctx.lineTo(640, 128);
                 ctx.lineWidth = (this.peakData.left+this.peakData.right)/2*10;
                 ctx.strokeStyle = "#ff0000"; // line color
                 ctx.stroke();
