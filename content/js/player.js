@@ -1,4 +1,4 @@
-/***************************/
+﻿/***************************/
 //@Author: Adrian "yEnS" Mato Gondelle & Ivan Guardado Castro
 //@website: www.yensdesign.com
 //@email: yensamg@gmail.com
@@ -12,12 +12,12 @@ var player = new (function () {
     soundManager.flashVersion = 9; // optional: shiny features (default = 8)
     soundManager.useFlashBlock = false; // optionally, enable when you're ready to dive in
     soundManager.flash9Options = {
-        isMovieStar: null,      // "MovieStar" MPEG4 audio mode. Null (default) = auto detect MP4, AAC etc. based on URL. true = force on, ignore URL
-        usePeakData: true,     // enable left/right channel peak (level) data
-        useWaveformData: true, // enable sound spectrum (raw waveform data) - WARNING: May set CPUs on fire.
-        useEQData: true,       // enable sound EQ (frequency spectrum data) - WARNING: Also CPU-intensive.
-        onbufferchange: null,	  // callback for "isBuffering" property change
-        ondataerror: null	  // callback for waveform/eq data access error (flash playing audio in other tabs/domains)
+        isMovieStar:null, // "MovieStar" MPEG4 audio mode. Null (default) = auto detect MP4, AAC etc. based on URL. true = force on, ignore URL
+        usePeakData:true, // enable left/right channel peak (level) data
+        useWaveformData:true, // enable sound spectrum (raw waveform data) - WARNING: May set CPUs on fire.
+        useEQData:true, // enable sound EQ (frequency spectrum data) - WARNING: Also CPU-intensive.
+        onbufferchange:null, // callback for "isBuffering" property change
+        ondataerror:null      // callback for waveform/eq data access error (flash playing audio in other tabs/domains)
     }
     var sound;
     //The song position
@@ -42,7 +42,7 @@ var player = new (function () {
     }
     this.play = function (audio) {
         canvas = document.getElementById("example");
-        canvas.height = 120;
+        canvas.height = 128;
 
         canvas.width = 640;
         ctx = canvas.getContext('2d');
@@ -61,14 +61,17 @@ var player = new (function () {
             url:audio.url, // required
             autoPlay:true,
             whileplaying:function () {
-                    $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
-                    console.log(sound.waveformData.left.length);
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.beginPath();
-                    for (var i = 0; i < 256; i++) {
-                        ctx.lineTo(i * 10, this.waveformData.left[i]*32+64);
-                    }
-                    ctx.stroke();
+                $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
+                console.log(sound.waveformData.left.length);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                for (var i = 0; i < 256; i++) {
+                    ctx.lineTo(i * 10, (this.waveformData.right[i]) * 16 + 64);
+                }
+                for (var i = 0; i < 256; i++) {
+                    ctx.lineTo(i * 10, (this.waveformData.left[i]) * 16 + 64);
+                }
+                ctx.stroke();
             }
         });
 
