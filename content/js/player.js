@@ -1,4 +1,4 @@
-﻿/***************************/
+/***************************/
 //@Author: Adrian "yEnS" Mato Gondelle & Ivan Guardado Castro
 //@website: www.yensdesign.com
 //@email: yensamg@gmail.com
