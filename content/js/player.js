@@ -4,12 +4,21 @@
 //@email: yensamg@gmail.com
 //@license: Feel free to use it, but keep this credits please!
 /***************************/
-
+var canvas;
+var ctx;
 //This is the class that interact with the interface
 var player = new (function () {
     soundManager.url = '/bootstrap/swf';
     soundManager.flashVersion = 9; // optional: shiny features (default = 8)
     soundManager.useFlashBlock = false; // optionally, enable when you're ready to dive in
+    soundManager.flash9Options = {
+        isMovieStar: null,      // "MovieStar" MPEG4 audio mode. Null (default) = auto detect MP4, AAC etc. based on URL. true = force on, ignore URL
+        usePeakData: true,     // enable left/right channel peak (level) data
+        useWaveformData: true, // enable sound spectrum (raw waveform data) - WARNING: May set CPUs on fire.
+        useEQData: true,       // enable sound EQ (frequency spectrum data) - WARNING: Also CPU-intensive.
+        onbufferchange: null,	  // callback for "isBuffering" property change
+        ondataerror: null	  // callback for waveform/eq data access error (flash playing audio in other tabs/domains)
+    }
     var sound;
     //The song position
     this.position = -1;
@@ -17,6 +26,7 @@ var player = new (function () {
     this.volume = 3;
     //Status: 0:pause, 1:play
     this.status = 1;
+    this.timeout = 30;
 
     this.nextSong = function () {
         if (this.position + 1 == this.playList.length)
@@ -31,6 +41,16 @@ var player = new (function () {
             }).fadeIn();
     }
     this.play = function (audio) {
+        canvas = document.getElementById("example");
+        canvas.height = 120;
+
+        canvas.width = 640;
+        ctx = canvas.getContext('2d');
+        ctx.beginPath();
+        for (var i = 0; i < 256; i++) {
+            ctx.lineTo(i * 10, i * Math.cos(i) + 50);
+        }
+        ctx.stroke();
         this.status = 0;
         $("#play").css("backgroundImage", "url('../images/pause.jpg')");
         if (typeof(sound) != 'undefined') {
@@ -39,8 +59,19 @@ var player = new (function () {
         sound = soundManager.createSound({
             id:'mySound', // required
             url:audio.url, // required
-            autoPlay:true
+            autoPlay:true,
+            whileplaying:function () {
+                    $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
+                    console.log(sound.waveformData.left.length);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.beginPath();
+                    for (var i = 0; i < 256; i++) {
+                        ctx.lineTo(i * 10, this.waveformData.left[i]*32+64);
+                    }
+                    ctx.stroke();
+            }
         });
+
         this.setTitle(audio.artist + ' - ' + audio.title);
     }
     //Jump to he previous or last song if it is in the first position
@@ -67,6 +98,7 @@ var player = new (function () {
     this.volumeInc = function () {
         if (this.volume + 1 <= 3) {
             this.volume++;
+            sound.setVolume(33 * this.volume);
             var me = this;
             $("#volume").fadeOut(200,
                 function () {
@@ -78,6 +110,7 @@ var player = new (function () {
     this.volumeDec = function () {
         if (this.volume - 1 > 0) {
             this.volume--;
+            sound.setVolume(33 * this.volume);
             var me = this;
             $("#volume").fadeOut(200,
                 function () {
@@ -105,3 +138,29 @@ var player = new (function () {
         }
     }
 });
+
+//Captures the key press events
+document.onkeydown = function (e) {
+    var ev = e;
+    if (ev.charCode && ev.charCode == 32)
+        player.playPause();
+    else {
+        switch (ev.keyCode) {
+            case 32:
+                player.playPause();
+                break;
+            case 39:
+                player.nextSong();
+                break;
+            case 37:
+                player.prevSong();
+                break;
+            case 38:
+                player.volumeInc();
+                break;
+            case 40:
+                player.volumeDec();
+                break;
+        }
+    }
+}

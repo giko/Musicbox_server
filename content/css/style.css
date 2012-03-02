@@ -39,6 +39,9 @@
 #bar #song span.title{
     margin: 0 15px 0 15px;
 }
+#bar #song span.position{
+    margin: 0 15px 0 15px;
+}
 #bar #song #next{
     float: left;
     background: blue;
