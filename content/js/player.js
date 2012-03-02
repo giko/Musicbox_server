@@ -64,15 +64,26 @@ var player = new (function () {
                 $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
-                ctx.moveTo(0,64);
+                ctx.moveTo(0, 64);
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = "#000000";
                 for (var i = 0; i < 256; i++) {
-                    ctx.lineTo(i * 2.5, (this.waveformData.right[i]) * 32 + 64);
+                    ctx.lineTo(i * 2.5, (this.waveformData.right[i]) * 64 + 64);
                 }
-                ctx.moveTo(0,64);
+                ctx.moveTo(0, 64);
                 for (var i = 0; i < 256; i++) {
-                    ctx.lineTo(i * 2.5, (this.waveformData.left[i]) * 32 + 64);
+                    ctx.lineTo(i * 2.5, (this.waveformData.left[i]) * 64 + 64);
                 }
                 ctx.stroke();
+                ctx.closePath();
+
+                ctx.beginPath();
+                ctx.moveTo(0, 64);
+                ctx.lineTo(640, 64);
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "#ff0000"; // line color
+                ctx.stroke();
+                ctx.closePath();
             }
         });
 
