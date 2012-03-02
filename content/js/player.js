@@ -62,14 +62,15 @@ var player = new (function () {
             autoPlay:true,
             whileplaying:function () {
                 $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
-                console.log(sound.waveformData.left.length);
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
+                ctx.moveTo(0,64);
                 for (var i = 0; i < 256; i++) {
-                    ctx.lineTo(i * 10, (this.waveformData.right[i]) * 16 + 64);
+                    ctx.lineTo(i * 2.5, (this.waveformData.right[i]) * 32 + 64);
                 }
+                ctx.moveTo(0,64);
                 for (var i = 0; i < 256; i++) {
-                    ctx.lineTo(i * 10, (this.waveformData.left[i]) * 16 + 64);
+                    ctx.lineTo(i * 2.5, (this.waveformData.left[i]) * 32 + 64);
                 }
                 ctx.stroke();
             }
