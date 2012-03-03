@@ -6,16 +6,19 @@
 /***************************/
 var canvas;
 var ctx;
-Array.prototype.avg = function() {
+Array.prototype.avg = function () {
     var av = 0;
     var cnt = 0;
     var len = this.length;
     for (var i = 0; i < len; i++) {
         var e = +this[i];
-        if(!e && this[i] !== 0 && this[i] !== '0') e--;
-        if (this[i] == e) {av += e; cnt++;}
+        if (!e && this[i] !== 0 && this[i] !== '0') e--;
+        if (this[i] == e) {
+            av += e;
+            cnt++;
+        }
     }
-    return av/cnt;
+    return av / cnt;
 }
 //This is the class that interact with the interface
 var player = new (function () {
@@ -53,7 +56,7 @@ var player = new (function () {
     }
     this.play = function (audio) {
         canvas = document.getElementById("example");
-        canvas.height = 135;
+        canvas.height = 160;
 
         canvas.width = 640;
         ctx = canvas.getContext('2d');
@@ -76,23 +79,19 @@ var player = new (function () {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
                 ctx.moveTo(0, 128);
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = "#000000";
-                for (var i = 0; i < 256; i++) {
-                    ctx.lineTo(i * 2.5, (-this.eqData.right[i]*2-1) * 32 + 158);
-                }
-                ctx.moveTo(0, 128);
-                for (var i = 0; i < 256; i++) {
-                    ctx.lineTo(i * 2.5, (-this.eqData.left[i]*2-1) * 32 + 158);
-                }
+                ctx.lineTo(640, 128);
+                ctx.lineWidth = (this.peakData.left + this.peakData.right) / 2 * 20;
+                ctx.strokeStyle = "rgb(" + Math.round((this.peakData.left + this.peakData.right) / 2 * 255) + ",0,0)";
                 ctx.stroke();
                 ctx.closePath();
 
                 ctx.beginPath();
                 ctx.moveTo(0, 128);
-                ctx.lineTo(640, 128);
-                ctx.lineWidth = (this.peakData.left+this.peakData.right)/2*10;
-                ctx.strokeStyle = "#ff0000"; // line color
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = "#000000";
+                for (var i = 0; i < 256; i++) {
+                    ctx.lineTo(i * 2.5, (-(this.eqData.right[i]+this.eqData.left[i]) - 1) * 32 + 160);
+                }
                 ctx.stroke();
                 ctx.closePath();
             }
