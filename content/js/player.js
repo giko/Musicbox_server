@@ -55,16 +55,6 @@ var player = new (function () {
             }).fadeIn();
     }
     this.play = function (audio) {
-        canvas = document.getElementById("example");
-        canvas.height = 160;
-
-        canvas.width = 640;
-        ctx = canvas.getContext('2d');
-        ctx.beginPath();
-        for (var i = 0; i < 256; i++) {
-            ctx.lineTo(i * 10, i * Math.cos(i) + 50);
-        }
-        ctx.stroke();
         this.status = 0;
         $("#play").css("backgroundImage", "url('../images/pause.jpg')");
         if (typeof(sound) != 'undefined') {
@@ -76,24 +66,7 @@ var player = new (function () {
             autoPlay:true,
             whileplaying:function () {
                 $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.beginPath();
-                ctx.moveTo(0, 128);
-                ctx.lineTo(640, 128);
-                ctx.lineWidth = (this.peakData.left + this.peakData.right) / 2 * 20;
-                ctx.strokeStyle = "rgb(" + Math.round((this.peakData.left + this.peakData.right) / 2 * 255) + ",0,0)";
-                ctx.stroke();
-                ctx.closePath();
-
-                ctx.beginPath();
-                ctx.moveTo(0, 128);
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = "#000000";
-                for (var i = 0; i < 256; i++) {
-                    ctx.lineTo(i * 2.5, (-(this.eqData.right[i]+this.eqData.left[i]) - 1) * 32 + 160);
-                }
-                ctx.stroke();
-                ctx.closePath();
+                visualization.drawMainVisualzation(1, this.waveformData, this.eqData, this.peakData);
             }
         });
 
