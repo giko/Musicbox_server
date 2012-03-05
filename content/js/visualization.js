@@ -89,20 +89,20 @@ var visualization = new (function () {
         canvas = document.getElementById("bassvolume");
         canvas.height = 90;
         canvas.width = 190;
-        var a = 100;
-        var b = 90;
+        var max_y = 100;
 
         ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
-        ctx.lineWidth = 40;
-            ctx.moveTo(50, a)
-            ctx.lineTo(50, b-peakData.left * b);
+        ctx.lineWidth = 50;
 
-            ctx.moveTo(a, a)
-            ctx.lineTo(a, b-peakData.right * b);
+        ctx.moveTo(50, max_y);
+        ctx.lineTo(50, canvas.height - peakData.left * canvas.height);
+
+        ctx.moveTo(100, max_y);
+        ctx.lineTo(100, canvas.height - peakData.right * canvas.height);
         ctx.strokeStyle = "rgb(" + Math.round((peakData.left + peakData.right) / 2 * 255) + ",0,0)";
         ctx.stroke();
         ctx.closePath();
-    }
+    };
 });
