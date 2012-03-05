@@ -5,7 +5,8 @@
 
     position: fixed;
     top: 89%;
-    left: 20%;
+    left: 50%;
+    margin-left: -500px;
     border-top: 1px solid #00c6ff;
     -moz-border-radius: 20px;
     -webkit-border-top-left-radius: 10px;
