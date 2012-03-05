@@ -66,7 +66,7 @@ var player = new (function () {
             autoPlay:true,
             whileplaying:function () {
                 $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
-                visualization.drawMainVisualzation(1, this.waveformData, this.eqData, this.peakData);
+                visualization.drawMainVisualzation(2, this.waveformData, this.eqData, this.peakData);
             }
         });
 
