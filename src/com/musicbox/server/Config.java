@@ -15,6 +15,15 @@ public class Config {
 
     private String vkappid;
     private String vksecretkey;
+    private String lastfmapikey;
+
+    public String getLastfmapikey() {
+        return lastfmapikey;
+    }
+
+    public void setLastfmapikey(String lastfmapikey) {
+        this.lastfmapikey = lastfmapikey;
+    }
 
     public String getVkappid() {
         return vkappid;
@@ -45,6 +54,7 @@ public class Config {
 
             this.vkappid = configuration.getProperty("vk-app-id");
             this.vksecretkey = configuration.getProperty("vk-secret-key");
+            this.lastfmapikey = configuration.getProperty("lastfm-api-key");
 
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

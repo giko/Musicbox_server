@@ -26,6 +26,7 @@ public class VkontakteClient {
     private static final String appid = Config.getInstance().getVkappid();
     private static final String appsecret = Config.getInstance().getVksecretkey();
 
+
     public VkontakteClient(final OAuthToken token) {
         this.oauth = token;
     }

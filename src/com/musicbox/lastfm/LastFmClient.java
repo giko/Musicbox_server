@@ -14,6 +14,7 @@ import com.musicbox.lastfm.structure.track.ArtistTopTracksSearchResult;
 import com.musicbox.lastfm.structure.track.Track;
 import com.musicbox.lastfm.structure.track.TrackArtistTypeAdapter;
 import com.musicbox.lastfm.structure.track.TrackSearch;
+import com.musicbox.server.Config;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -162,8 +163,7 @@ public class LastFmClient {
 
     @Nullable
     private Reader retrieveReader(@NotNull String query) {
-        String apiKey = "1b726929f182175e22372a9a52ca76b0";
-        String url = "http://ws.audioscrobbler.com/2.0/?api_key=".concat(apiKey).concat("&format=json&").concat(query);
+        String url = "http://ws.audioscrobbler.com/2.0/?api_key=".concat(Config.getInstance().getLastfmapikey()).concat("&format=json&").concat(query);
         System.out.println(url);
 
         InputStream source = WebWorker.retrieveStream(url);
