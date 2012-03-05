@@ -67,6 +67,7 @@ var player = new (function () {
             whileplaying:function () {
                 $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
                 visualization.drawMainVisualzation(1, this.waveformData, this.eqData, this.peakData);
+                BassVolume.drawMainBass(this.waveformData, this.eqData, this.peakData);
             }
         });
 
