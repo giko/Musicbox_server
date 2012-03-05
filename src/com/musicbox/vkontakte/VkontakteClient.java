@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.musicbox.Cache;
 import com.musicbox.CacheAllocator;
 import com.musicbox.WebWorker;
+import com.musicbox.server.Config;
 import com.musicbox.vkontakte.structure.audio.Audio;
 import com.musicbox.vkontakte.structure.audio.AudioSearch;
 import com.musicbox.vkontakte.structure.profiles.Profile;
@@ -22,8 +23,8 @@ public class VkontakteClient {
     @NotNull
     private static final Cache cache = new Cache();
 
-    private static final String appid = "2810768";
-    private static final String appsecret = "OP1L2XAhJHfgEHg8Y1Vu";
+    private static final String appid = Config.getInstance().getVkappid();
+    private static final String appsecret = Config.getInstance().getVksecretkey();
 
     public VkontakteClient(final OAuthToken token) {
         this.oauth = token;
