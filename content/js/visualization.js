@@ -94,7 +94,7 @@ var visualization = new (function () {
         ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
-        ctx.lineWidth = 50;
+        ctx.lineWidth = 40;
 
         ctx.moveTo(50, max_y);
         ctx.lineTo(50, canvas.height - peakData.left * canvas.height);
