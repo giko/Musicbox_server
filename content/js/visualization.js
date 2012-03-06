@@ -60,18 +60,16 @@ var visualization = new (function () {
             case 2:
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
-                ctx.strokeStyle="#ADFF2F";
-                ctx.lineWidth =(peakData.left + peakData.right);
+                ctx.lineWidth =ctx.lineWidth = (peakData.left + peakData.right + 2);
                 ctx.moveTo(0, 100);
                 for (var i = 0; i < 256; i++)
                 {
-                    ctx.moveTo(i * canvas.width/256, waveform.left[i] * 32 + 10)
+                    ctx.moveTo(i * canvas.width/256, waveform.left[i] * 32 + 100)
                     ctx.lineTo(i * canvas.width/256, waveform.right[i] * 32 + 64);
                 }
 
-                ctx.strokeStyle="#000000";
-                ctx.lineWidth =(peakData.left + peakData.right)*2;
                 ctx.moveTo(0, 64);
+                ctx.strokeStyle="#000000";
                 for (var i = 0; i < 256; i++)
                 {
                     ctx.lineTo(i * canvas.width/256, waveform.right[i] * 32 + 64);
@@ -80,7 +78,7 @@ var visualization = new (function () {
                 ctx.moveTo(0, 100);
                 for (var i = 0; i < 256; i++)
                 {
-                    ctx.lineTo(i * canvas.width/256, waveform.right[i] * 32 + 100);
+                    ctx.lineTo(i * canvas.width/256, waveform.left[i] * 32 + 100);
                 }
                 ctx.stroke();
                 ctx.closePath();
