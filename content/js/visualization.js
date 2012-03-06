@@ -10,7 +10,7 @@ var visualization = new (function () {
         canvas = document.getElementById("mainvisualization");
         canvas.height = 160;
 
-        canvas.width = screen.width;
+        canvas.width = screen.width-17;
         ctx = canvas.getContext('2d');
         switch (visualization) {
             case 0:
