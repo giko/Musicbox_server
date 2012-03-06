@@ -95,13 +95,16 @@ var visualization = new (function () {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
         ctx.lineWidth = 40;
-
+        ctx.strokeStyle = "rgb(" + Math.round(peakData.right * 255) + ",0,0)";
         ctx.moveTo(50, max_y);
         ctx.lineTo(50, canvas.height - peakData.left * canvas.height);
+        ctx.stroke();
+        ctx.closePath();
 
+        ctx.beginPath();
+        ctx.strokeStyle = "rgb(0,0," + Math.round(peakData.right * 255) + ")";
         ctx.moveTo(100, max_y);
         ctx.lineTo(100, canvas.height - peakData.right * canvas.height);
-        ctx.strokeStyle = "rgb(" + Math.round((peakData.left + peakData.right) / 2 * 255) + ",0,0)";
         ctx.stroke();
         ctx.closePath();
     };
