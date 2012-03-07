@@ -4,7 +4,7 @@
     color: #fff;
 
     position: fixed;
-    top: 89%;
+    top: 88%;
     left: 50%;
     margin-left: -500px;
     border-top: 1px solid #00c6ff;
@@ -26,7 +26,7 @@
     display: block;
 }
 #bar #song{
-    width: 800px;
+    width: 750px;
     float: left;
     background: transparent url(../images/barBackground.jpg) no-repeat scroll center top;
     text-align: center;
@@ -49,6 +49,6 @@
 }
 #bar #volume{
     float: left;
-    width: 100px;
-    background: transparent url(../images/vol3.jpg) no-repeat scroll center 22px;
+    width: 150px;
+    height: 90px;
 }
