@@ -31,11 +31,11 @@ public class WeboramaClient {
                 .concat(md5hash.substring(0, 2)).concat("/").concat(md5hash)
                 .concat(".json");
 
-        InputStream source = WebWorker.retrieveStream(url);
+        @Nullable InputStream source = WebWorker.retrieveStream(url);
 
-        Gson gson = new Gson();
+        @NotNull Gson gson = new Gson();
 
-        Reader reader = new InputStreamReader(source);
+        @NotNull Reader reader = new InputStreamReader(source);
 
         SearchResult response = gson.fromJson(reader, SearchResult.class);
 
@@ -47,11 +47,11 @@ public class WeboramaClient {
         String url = "http://www.weborama.ru/modules/player/index_json.php?type=playlist&act=new&limit=10&filter=artistId:"
                 .concat(identifier).concat(";air:0");
 
-        InputStream source = WebWorker.retrieveStream(url);
+        @Nullable InputStream source = WebWorker.retrieveStream(url);
 
-        Gson gson = new Gson();
+        @NotNull Gson gson = new Gson();
 
-        Reader reader = new InputStreamReader(source);
+        @NotNull Reader reader = new InputStreamReader(source);
 
         Playlist response = gson.fromJson(reader, Playlist.class);
 
@@ -62,11 +62,11 @@ public class WeboramaClient {
     public Playlist GetAlbumPlaylistByIdentifier(String identifier) {
         String url = "http://www.weborama.ru/modules/player/index_json.php?id=".concat(identifier).concat("&type=album&act=new&limit=10");
 
-        InputStream source = WebWorker.retrieveStream(url);
+        @Nullable InputStream source = WebWorker.retrieveStream(url);
 
-        Gson gson = new Gson();
+        @NotNull Gson gson = new Gson();
 
-        Reader reader = new InputStreamReader(source);
+        @NotNull Reader reader = new InputStreamReader(source);
 
         Playlist response = gson.fromJson(reader, Playlist.class);
 
@@ -77,11 +77,11 @@ public class WeboramaClient {
     public TrackList GetTrackBySongIdentifier(String identifier) {
         String url = "http://www.weborama.ru/modules/player/index_json.php?id=".concat(identifier).concat("&type=audio&act=new&mood=3&limit=0");
 
-        InputStream source = WebWorker.retrieveStream(url);
+        @Nullable InputStream source = WebWorker.retrieveStream(url);
 
-        Gson gson = new Gson();
+        @NotNull Gson gson = new Gson();
 
-        Reader reader = new InputStreamReader(source);
+        @NotNull Reader reader = new InputStreamReader(source);
 
         Playlist response = gson.fromJson(reader, Playlist.class);
 

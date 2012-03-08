@@ -5,6 +5,7 @@ import com.musicbox.server.logic.tools.MD5;
 import com.musicbox.server.packets.Packets;
 import com.musicbox.vkontakte.OAuthToken;
 import com.musicbox.vkontakte.VkontakteClient;
+import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
 /**
@@ -20,12 +21,12 @@ public class LoginByCode extends AbstractHandler {
     }
 
     @Override
-    public void HandlePacket(WebSocketConnection connection, Packets.Incoming incoming) {
+    public void HandlePacket(@NotNull WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
         String code = incoming.getMessage();
         if (!code.equals("")) {
             OAuthToken oauth = VkontakteClient.getOauthTokenByCode(code);
             if (oauth.getError() == null || oauth.getError().equals("")) {
-                Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.TOKEN);
+                @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.TOKEN);
                 packet.setMessage(MD5.getMD5(oauth.getAccess_token()) + MD5.getMD5(oauth.getUser_id() + " go%d"));
                 logintokens.put(MD5.getMD5(oauth.getAccess_token()) + MD5.getMD5(oauth.getUser_id() + " go%d"), oauth);
                 connection.send(packet.toJson());

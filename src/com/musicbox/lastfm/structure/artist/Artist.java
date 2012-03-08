@@ -17,7 +17,7 @@ public class Artist {
 
     @NotNull
     public List<Track> getTopTracks() {
-        LastFmClient lfclient = new LastFmClient();
+        @NotNull LastFmClient lfclient = new LastFmClient();
         if (this.getId() != null && !this.getId().equals("")) {
             return lfclient.getTopTracksByArtistID(this.getId());
         }
@@ -26,7 +26,7 @@ public class Artist {
 
     @NotNull
     public List<Album> getTopAlbums() {
-        LastFmClient lfclient = new LastFmClient();
+        @NotNull LastFmClient lfclient = new LastFmClient();
         return lfclient.getTopAlbumsByArtistID(id);
     }
 

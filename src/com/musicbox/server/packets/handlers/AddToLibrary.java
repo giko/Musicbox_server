@@ -2,6 +2,7 @@ package com.musicbox.server.packets.handlers;
 
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets;
+import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
 /**
@@ -17,7 +18,7 @@ public class AddToLibrary extends AbstractHandler {
     }
 
     @Override
-    public void HandlePacket(WebSocketConnection connection, Packets.Incoming incoming) {
+    public void HandlePacket(WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
         connections.get(connection).getVkontakteClient().addSongToFavoriteByTrack(incoming.getMessage());
     }
 }

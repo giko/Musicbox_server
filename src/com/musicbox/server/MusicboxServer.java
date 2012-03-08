@@ -13,7 +13,7 @@ import org.webbitserver.WebSocketConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class    MusicboxServer extends BaseWebSocketHandler {
+public class MusicboxServer extends BaseWebSocketHandler {
 
     @NotNull
     private final Gson json = new Gson();
@@ -24,12 +24,15 @@ public class    MusicboxServer extends BaseWebSocketHandler {
     @NotNull
     private final HashMap<Incoming.Action, AbstractHandler> packethandlers = new HashMap<Incoming.Action, AbstractHandler>();
 
+    @NotNull
     public static final String USERNAME_KEY = "vktoken";
 
+    @NotNull
     public static String getUsernameKey() {
         return USERNAME_KEY;
     }
 
+    @NotNull
     public static HashMap<String, OAuthToken> getLogintokens() {
         return logintokens;
     }
@@ -47,6 +50,7 @@ public class    MusicboxServer extends BaseWebSocketHandler {
         packethandlers.put(Incoming.Action.GETAUDIOBYTRACK, new GetAudioByTrack(this));
     }
 
+    @NotNull
     public HashMap<WebSocketConnection, Profile> getConnections() {
         return connections;
     }
@@ -56,11 +60,9 @@ public class    MusicboxServer extends BaseWebSocketHandler {
             throws Exception {
         final Incoming incoming = json.fromJson(msg, Incoming.class);
         if (packethandlers.containsKey(incoming.getAction())) {
-            Thread thread = new Thread()
-            {
+            @NotNull Thread thread = new Thread() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     packethandlers.get(incoming.getAction()).HandlePacket(connection, incoming);
                 }
             };
@@ -74,7 +76,7 @@ public class    MusicboxServer extends BaseWebSocketHandler {
 
     public void broadcast(@NotNull Outgoing packet) {
         String jsonStr = this.json.toJson(packet);
-        for (WebSocketConnection connection : new ArrayList<WebSocketConnection>(
+        for (@NotNull WebSocketConnection connection : new ArrayList<WebSocketConnection>(
                 connections.keySet())) {
             if (connection.data(USERNAME_KEY) != null) {
                 connection.send(jsonStr);
@@ -90,7 +92,7 @@ public class    MusicboxServer extends BaseWebSocketHandler {
     @Override
     public void onClose(@NotNull WebSocketConnection connection) throws Exception {
         if (connection.data(USERNAME_KEY) != null) {
-            Outgoing outgoing = new Outgoing(Outgoing.Action.LEAVE);
+            @NotNull Outgoing outgoing = new Outgoing(Outgoing.Action.LEAVE);
             //           outgoing.setUsername(connections.get(connection).getFirst_name());
             broadcast(outgoing);
         }

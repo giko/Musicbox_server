@@ -1,5 +1,7 @@
 package com.musicbox.server;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -11,6 +13,7 @@ import java.util.Properties;
  * Time: 22:00
  */
 public class Config {
+    @NotNull
     private static Config ourInstance = new Config();
 
     private String vkappid;
@@ -41,14 +44,15 @@ public class Config {
         this.vksecretkey = vksecretkey;
     }
 
+    @NotNull
     public static Config getInstance() {
         return ourInstance;
     }
 
     private Config() {
         try {
-            Properties configuration = new Properties();
-            FileInputStream inputStream = new FileInputStream("./config/main.properties");
+            @NotNull Properties configuration = new Properties();
+            @NotNull FileInputStream inputStream = new FileInputStream("./config/main.properties");
 
             configuration.load(inputStream);
 

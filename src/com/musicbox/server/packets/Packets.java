@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class Packets {
+    @NotNull
     protected static Gson json = new Gson();
 
     static public class Incoming {
@@ -23,6 +24,7 @@ public class Packets {
             return action;
         }
 
+        @Nullable
         public String getMessage() {
             return message;
         }
@@ -39,10 +41,10 @@ public class Packets {
 
     static public class Outgoing {
         public enum Action {
-            LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS ,AUDIO
+            LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS, AUDIO
         }
 
-        public Outgoing(Action caction) {
+        public Outgoing(@NotNull Action caction) {
             this.action = caction;
         }
 
@@ -82,11 +84,12 @@ public class Packets {
             this.artists = artists;
         }
 
+        @NotNull
         public Action getAction() {
             return action;
         }
 
-        public void setAction(Action action) {
+        public void setAction(@NotNull Action action) {
             this.action = action;
         }
 

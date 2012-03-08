@@ -27,14 +27,14 @@ public class VkontakteClient {
     private static final String appsecret = Config.getInstance().getVksecretkey();
 
 
-    public VkontakteClient(final OAuthToken token) {
+    public VkontakteClient(@NotNull final OAuthToken token) {
         this.oauth = token;
     }
 
     public static OAuthToken getOauthTokenByCode(@NotNull final String code) {
-        String query = "https://oauth.vkontakte.ru/access_token?client_id=" + appid + "&client_secret=" + appsecret + "&code="
+        @NotNull String query = "https://oauth.vkontakte.ru/access_token?client_id=" + appid + "&client_secret=" + appsecret + "&code="
                 .concat(code);
-        Gson json = new Gson();
+        @NotNull Gson json = new Gson();
         return json.fromJson(
                 new InputStreamReader(WebWorker.retrieveStream(query)),
                 OAuthToken.class);
@@ -42,7 +42,7 @@ public class VkontakteClient {
 
     @NotNull
     public final Audio getAudioByTrack(@NotNull final String track) {
-        CacheAllocator cacheAllocator = cache.getAllocator("getURLByTrack", track, Audio.class);
+        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getURLByTrack", track, Audio.class);
 
         if (!cacheAllocator.exists()) {
             Audio audio = this.json.fromJson(retrieveReader("execute?code=" + URLEncoder.encode("return API.audio.search({\"q\":\"" + track + "\",\"count\":1, \"sort\":2})[1];")), AudioSearch.class).getResponse();
@@ -59,7 +59,7 @@ public class VkontakteClient {
 
     @NotNull
     public final Profile getProfileById(final int id) {
-        CacheAllocator cacheAllocator = cache.getAllocator("getProfileById", String.valueOf(id), Profile.class);
+        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getProfileById", String.valueOf(id), Profile.class);
 
         if (!cacheAllocator.exists()) {
             Profile profile = this.json
@@ -78,8 +78,8 @@ public class VkontakteClient {
         return (Profile) cacheAllocator.getObject();
     }
 
-    public boolean addSongToFavoriteByTrack(String query) {
-        Audio audio = getAudioByTrack(query);
+    public boolean addSongToFavoriteByTrack(@NotNull String query) {
+        @NotNull Audio audio = getAudioByTrack(query);
         try {
             retrieveReader("audio.add?aid=" + audio.getAid() + "&oid=" + audio.getOwner_id()).read();
         } catch (IOException e) {
@@ -99,7 +99,7 @@ public class VkontakteClient {
                 .concat("&access_token=").concat(token);
         System.out.println(url);
 
-        InputStream source = WebWorker.retrieveStream(url);
+        @Nullable InputStream source = WebWorker.retrieveStream(url);
         try {
             return new InputStreamReader(source, "utf-8");
         } catch (UnsupportedEncodingException e) {

@@ -1,6 +1,7 @@
 package com.musicbox.weborama.structure;
 
 import com.musicbox.weborama.WeboramaClient;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -22,12 +23,12 @@ public class Artist {
 
     @Nullable
     public List<Album> getAlbums() {
-        List<Album> result = new ArrayList<Album>();
+        @Nullable List<Album> result = new ArrayList<Album>();
 
         try {
             Elements response = Jsoup.connect(info.concat("albums/")).get().select("div[id^=songList_lentaAlbums_]");
-            for (Element albumElement : response) {
-                Album dummy = new Album();
+            for (@NotNull Element albumElement : response) {
+                @NotNull Album dummy = new Album();
                 dummy.setCanPlay(canPlay);
                 dummy.setCategory(category);
                 dummy.setCreator(title);
@@ -47,7 +48,7 @@ public class Artist {
     }
 
     public List<TrackList> getTracks() {
-        WeboramaClient client = new WeboramaClient();
+        @NotNull WeboramaClient client = new WeboramaClient();
         return client.GetArtistPlaylistByIdentifier(identifier).getTrackList();
     }
 

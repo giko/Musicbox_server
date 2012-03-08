@@ -1,9 +1,10 @@
-package com.musicbox.lastfm.structure.artist;
+package com.musicbox.lastfm.structure.artist.Adapter;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.musicbox.lastfm.structure.artist.Artist;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
@@ -22,7 +23,7 @@ public class ArtistTypeAdapter implements JsonDeserializer<List<Artist>> {
     @NotNull
     @Override
     public List<Artist> deserialize(@NotNull JsonElement jsonElement, Type type, @NotNull JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        List<Artist> vals = new ArrayList<Artist>();
+        @NotNull List<Artist> vals = new ArrayList<Artist>();
         if (jsonElement.isJsonArray()) {
             for (JsonElement e : jsonElement.getAsJsonArray()) {
                 vals.add((Artist) jsonDeserializationContext.deserialize(e, Artist.class));
