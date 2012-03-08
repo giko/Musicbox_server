@@ -1,5 +1,7 @@
 package com.musicbox.server;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -11,11 +13,21 @@ import java.util.Properties;
  * Time: 22:00
  */
 public class Config {
+    @NotNull
     private static Config ourInstance = new Config();
 
     private String vkappid;
     private String vksecretkey;
     private String lastfmapikey;
+    private boolean lastfmshowdebugginginfo;
+
+    public boolean isLastfmshowdebugginginfo() {
+        return lastfmshowdebugginginfo;
+    }
+
+    public void setLastfmshowdebugginginfo(boolean lastfmshowdebugginginfo) {
+        this.lastfmshowdebugginginfo = lastfmshowdebugginginfo;
+    }
 
     public String getLastfmapikey() {
         return lastfmapikey;
@@ -41,21 +53,22 @@ public class Config {
         this.vksecretkey = vksecretkey;
     }
 
+    @NotNull
     public static Config getInstance() {
         return ourInstance;
     }
 
     private Config() {
         try {
-            Properties configuration = new Properties();
-            FileInputStream inputStream = new FileInputStream("./config/main.properties");
+            @NotNull Properties configuration = new Properties();
+            @NotNull FileInputStream inputStream = new FileInputStream("./config/main.properties");
 
             configuration.load(inputStream);
 
             this.vkappid = configuration.getProperty("vk-app-id");
             this.vksecretkey = configuration.getProperty("vk-secret-key");
             this.lastfmapikey = configuration.getProperty("lastfm-api-key");
-
+            this.lastfmshowdebugginginfo = Boolean.parseBoolean(configuration.getProperty("lastfm-show-debugging-info"));
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

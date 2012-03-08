@@ -5,6 +5,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -14,9 +15,9 @@ public class WebWorker {
     @Nullable
     public static InputStream retrieveStream(String url) {
 
-        DefaultHttpClient client = new DefaultHttpClient();
+        @NotNull DefaultHttpClient client = new DefaultHttpClient();
 
-        HttpGet getRequest = new HttpGet(url);
+        @NotNull HttpGet getRequest = new HttpGet(url);
 
         try {
 

@@ -1,4 +1,4 @@
-package com.musicbox.lastfm.structure.track;
+package com.musicbox.lastfm.structure.track.Adapter;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -17,11 +17,10 @@ import java.lang.reflect.Type;
  */
 public class TrackArtistTypeAdapter implements JsonDeserializer<Artist> {
 
-
     @NotNull
     @Override
     public Artist deserialize(@NotNull JsonElement jsonElement, Type type, @NotNull JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        Artist val = new Artist();
+        @NotNull Artist val = new Artist();
         if (jsonElement.isJsonObject()) {
             val = ((Artist) jsonDeserializationContext.deserialize(jsonElement, Artist.class));
         } else if (!jsonElement.isJsonObject()) {
@@ -31,5 +30,4 @@ public class TrackArtistTypeAdapter implements JsonDeserializer<Artist> {
         }
         return val;
     }
-
 }

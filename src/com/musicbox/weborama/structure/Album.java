@@ -1,6 +1,7 @@
 package com.musicbox.weborama.structure;
 
 import com.musicbox.weborama.WeboramaClient;
+import org.jetbrains.annotations.NotNull;
 
 public class Album {
     private byte canPlay;
@@ -14,7 +15,7 @@ public class Album {
     private String title;
 
     public Playlist getPlaylist() {
-        WeboramaClient client = new WeboramaClient();
+        @NotNull WeboramaClient client = new WeboramaClient();
 
         return client.GetAlbumPlaylistByIdentifier(identifier);
     }

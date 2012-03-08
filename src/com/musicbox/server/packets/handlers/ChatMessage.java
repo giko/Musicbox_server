@@ -3,6 +3,7 @@ package com.musicbox.server.packets.handlers;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets.Incoming;
 import com.musicbox.server.packets.Packets.Outgoing;
+import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
 /**
@@ -18,8 +19,8 @@ public class ChatMessage extends AbstractHandler {
     }
 
     @Override
-    public void HandlePacket(WebSocketConnection connection, Incoming incoming) {
-        Outgoing packet = new Outgoing(Outgoing.Action.MESSAGE);
+    public void HandlePacket(WebSocketConnection connection, @NotNull Incoming incoming) {
+        @NotNull Outgoing packet = new Outgoing(Outgoing.Action.MESSAGE);
         packet.setMessage(connections.get(connection).getFirst_name().concat(" ")
                 .concat(connections.get(connection).getLast_name())
                 .concat(" написал: ").concat(incoming.getMessage()));

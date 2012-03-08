@@ -3,6 +3,7 @@ package com.musicbox.server.packets.handlers;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets;
 import com.musicbox.server.packets.Packets.Outgoing;
+import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
 /**
@@ -20,8 +21,8 @@ public class SearchByTag extends AbstractHandler {
     }
 
     @Override
-    public void HandlePacket(WebSocketConnection connection, Packets.Incoming incoming) {
-        Outgoing packet = new Outgoing(Outgoing.Action.SEARCHRESULT);
+    public void HandlePacket(@NotNull WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
+        @NotNull Outgoing packet = new Outgoing(Outgoing.Action.SEARCHRESULT);
         packet.setArtists(lfclient.SearchArtistByTag(incoming.getMessage()));
         connection.send(packet.toJson());
     }

@@ -9,9 +9,13 @@ import java.util.List;
  * Time: 13:34
  */
 public class Trackmatches {
+    private List<Track> track;
+
     public List<Track> getTrack() {
         return track;
     }
 
-    private List<Track> track;
+    public void setTrack(List<Track> track) {
+        this.track = track;
+    }
 }

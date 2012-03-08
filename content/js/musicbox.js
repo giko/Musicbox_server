@@ -104,18 +104,27 @@ function onMessage(incoming) {
                     });
                 }
                 div = $('<div>', {class:'thumbnail'});
-                div.append($('<img>', {src:incoming.artists[key].image[3]['#text']}));
+                if (typeof(incoming.artists[key].image) != 'undefined')
+                    div.append($('<img>', {src:incoming.artists[key].image[3]['#text']}));
+
                 div.append($('<h5>', {text:incoming.artists[key].name}));
                 li.append(div);
                 $('#artists').append(li);
             }
             for (key in incoming.songs) {
-                li = $('<li>', {class:'span3', id:incoming.songs[key].artist.name + ' ' + incoming.songs[key].name});
+                if (typeof(incoming.songs[key].name) == "undefined"){
+                    continue;
+                }
+                var trackname =
+                    (typeof(incoming.songs[key].artist) == "undefined")
+                    ? incoming.songs[key].name
+                    : incoming.songs[key].artist.name + ' - ' + incoming.songs[key].name;
+                li = $('<li>', {class:'span3', id:trackname});
                 li.click(function () {
                     send({action:'GETAUDIOBYTRACK', message:this.getAttribute("id")});
                 });
                 div = $('<div>', {class:'thumbnail'});
-                div.append($('<h5>', {text:incoming.songs[key].artist.name + ' - ' + incoming.songs[key].name}));
+                div.append($('<h5>', {text:trackname}));
                 btn = $('<a>', {class:"btn", href:"#", id:""});
                 btn.click(function () {
                     send({action:'ADDTOLIBRARY', message:this.parentElement.parentElement.getAttribute("id")});

@@ -19,7 +19,9 @@ import java.util.HashMap;
 public abstract class AbstractHandler {
     protected static MusicboxServer server;
     protected static String USERNAME_KEY;
+    @NotNull
     protected static HashMap<WebSocketConnection, Profile> connections = new HashMap<WebSocketConnection, Profile>();
+    @NotNull
     protected static HashMap<String, OAuthToken> logintokens = new HashMap<String, OAuthToken>();
     @NotNull
     protected static final LastFmClient lfclient = new LastFmClient();

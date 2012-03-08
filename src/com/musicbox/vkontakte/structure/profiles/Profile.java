@@ -2,6 +2,7 @@ package com.musicbox.vkontakte.structure.profiles;
 
 import com.musicbox.vkontakte.OAuthToken;
 import com.musicbox.vkontakte.VkontakteClient;
+import org.jetbrains.annotations.NotNull;
 
 public class Profile {
     private String bdate;
@@ -17,6 +18,7 @@ public class Profile {
         return token;
     }
 
+    @NotNull
     public VkontakteClient getVkontakteClient() {
         return new VkontakteClient(token);
     }
