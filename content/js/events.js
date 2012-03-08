@@ -33,17 +33,24 @@ document.onkeydown = function (e) {
     }
 }
 
-document.init = function() {
-    canvas.onmousedown = control.mouseDown;
+window.onload = function(){
+    if ( canvas.addEventListener ) {
+        canvas.addEventListener('mousemove', function(evt){
+        var mousePos = getMousePos(canvas, evt);
+        }, false);
+        canvas.addEventListener("mousedown", control.writeLine, false);
+        canvas.addEventListener("mouseup", CreateWave, false);
 
+    } else if ( canvas.attachEvent ) {
+        canvas.attachEvent('mousemove', function(evt){
+        var mousePos = getMousePos(canvas, evt);
+        });
+        canvas.attachEvent("mousedown", control.writeLine);
+        canvas.attachEvent("mouseup", CreateWave);
+    }
 }
 
 var control = new (function () {
-    this.mouseDown = function(evt){
-        var mouseX = evt.pageX - canvas.offsetLeft;
-        var mouseY = evt.pageY - canvas.offsetTop;
-        writeLine = function();
-    }
     this.writeLine = function() {
         canvas = document.getElementById("bassvolume");
         ctx = canvas.getContext('2d');
