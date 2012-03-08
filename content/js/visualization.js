@@ -89,7 +89,7 @@ var visualization = new (function () {
         canvas = document.getElementById("bassvolume");
         canvas.height = 90;
         canvas.width = 190;
-        var max_y = 100;
+        max_y = 100;
 
         ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);

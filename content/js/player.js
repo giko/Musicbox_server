@@ -137,29 +137,3 @@ var player = new (function () {
         }
     }
 });
-
-//Captures the key press events
-document.onkeydown = function (e) {
-    var ev = e;
-    if (ev.charCode && ev.charCode == 32)
-        player.playPause();
-    else {
-        switch (ev.keyCode) {
-            case 32:
-                player.playPause();
-                break;
-            case 39:
-                player.nextSong();
-                break;
-            case 37:
-                player.prevSong();
-                break;
-            case 38:
-                player.volumeInc();
-                break;
-            case 40:
-                player.volumeDec();
-                break;
-        }
-    }
-}
