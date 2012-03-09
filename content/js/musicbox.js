@@ -58,82 +58,77 @@ function onMessage(incoming) {
             logText(incoming.message);
             break;
         case 'SEARCHRESULT':
-            $('#tracks').empty();
-            $('#artists').empty();
-            $('#tags').empty();
-            if (typeof(incoming.artists) != 'undefined') {
-                $('#artistsunit').show();
-            } else {
-                $('#artistsunit').hide();
-            }
-            if (typeof(incoming.songs) != 'undefined') {
-                $('#tracksunit').show();
-            } else {
-                $('#tracksunit').hide();
-            }
-            if (typeof(incoming.tags) != 'undefined') {
-                $('#tagsunit').show();
-            } else {
-                $('#tagsunit').hide();
-            }
+            $("#content").fadeOut(200,
+                function () {
 
-            var li;
-            var div;
-            var btn;
-            for (key in incoming.tags) {
-                li = $('<li>', {class:'span4', id:incoming.tags[key].name});
-                li.click(function () {
-                    send({action:'SEARCHBYTAG', message:this.getAttribute("id")});
-                });
-                div = $('<div>', {class:'thumbnail'});
-                div.append($('<h5>', {text:incoming.tags[key].name}));
-                li.append(div);
-                $('#tags').append(li);
-            }
-            for (key in incoming.artists) {
-                if (incoming.artists[key].mbid) {
-                    li = $('<li>', {class:'span4', id:incoming.artists[key].mbid});
-                    li.click(function () {
-                        send({action:'GETTOPSONGSBYARTISTID', message:this.getAttribute("id")});
-                    });
-                }
-                else {
-                    li = $('<li>', {class:'span4', id:incoming.artists[key].name});
-                    li.click(function () {
-                        send({action:'GETTOPSONGSBYARTISTNAME', message:this.getAttribute("id")});
-                    });
-                }
-                div = $('<div>', {class:'thumbnail'});
-                if (typeof(incoming.artists[key].image) != 'undefined')
-                    div.append($('<img>', {src:incoming.artists[key].image[3]['#text']}));
+                    $('#tracks').empty();
+                    $('#artists').empty();
+                    $('#tags').empty();
+                    if (typeof(incoming.artists) != 'undefined') {
+                        $('#artistsunit').show();
+                    } else {
+                        $('#artistsunit').hide();
+                    }
+                    if (typeof(incoming.songs) != 'undefined') {
+                        $('#tracksunit').show();
+                    } else {
+                        $('#tracksunit').hide();
+                    }
+                    if (typeof(incoming.tags) != 'undefined') {
+                        $('#tagsunit').show();
+                    } else {
+                        $('#tagsunit').hide();
+                    }
 
-                div.append($('<h5>', {text:incoming.artists[key].name}));
-                li.append(div);
-                $('#artists').append(li);
-            }
-            for (key in incoming.songs) {
-                if (typeof(incoming.songs[key].name) == "undefined"){
-                    continue;
-                }
-                var trackname =
-                    (typeof(incoming.songs[key].artist) == "undefined")
-                    ? incoming.songs[key].name
-                    : incoming.songs[key].artist.name + ' - ' + incoming.songs[key].name;
-                li = $('<li>', {class:'span3', id:trackname});
-                li.click(function () {
-                    send({action:'GETAUDIOBYTRACK', message:this.getAttribute("id")});
-                });
-                div = $('<div>', {class:'thumbnail'});
-                div.append($('<h5>', {text:trackname}));
-                btn = $('<a>', {class:"btn", href:"#", id:""});
-                btn.click(function () {
-                    send({action:'ADDTOLIBRARY', message:this.parentElement.parentElement.getAttribute("id")});
-                });
-                btn.append('<i class="icon-plus"></i> add');
-                div.append(btn);
-                li.append(div);
-                $('#tracks').append(li);
-            }
+                    var li;
+                    var div;
+                    var btn;
+                    for (key in incoming.tags) {
+                        li = $('<li>', {class:'span4', id:incoming.tags[key].name});
+                        li.click(function () {
+                            send({action:'SEARCHBYTAG', message:this.getAttribute("id")});
+                        });
+                        div = $('<div>', {class:'thumbnail'});
+                        div.append($('<h5>', {text:incoming.tags[key].name}));
+                        li.append(div);
+                        $('#tags').append(li);
+                    }
+                    for (key in incoming.artists) {
+                        if (incoming.artists[key].mbid) {
+                            li = $('<li>', {class:'span4', id:incoming.artists[key].mbid});
+                            li.click(function () {
+                                send({action:'GETTOPSONGSBYARTISTID', message:this.getAttribute("id")});
+                            });
+                        }
+                        else {
+                            li = $('<li>', {class:'span4', id:incoming.artists[key].name});
+                            li.click(function () {
+                                send({action:'GETTOPSONGSBYARTISTNAME', message:this.getAttribute("id")});
+                            });
+                        }
+                        div = $('<div>', {class:'thumbnail'});
+                        div.append($('<img>', {src:incoming.artists[key].image[3]['#text']}));
+                        div.append($('<h5>', {text:incoming.artists[key].name}));
+                        li.append(div);
+                        $('#artists').append(li);
+                    }
+                    for (key in incoming.songs) {
+                        li = $('<li>', {class:'span3', id:incoming.songs[key].artist.name + ' ' + incoming.songs[key].name});
+                        li.click(function () {
+                            send({action:'GETAUDIOBYTRACK', message:this.getAttribute("id")});
+                        });
+                        div = $('<div>', {class:'thumbnail'});
+                        div.append($('<h5>', {text:incoming.songs[key].artist.name + ' - ' + incoming.songs[key].name}));
+                        btn = $('<a>', {class:"btn", href:"#", id:""});
+                        btn.click(function () {
+                            send({action:'ADDTOLIBRARY', message:this.parentElement.parentElement.getAttribute("id")});
+                        });
+                        btn.append('<i class="icon-plus"></i> add');
+                        div.append(btn);
+                        li.append(div);
+                        $('#tracks').append(li);
+                    }
+                }).fadeIn();
             //send({action:'GETURLBYTRACK', message:incoming.artists[0].name});
             break;
         case 'REDIRECTTOVK':
