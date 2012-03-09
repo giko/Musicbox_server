@@ -38,22 +38,24 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span8">
-            <div id="artistsunit" class="hero-unit">
-                <h2>Artists</h2>
-                <ul id="artists" class="thumbnails"></ul>
+            <div id="content">
+                <div id="artistsunit" class="hero-unit">
+                    <h2>Artists</h2>
+                    <ul id="artists" class="thumbnails"></ul>
+                </div>
+                <div id="tracksunit" class="hero-unit">
+                    <h2>Tracks</h2>
+                    <ul id="tracks" class="thumbnails"></ul>
+                </div>
+                <div id="tagsunit" class="hero-unit">
+                    <h2>Tags</h2>
+                    <ul id="tags" class="thumbnails"></ul>
+                </div>
             </div>
-            <div id="tracksunit" class="hero-unit">
-                <h2>Tracks</h2>
-                <ul id="tracks" class="thumbnails"></ul>
-            </div>
-            <div id="tagsunit" class="hero-unit">
-                <h2>Tags</h2>
-                <ul id="tags" class="thumbnails"></ul>
-            </div>
-        </div>
-        <div class="span4">
-            <div id="chatlog" class="hero-unit">
-                <h1>Hello, world!</h1>
+            <div class="span4">
+                <div id="chatlog" class="hero-unit">
+                    <h1>Hello, world!</h1>
+                </div>
             </div>
         </div>
     </div>
@@ -70,7 +72,9 @@
             <span class="position">0:0</span>
             <a href="/" onclick="player.prevSong(); return false;"><img src="images/next.jpg" alt="NEXT"/></a>
         </div>
-        <div id="volume"><canvas id='bassvolume' width="150" height="90">Обновите браузер</canvas></div>
+        <div id="volume">
+            <canvas id='bassvolume' width="150" height="90">Обновите браузер</canvas>
+        </div>
     </div>
 </div>
 
