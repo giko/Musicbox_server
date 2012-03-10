@@ -2,6 +2,32 @@ WEB_SOCKET_SWF_LOCATION = "bootstrap/js/WebSocketMain.swf";
 
 
 var musicboxclient = new function () {
+    this.init = function () {
+        visualization.init();
+        musicboxclient.connect();
+
+        // wire up text input event
+        var searchentry = document.getElementById('searchfield');
+        searchentry.onkeypress = function (e) {
+            if (e.keyCode == 13) { // enter key pressed
+                send({action:'SEARCH', message:searchentry.value});
+                searchentry.value = '';
+            }
+        };
+
+        // Chat text form
+        var chatentry = document.getElementById('chat-text');
+        chatentry.onkeypress = function (e) {
+            if (e.keyCode == 13) { // enter key pressed
+                var text = chatentry.value;
+                if (text) {
+                    send({action:'CHATMESSAGE', message:text});
+                }
+                chatentry.value = '';
+            }
+        };
+    }
+
     // Socket reference.
     var ws;
 
@@ -172,33 +198,14 @@ var musicboxclient = new function () {
         };
         ws.onclose = function (e) {
             console.log('* Disconnected');
+            setTimeout(function() {musicboxclient.connect();},3000);
         };
         ws.onerror = function (e) {
             console.log('* Unexpected error');
+            setTimeout(function() {musicboxclient.connect();},3000);
         };
         ws.onmessage = function (e) {
             onMessage(JSON.parse(e.data));
-        };
-
-        // wire up text input event
-        var searchentry = document.getElementById('searchfield');
-        searchentry.onkeypress = function (e) {
-            if (e.keyCode == 13) { // enter key pressed
-                send({action:'SEARCH', message:searchentry.value});
-                searchentry.value = '';
-            }
-        };
-
-        // Chat text form
-        var chatentry = document.getElementById('chat-text');
-        chatentry.onkeypress = function (e) {
-            if (e.keyCode == 13) { // enter key pressed
-                var text = chatentry.value;
-                if (text) {
-                    send({action:'CHATMESSAGE', message:text});
-                }
-                chatentry.value = '';
-            }
         };
     }
 
@@ -209,4 +216,4 @@ var musicboxclient = new function () {
 }
 
 // Connect on load.
-window.onload = musicboxclient.connect;
+window.onload = musicboxclient.init;

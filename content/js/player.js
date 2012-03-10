@@ -4,22 +4,7 @@
 //@email: yensamg@gmail.com
 //@license: Feel free to use it, but keep this credits please!
 /***************************/
-var canvas;
-var ctx;
-Array.prototype.avg = function () {
-    var av = 0;
-    var cnt = 0;
-    var len = this.length;
-    for (var i = 0; i < len; i++) {
-        var e = +this[i];
-        if (!e && this[i] !== 0 && this[i] !== '0') e--;
-        if (this[i] == e) {
-            av += e;
-            cnt++;
-        }
-    }
-    return av / cnt;
-}
+
 //This is the class that interact with the interface
 var player = new (function () {
     soundManager.url = '/bootstrap/swf';
@@ -67,7 +52,7 @@ var player = new (function () {
             whileplaying:function () {
                 $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
                 visualization.drawMainVisualzation(2, this.waveformData, this.eqData, this.peakData);
-                visualization.drawMainBass(this.waveformData, this.eqData, this.peakData);
+                visualization.drawMainBass(this.peakData);
             }
         });
 
@@ -98,11 +83,6 @@ var player = new (function () {
         if (this.volume + 1 <= 3) {
             this.volume++;
             sound.setVolume(33 * this.volume);
-            var me = this;
-            $("#volume").fadeOut(200,
-                function () {
-                    $(this).css("backgroundImage", "url('../images/vol" + me.volume + ".jpg')");
-                }).fadeIn(200);
         }
     }
     //Decrease the volume in one point
@@ -110,11 +90,6 @@ var player = new (function () {
         if (this.volume - 1 > 0) {
             this.volume--;
             sound.setVolume(33 * this.volume);
-            var me = this;
-            $("#volume").fadeOut(200,
-                function () {
-                    $(this).css("backgroundImage", "url('../images/vol" + me.volume + ".jpg')");
-                }).fadeIn(200);
         }
     }
     //Toggle play & pause
