@@ -13,7 +13,7 @@ var visualization = new (function () {
         maincanvas = document.getElementById("mainvisualization");
         maincanvas.height = 160;
 
-        maincanvas.width = screen.width;
+        maincanvas.width = window.innerWidth - 17;
         mainctx = maincanvas.getContext('2d');
 
         basscanvas = document.getElementById("bassvolume");
