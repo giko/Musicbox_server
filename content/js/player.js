@@ -29,7 +29,7 @@ var player = new (function () {
         isMovieStar:null, // "MovieStar" MPEG4 audio mode. Null (default) = auto detect MP4, AAC etc. based on URL. true = force on, ignore URL
         usePeakData:true, // enable left/right channel peak (level) data
         useWaveformData:true, // enable sound spectrum (raw waveform data) - WARNING: May set CPUs on fire.
-        useEQData:true, // enable sound EQ (frequency spectrum data) - WARNING: Also CPU-intensive.
+        useEQData:false, // enable sound EQ (frequency spectrum data) - WARNING: Also CPU-intensive.
         onbufferchange:null, // callback for "isBuffering" property change
         ondataerror:null      // callback for waveform/eq data access error (flash playing audio in other tabs/domains)
     }
