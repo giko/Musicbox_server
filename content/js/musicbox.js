@@ -136,20 +136,15 @@ var musicboxclient = new function () {
                             }
                         }
                         for (key in incoming.songs) {
-                            var trackname = typeof(incoming.songs[key].artist) == 'undefined' ? incoming.songs[key].name : (incoming.songs[key].artist.name) + ' - ' + incoming.songs[key].name;
-                            li = $('<li>', {class:'span3', id:trackname});
+                            var trackname = typeof(incoming.songs[key].artist) == 'undefined' ? incoming.songs[key].name : (incoming.songs[key].artist.name) + ' ' + incoming.songs[key].name;
+
+                            li = $('<tr>', {id:trackname});
                             li.click(function () {
                                 send({action:'GETAUDIOBYTRACK', message:this.getAttribute("id")});
                             });
-                            div = $('<div>', {class:'thumbnail'});
-                            div.append($('<h5>', {text:trackname}));
-                            btn = $('<a>', {class:"btn", href:"#", id:""});
-                            btn.click(function () {
-                                send({action:'ADDTOLIBRARY', message:this.parentElement.parentElement.getAttribute("id")});
-                            });
-                            btn.append('<i class="icon-plus"></i> add');
-                            div.append(btn);
-                            li.append(div);
+                            li.append($('<td>', {text:parseInt(key) + 1}));
+                            li.append($('<td>', {text:incoming.songs[key].artist.name}));
+                            li.append($('<td>', {text:incoming.songs[key].name}));
                             $('#tracks').append(li);
                         }
                     }).fadeIn();
@@ -198,11 +193,15 @@ var musicboxclient = new function () {
         };
         ws.onclose = function (e) {
             console.log('* Disconnected');
-            setTimeout(function() {musicboxclient.connect();},3000);
+            setTimeout(function () {
+                musicboxclient.connect();
+            }, 3000);
         };
         ws.onerror = function (e) {
             console.log('* Unexpected error');
-            setTimeout(function() {musicboxclient.connect();},3000);
+            setTimeout(function () {
+                musicboxclient.connect();
+            }, 3000);
         };
         ws.onmessage = function (e) {
             onMessage(JSON.parse(e.data));
