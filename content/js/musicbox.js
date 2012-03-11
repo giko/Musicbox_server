@@ -142,9 +142,23 @@ var musicboxclient = new function () {
                             li.click(function () {
                                 send({action:'GETAUDIOBYTRACK', message:this.getAttribute("id")});
                             });
+                            btn = $('<button>', {class:"btn", href:"#"});
+                            btn.click(function () {
+                                send({action:'ADDTOLIBRARY', message:this.parentElement.parentElement.getAttribute("id")});
+                            });
+                            btn.append('<i class="icon-plus"></i> add');
+                            actionrow = $('<td>');
+                            actionrow.append(btn);
+
+                            artistlink = $('<a>', {text:incoming.songs[key].artist.name, id:incoming.songs[key].artist.name});
+                            artistlink.click(function () {
+                                send({action:'SEARCH', message:this.getAttribute("id")});
+                            });
+
                             li.append($('<td>', {text:parseInt(key) + 1}));
-                            li.append($('<td>', {text:incoming.songs[key].artist.name}));
+                            li.append($('<td>').append(artistlink));
                             li.append($('<td>', {text:incoming.songs[key].name}));
+                            li.append(actionrow);
                             $('#tracks').append(li);
                         }
                     }).fadeIn();
