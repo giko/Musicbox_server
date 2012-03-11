@@ -6,6 +6,18 @@ var musicboxclient = new function () {
         visualization.init();
         musicboxclient.connect();
 
+
+        $("#slider").slider({
+            range:"min",
+            value:37,
+            min:1,
+            max:1000,
+            slide:function (event, ui) {
+                sound = player.getSound();
+                sound.setPosition(ui.value / 1000 * sound.duration);
+            }
+        });
+
         // wire up text input event
         var searchentry = document.getElementById('searchfield');
         searchentry.onkeypress = function (e) {

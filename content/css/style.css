@@ -1,4 +1,9 @@
-#barContainer{
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+#barContainer {
     background: #006cb7;
     height: 118px;
     color: #fff;
@@ -12,20 +17,24 @@
     -webkit-border-top-left-radius: 10px;
     -webkit-border-top-right-radius: 20px;
 }
-#bar{
+
+#bar {
     width: 1000px;
     line-height: 118px;
     margin: 0pt auto;
 }
-#bar #play{
+
+#bar #play {
     float: left;
     width: 100px;
     background: transparent url(../images/play.jpg) no-repeat scroll center 22px;
 }
-#bar #play a{
+
+#bar #play a {
     display: block;
 }
-#bar #song{
+
+#bar #song {
     width: 750px;
     float: left;
     background: transparent url(../images/barBackground.jpg) no-repeat scroll center top;
@@ -33,21 +42,30 @@
     font-size: 24px;
     margin: 0pt auto;
 }
-#bar #song #previous{
+
+#bar #song #previous {
     float: left;
     background: red;
 }
-#bar #song span.title{
+
+#bar #song span.title {
     margin: 0 15px 0 15px;
 }
-#bar #song span.position{
+
+#bar #song span.position {
     margin: 0 15px 0 15px;
 }
-#bar #song #next{
+
+#bar #song #next {
     float: left;
     background: blue;
 }
-#bar #volume{
+
+#bar #slider{
+
+}
+
+#bar #volume {
     float: left;
     width: 150px;
     height: 90px;

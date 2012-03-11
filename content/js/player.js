@@ -27,6 +27,10 @@ var player = new (function () {
     this.status = 1;
     this.timeout = 30;
 
+    this.getSound = function () {
+        return sound;
+    }
+
     this.nextSong = function () {
         if (this.position + 1 == this.playList.length)
             this.position = 0;
@@ -53,6 +57,7 @@ var player = new (function () {
                 $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
                 visualization.drawMainVisualzation(2, this.waveformData, this.eqData, this.peakData);
                 visualization.drawMainBass(this.peakData);
+                $('#slider').slider( "value" , this.position / this.duration * 1000);
             }
         });
 
