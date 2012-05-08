@@ -22,69 +22,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="module-library">
-      <library name="netty-3.3.0.Final.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/netty-3.3.0.Final.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="gson-2.1.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/gson-2.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="httpclient-4.1.2.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/httpclient-4.1.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="httpcore-4.1.2.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/httpcore-4.1.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="commons-logging-1.1.1.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/commons-logging-1.1.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="jsoup-1.6.1.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/jsoup-1.6.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="webbit-0.4.0.jar">
-        <CLASSES>
-          <root url="file://libs/webbit-0.4.0.jar" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/libs" />

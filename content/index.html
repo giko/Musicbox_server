@@ -2,19 +2,22 @@
 <html>
 <head>
     <title>MusicBox</title>
-    <link rel="stylesheet" type="text/css" href="css/minified.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
 
-    <script type="text/javascript" src="bootstrap/js/minified.js"></script>
-    <script type="text/javascript" src="js/player.js"></script>
-    <script type="text/javascript" src="js/visualization.js"></script>
-    <script type="text/javascript" src="js/events.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/minified.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="bootstrap/js/minified.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/visualization.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/musicbox.js"></script>
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="#">MusicBox</a>
+            <a id="brand" class="brand" href="#">MusicBox</a>
 
             <div class="navbar-search pull-left">
                 <input id="searchfield" type="text" class="search-query" placeholder="Search">
@@ -32,6 +35,15 @@
     <div class="row-fluid">
         <div class="span8">
             <div id="content">
+                <div id="artist-info" class="hero-unit" style="display: inline-block;">
+                    <img id="artist-info-img" src="#" alt=""
+                         style="float: left; margin: 7px 30px 7px 7px; border-radius: 5px;">
+
+                    <h2 id="artist-info-name"></h2>
+
+                    <p id="artist-info-text"></p>
+                    <a id="artist-info-find-similar" class="btn" href="#"><i class="icon-magnet"></i>Find Similar</a>
+                </div>
                 <div id="artistsunit" class="hero-unit">
                     <h2>Artists</h2>
                     <ul id="artists" class="thumbnails"></ul>
@@ -72,8 +84,8 @@
         </div>
         <div id="song">
             <a href="/" onclick="player.nextSong(); return false;"><img src="images/prev.jpg" alt="PREVIOUS"/></a>
-            <span class="title">Musicbox :D</span>
-            <span class="position">0:0</span>
+            <span class="title"></span>
+            <span class="position"></span>
             <a href="/" onclick="player.prevSong(); return false;"><img src="images/next.jpg" alt="NEXT"/></a>
         </div>
         <div id="slider">
@@ -83,8 +95,5 @@
         </div>
     </div>
 </div>
-
-
-<script type="text/javascript" src="js/musicbox.js"></script>
 </body>
 </html>

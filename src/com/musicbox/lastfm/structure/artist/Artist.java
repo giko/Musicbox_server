@@ -9,11 +9,20 @@ import java.util.List;
 
 public class Artist {
     private List<Image> image;
-    private int listeners;
+    //private int listeners;
     @SerializedName("mbid")
     private String id;
     private String name;
-    private String url;
+    //private String url;
+    private Bio bio;
+
+    public Bio getBio() {
+        return bio;
+    }
+
+    public void setBio(Bio bio) {
+        this.bio = bio;
+    }
 
     @NotNull
     public List<Track> getTopTracks() {
@@ -38,28 +47,12 @@ public class Artist {
         this.image = image;
     }
 
-    public int getListeners() {
-        return this.listeners;
-    }
-
-    public void setListeners(int listeners) {
-        this.listeners = listeners;
-    }
-
     public String getName() {
         return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUrl() {
-        return this.url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getId() {

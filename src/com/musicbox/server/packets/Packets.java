@@ -16,10 +16,10 @@ public class Packets {
 
     static public class Incoming {
         public enum Action {
-            GETAUDIOBYTRACK, LOGIN, SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME, ADDTOLIBRARY, SEARCHBYTAG
+            EXECUTEREQUESTRESULT, SEARCHSIMILARARTISTSBYNAME, GETAUDIOBYTRACK, LOGIN, SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME, ADDTOLIBRARY, SEARCHBYTAG
         }
 
-        @NotNull
+        @Nullable
         public Action getAction() {
             return action;
         }
@@ -41,11 +41,16 @@ public class Packets {
 
     static public class Outgoing {
         public enum Action {
-            LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS, AUDIO
+            EXECUTEREQUEST, LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS, AUDIO
         }
 
         public Outgoing(@NotNull Action caction) {
             this.action = caction;
+        }
+
+        public Outgoing(@NotNull Action action, @NotNull String msg) {
+            this.action = action;
+            this.message = msg;
         }
 
         public Outgoing() {
@@ -59,6 +64,15 @@ public class Packets {
         private List<Artist> artists;
         private List<Tag> tags;
         private Audio audio;
+        private ExecuteRequest request;
+
+        public ExecuteRequest getRequest() {
+            return request;
+        }
+
+        public void setRequest(ExecuteRequest request) {
+            this.request = request;
+        }
 
         public Audio getAudio() {
             return audio;

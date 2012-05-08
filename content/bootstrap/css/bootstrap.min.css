@@ -1256,7 +1256,7 @@ table .span12 {
     width: 14px;
     height: 14px;
     vertical-align: text-top;
-    background-image: url(../img/glyphicons-halflings.png);
+    background-image: url(../../img/glyphicons-halflings.png);
     background-position: 14px 14px;
     background-repeat: no-repeat;
     *margin-right: .3em;
@@ -1267,7 +1267,7 @@ table .span12 {
 }
 
 .icon-white {
-    background-image: url(../img/glyphicons-halflings-white.png);
+    background-image: url(../../img/glyphicons-halflings-white.png);
 }
 
 .icon-glass {

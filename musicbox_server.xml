@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="musicbox_server" default="all">
+  
+  
+  <property file="musicbox_server.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.6" value="${jdk.home.1.6}/bin"/>
+  <path id="jdk.classpath.1.6">
+    <fileset dir="${jdk.home.1.6}">
+      <include name="jre/lib/alt-rt.jar"/>
+      <include name="jre/lib/alt-string.jar"/>
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.6}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.6}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.6"/>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module musicbox_server -->
+  
+  <dirname property="module.musicbox_server.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.musicbox_server" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.musicbox_server" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.musicbox_server" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.musicbox_server" value="${compiler.args}"/>
+  
+  <property name="musicbox_server.output.dir" value="${module.musicbox_server.basedir}/build/bin"/>
+  <property name="musicbox_server.testoutput.dir" value="${module.musicbox_server.basedir}/build/bin"/>
+  
+  <path id="musicbox_server.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="musicbox_server.module.production.classpath">
+    <path refid="${module.jdk.classpath.musicbox_server}"/>
+    <fileset dir="${basedir}/libs">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="musicbox_server.runtime.production.module.classpath">
+    <pathelement location="${musicbox_server.output.dir}"/>
+    <fileset dir="${basedir}/libs">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="musicbox_server.module.classpath">
+    <pathelement location="${musicbox_server.output.dir}"/>
+    <path refid="${module.jdk.classpath.musicbox_server}"/>
+    <fileset dir="${basedir}/libs">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="musicbox_server.runtime.module.classpath">
+    <pathelement location="${musicbox_server.output.dir}"/>
+    <fileset dir="${basedir}/libs">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.musicbox_server">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.musicbox_server">
+    <patternset refid="excluded.from.module.musicbox_server"/>
+  </patternset>
+  
+  <path id="musicbox_server.module.sourcepath">
+    <dirset dir="${module.musicbox_server.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.musicbox_server" depends="compile.module.musicbox_server.production,compile.module.musicbox_server.tests" description="Compile module musicbox_server"/>
+  
+  <target name="compile.module.musicbox_server.production" description="Compile module musicbox_server; production classes">
+    <mkdir dir="${musicbox_server.output.dir}"/>
+    <javac destdir="${musicbox_server.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.musicbox_server}/javac">
+      <compilerarg line="${compiler.args.musicbox_server}"/>
+      <bootclasspath refid="musicbox_server.module.bootclasspath"/>
+      <classpath refid="musicbox_server.module.production.classpath"/>
+      <src refid="musicbox_server.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.musicbox_server"/>
+    </javac>
+    
+    <copy todir="${musicbox_server.output.dir}">
+      <fileset dir="${module.musicbox_server.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.musicbox_server.tests" depends="compile.module.musicbox_server.production" description="compile module musicbox_server; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.musicbox_server" description="cleanup module">
+    <delete dir="${musicbox_server.output.dir}"/>
+    <delete dir="${musicbox_server.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.musicbox_server, clean.artifact.musicbox_server:jar" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.musicbox_server" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.musicbox_server:jar" value="${basedir}/classes/artifacts/musicbox_server_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.musicbox_server.jar" value="${artifacts.temp.dir}/musicbox_server.jar"/>
+  </target>
+  
+  <target name="clean.artifact.musicbox_server:jar" description="clean musicbox_server:jar artifact output">
+    <delete dir="${artifact.output.musicbox_server:jar}"/>
+  </target>
+  
+  <target name="artifact.musicbox_server:jar" depends="init.artifacts, compile.module.musicbox_server" description="Build &#39;musicbox_server:jar&#39; artifact">
+    <mkdir dir="${artifact.output.musicbox_server:jar}"/>
+    <jar destfile="${temp.jar.path.musicbox_server.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset file="${basedir}/src/META-INF/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${musicbox_server.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.musicbox_server.jar}" tofile="${artifact.output.musicbox_server:jar}/musicbox_server.jar"/>
+    <copy file="${basedir}/libs/netty-3.3.0.Final.jar" tofile="${artifact.output.musicbox_server:jar}/netty-3.3.0.Final.jar"/>
+    <copy file="${basedir}/libs/gson-2.1.jar" tofile="${artifact.output.musicbox_server:jar}/gson-2.1.jar"/>
+    <copy file="${basedir}/libs/httpclient-4.1.2.jar" tofile="${artifact.output.musicbox_server:jar}/httpclient-4.1.2.jar"/>
+    <copy file="${basedir}/libs/httpcore-4.1.2.jar" tofile="${artifact.output.musicbox_server:jar}/httpcore-4.1.2.jar"/>
+    <copy file="${basedir}/libs/commons-logging-1.1.1.jar" tofile="${artifact.output.musicbox_server:jar}/commons-logging-1.1.1.jar"/>
+    <copy file="${basedir}/libs/jsoup-1.6.1.jar" tofile="${artifact.output.musicbox_server:jar}/jsoup-1.6.1.jar"/>
+    <copy file="${basedir}/libs/annotations.jar" tofile="${artifact.output.musicbox_server:jar}/annotations.jar"/>
+    <copy file="${basedir}/libs/webbit.jar" tofile="${artifact.output.musicbox_server:jar}/webbit.jar"/>
+    <mkdir dir="${artifact.output.musicbox_server:jar}/config"/>
+    <copy todir="${artifact.output.musicbox_server:jar}/config">
+      <fileset dir="${basedir}/config"/>
+    </copy>
+    <mkdir dir="${artifact.output.musicbox_server:jar}/content"/>
+    <copy todir="${artifact.output.musicbox_server:jar}/content">
+      <fileset dir="${basedir}/content"/>
+    </copy>
+    <copy file="${basedir}/run.bat" tofile="${artifact.output.musicbox_server:jar}/run.bat"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.musicbox_server:jar" description="Build all artifacts">
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

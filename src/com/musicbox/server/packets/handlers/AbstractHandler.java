@@ -34,4 +34,7 @@ public abstract class AbstractHandler {
     }
 
     public abstract void HandlePacket(WebSocketConnection connection, Incoming incoming);
+    public void HandleExecuteRequest(WebSocketConnection connection, String result){
+        return;
+    }
 }

@@ -27,6 +27,11 @@ public class VkontakteClient {
     private static final String appsecret = Config.getInstance().getVksecretkey();
 
 
+    @NotNull
+    public static Cache getCache() {
+        return cache;
+    }
+
     public VkontakteClient(@NotNull final OAuthToken token) {
         this.oauth = token;
     }
@@ -42,7 +47,7 @@ public class VkontakteClient {
 
     @NotNull
     public final Audio getAudioByTrack(@NotNull final String track) {
-        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getURLByTrack", track, Audio.class);
+        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getURLByTrack", track + oauth.getUser_id(), Audio.class);
 
         if (!cacheAllocator.exists()) {
             Audio audio = this.json.fromJson(retrieveReader("execute?code=" + URLEncoder.encode("return API.audio.search({\"q\":\"" + track + "\",\"count\":1, \"sort\":2})[1];")), AudioSearch.class).getResponse();

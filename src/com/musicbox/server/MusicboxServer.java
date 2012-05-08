@@ -48,6 +48,8 @@ public class MusicboxServer extends BaseWebSocketHandler {
         packethandlers.put(Incoming.Action.ADDTOLIBRARY, new AddToLibrary(this));
         packethandlers.put(Incoming.Action.SEARCHBYTAG, new SearchByTag(this));
         packethandlers.put(Incoming.Action.GETAUDIOBYTRACK, new GetAudioByTrack(this));
+        packethandlers.put(Incoming.Action.SEARCHSIMILARARTISTSBYNAME, new SearchSimilarArtistsByName(this));
+        packethandlers.put(Incoming.Action.EXECUTEREQUESTRESULT, new ExecuteRequestResult(this));
     }
 
     @NotNull
@@ -59,6 +61,14 @@ public class MusicboxServer extends BaseWebSocketHandler {
     public void onMessage(@NotNull final WebSocketConnection connection, @NotNull String msg)
             throws Exception {
         final Incoming incoming = json.fromJson(msg, Incoming.class);
+
+        if (incoming.getAction() == null || (connections.get(connection) == null &&
+                (incoming.getAction() != Incoming.Action.LOGIN
+                        && incoming.getAction() != Incoming.Action.LOGINBYCODE))) {
+            //Someone is realy smart
+            return;
+        }
+
         if (packethandlers.containsKey(incoming.getAction())) {
             @NotNull Thread thread = new Thread() {
                 @Override
@@ -87,15 +97,21 @@ public class MusicboxServer extends BaseWebSocketHandler {
     @Override
     public void onOpen(@NotNull WebSocketConnection connection) throws Exception {
         connections.put(connection, null);
+        connection.send((new Outgoing(Outgoing.Action.MESSAGE, "bla")).toJson());
     }
 
     @Override
     public void onClose(@NotNull WebSocketConnection connection) throws Exception {
         if (connection.data(USERNAME_KEY) != null) {
             @NotNull Outgoing outgoing = new Outgoing(Outgoing.Action.LEAVE);
-            //           outgoing.setUsername(connections.get(connection).getFirst_name());
+            outgoing.setMessage(connections.get(connection).getFirst_name());
             broadcast(outgoing);
         }
         connections.remove(connection);
+    }
+
+    @NotNull
+    public HashMap<Incoming.Action, AbstractHandler> getPackethandlers() {
+        return packethandlers;
     }
 }

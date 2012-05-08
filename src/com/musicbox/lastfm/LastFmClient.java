@@ -20,6 +20,8 @@ import com.musicbox.lastfm.structure.track.Trackmatches;
 import com.musicbox.server.Config;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,6 +38,59 @@ public class LastFmClient {
 
     @NotNull
     private static final Cache cache = new Cache();
+
+    @NotNull
+    public List<Artist> getSimilarArtistsByName(@NotNull String name) {
+        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getSimilarArtistsByName", name, ArrayList.class);
+        if (!cacheAllocator.exists()) {
+            final Gson json = new GsonBuilder()
+                    .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
+                    .create();
+            List<Artist> artists = json.fromJson(retrieveReader("method=artist.getsimilar&limit=10&artist=".concat(URLEncoder.encode(name))), SimilarArtistsResult.class).getSimilarartists().getArtist();
+
+            cacheAllocator.cacheObject(artists);
+            return artists;
+        }
+        return (List<Artist>) cacheAllocator.getObject();
+    }
+
+    @NotNull
+    public Artist getArtistInfoByName(@NotNull String name) {
+        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getArtistInfoByName", name, Artist.class);
+        if (!cacheAllocator.exists()) {
+            final Gson json = new GsonBuilder()
+                    .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
+                    .create();
+            Artist artist = json.fromJson(retrieveReader("method=artist.getinfo&artist=".concat(URLEncoder.encode(name))), Artistmatches.class).getArtist().get(0);
+
+            Bio artistBio = artist.getBio();
+            artistBio.setContent(Jsoup.clean(artistBio.getContent(), Whitelist.simpleText()));
+            artistBio.setSummary(Jsoup.clean(artistBio.getSummary(), Whitelist.simpleText()));
+
+            cacheAllocator.cacheObject(artist);
+            return artist;
+        }
+        return (Artist) cacheAllocator.getObject();
+    }
+
+    @NotNull
+    public Artist getArtistInfoById(@NotNull String id) {
+        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getArtistInfoById", id, Artist.class);
+        if (!cacheAllocator.exists()) {
+            final Gson json = new GsonBuilder()
+                    .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
+                    .create();
+            Artist artist = json.fromJson(retrieveReader("method=artist.getinfo&mbid=".concat(URLEncoder.encode(id))), Artistmatches.class).getArtist().get(0);
+
+            Bio artistBio = artist.getBio();
+            artistBio.setContent(Jsoup.clean(artistBio.getContent(), Whitelist.simpleText()));
+            artistBio.setSummary(Jsoup.clean(artistBio.getSummary(), Whitelist.simpleText()));
+            cacheAllocator.cacheObject(artist);
+
+            return artist;
+        }
+        return (Artist) cacheAllocator.getObject();
+    }
 
     @NotNull
     public List<Track> getTopTracksByArtistName(@NotNull String query) {
