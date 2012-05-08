@@ -34,7 +34,8 @@ public abstract class AbstractHandler {
     }
 
     public abstract void HandlePacket(WebSocketConnection connection, Incoming incoming);
-    public void HandleExecuteRequest(WebSocketConnection connection, String result){
-        return;
+
+    public void HandleExecuteRequest(@NotNull WebSocketConnection connection, @NotNull String result) {
+        throw new RuntimeException("Unimplemented HandleExecuteRequest in " + this.getClass().getName());
     }
 }

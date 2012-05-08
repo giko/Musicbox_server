@@ -55,7 +55,7 @@ public class GetAudioByTrack extends AbstractHandler {
             ExecuteRequest request = new ExecuteRequest();
             request.setAction(Packets.Incoming.Action.GETAUDIOBYTRACK);
             request.setUrl("https://api.vkontakte.ru/method/execute");
-            request.getData().put("code", "return API.audio.search({\"q\":\"" + incoming.getMessage() + "\",\"count\":1, \"sort\":2})[1];");
+            request.getData().put("code", "return API.audio.search({\"q\":\"" + incoming.getMessage() + "\",\"count\":1, \"sort\":2, \"lyrics\":1})[1];");
             request.getData().put("access_token", connections.get(connection).getToken().getAccess_token());
 
             packet.setMessage(incoming.getMessage());
@@ -70,14 +70,13 @@ public class GetAudioByTrack extends AbstractHandler {
     }
 
     @Override
-    public void HandleExecuteRequest(WebSocketConnection connection, String result) {
+    public void HandleExecuteRequest(@NotNull WebSocketConnection connection, @NotNull String result) {
         Gson json = new Gson();
-        System.out.println(result);
+        @NotNull
         GetAudioByTrackExecuteRespond respond = json.fromJson(result, GetAudioByTrackExecuteRespond.class);
 
         @NotNull
         CacheAllocator cacheAllocator = VkontakteClient.getCache().getAllocator("GetAudioByTrack", respond.getQuery() + connections.get(connection).getUid(), Audio.class);
-
 
         cacheAllocator.cacheObject(respond.getData().getResponse());
 

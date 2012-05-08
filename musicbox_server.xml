@@ -186,7 +186,8 @@
   
   <target name="init.artifacts">
     <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
-    <property name="artifact.output.musicbox_server:jar" value="${basedir}/classes/artifacts/musicbox_server_jar"/>
+    <property name="artifact.output.musicbox_server:jar" value="${basedir}/build/complete"/>
+    <property name="artifact.output.musicbox_server:jar2" value="${basedir}/build/jar"/>
     <mkdir dir="${artifacts.temp.dir}"/>
     <property name="temp.jar.path.musicbox_server.jar" value="${artifacts.temp.dir}/musicbox_server.jar"/>
   </target>
@@ -195,21 +196,8 @@
     <delete dir="${artifact.output.musicbox_server:jar}"/>
   </target>
   
-  <target name="artifact.musicbox_server:jar" depends="init.artifacts, compile.module.musicbox_server" description="Build &#39;musicbox_server:jar&#39; artifact">
+  <target name="artifact.musicbox_server:jar" depends="init.artifacts, artifact.musicbox_server:jar2" description="Build &#39;musicbox_server:jar&#39; artifact">
     <mkdir dir="${artifact.output.musicbox_server:jar}"/>
-    <jar destfile="${temp.jar.path.musicbox_server.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
-      <zipfileset file="${basedir}/src/META-INF/MANIFEST.MF" prefix="META-INF"/>
-      <zipfileset dir="${musicbox_server.output.dir}"/>
-    </jar>
-    <copy file="${temp.jar.path.musicbox_server.jar}" tofile="${artifact.output.musicbox_server:jar}/musicbox_server.jar"/>
-    <copy file="${basedir}/libs/netty-3.3.0.Final.jar" tofile="${artifact.output.musicbox_server:jar}/netty-3.3.0.Final.jar"/>
-    <copy file="${basedir}/libs/gson-2.1.jar" tofile="${artifact.output.musicbox_server:jar}/gson-2.1.jar"/>
-    <copy file="${basedir}/libs/httpclient-4.1.2.jar" tofile="${artifact.output.musicbox_server:jar}/httpclient-4.1.2.jar"/>
-    <copy file="${basedir}/libs/httpcore-4.1.2.jar" tofile="${artifact.output.musicbox_server:jar}/httpcore-4.1.2.jar"/>
-    <copy file="${basedir}/libs/commons-logging-1.1.1.jar" tofile="${artifact.output.musicbox_server:jar}/commons-logging-1.1.1.jar"/>
-    <copy file="${basedir}/libs/jsoup-1.6.1.jar" tofile="${artifact.output.musicbox_server:jar}/jsoup-1.6.1.jar"/>
-    <copy file="${basedir}/libs/annotations.jar" tofile="${artifact.output.musicbox_server:jar}/annotations.jar"/>
-    <copy file="${basedir}/libs/webbit.jar" tofile="${artifact.output.musicbox_server:jar}/webbit.jar"/>
     <mkdir dir="${artifact.output.musicbox_server:jar}/config"/>
     <copy todir="${artifact.output.musicbox_server:jar}/config">
       <fileset dir="${basedir}/config"/>
@@ -219,9 +207,33 @@
       <fileset dir="${basedir}/content"/>
     </copy>
     <copy file="${basedir}/run.bat" tofile="${artifact.output.musicbox_server:jar}/run.bat"/>
+    <copy todir="${artifact.output.musicbox_server:jar}">
+      <fileset dir="${artifact.temp.output.musicbox_server:jar2}"/>
+    </copy>
   </target>
   
-  <target name="build.all.artifacts" depends="artifact.musicbox_server:jar" description="Build all artifacts">
+  <target name="artifact.musicbox_server:jar2" depends="init.artifacts, compile.module.musicbox_server" description="Build &#39;musicbox_server:jar2&#39; artifact">
+    <property name="artifact.temp.output.musicbox_server:jar2" value="${artifacts.temp.dir}/musicbox_server_jar2"/>
+    <mkdir dir="${artifact.temp.output.musicbox_server:jar2}"/>
+    <jar destfile="${temp.jar.path.musicbox_server.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset file="${basedir}/src/META-INF/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${musicbox_server.output.dir}"/>
+      <zipfileset src="${basedir}/libs/gson-2.1.jar"/>
+      <zipfileset src="${basedir}/libs/httpclient-4.1.2.jar"/>
+      <zipfileset src="${basedir}/libs/httpcore-4.1.2.jar"/>
+      <zipfileset src="${basedir}/libs/commons-logging-1.1.1.jar"/>
+      <zipfileset src="${basedir}/libs/annotations.jar"/>
+      <zipfileset src="${basedir}/libs/webbit.jar"/>
+      <zipfileset src="${basedir}/libs/netty-3.3.0.Final.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.musicbox_server.jar}" tofile="${artifact.temp.output.musicbox_server:jar2}/musicbox_server.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.musicbox_server:jar, artifact.musicbox_server:jar2" description="Build all artifacts">
+    <mkdir dir="${artifact.output.musicbox_server:jar2}"/>
+    <copy todir="${artifact.output.musicbox_server:jar2}">
+      <fileset dir="${artifact.temp.output.musicbox_server:jar2}"/>
+    </copy>
     
     <!-- Delete temporary files -->
     <delete dir="${artifacts.temp.dir}"/>

@@ -20,8 +20,6 @@ import com.musicbox.lastfm.structure.track.Trackmatches;
 import com.musicbox.server.Config;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -64,8 +62,8 @@ public class LastFmClient {
             Artist artist = json.fromJson(retrieveReader("method=artist.getinfo&artist=".concat(URLEncoder.encode(name))), Artistmatches.class).getArtist().get(0);
 
             Bio artistBio = artist.getBio();
-            artistBio.setContent(Jsoup.clean(artistBio.getContent(), Whitelist.simpleText()));
-            artistBio.setSummary(Jsoup.clean(artistBio.getSummary(), Whitelist.simpleText()));
+            //artistBio.setContent(artistBio.getContent().replaceAll("\\<.*?>", ""));
+            artistBio.setSummary(artistBio.getSummary().replaceAll("\\<.*?>", ""));
 
             cacheAllocator.cacheObject(artist);
             return artist;
@@ -83,8 +81,9 @@ public class LastFmClient {
             Artist artist = json.fromJson(retrieveReader("method=artist.getinfo&mbid=".concat(URLEncoder.encode(id))), Artistmatches.class).getArtist().get(0);
 
             Bio artistBio = artist.getBio();
-            artistBio.setContent(Jsoup.clean(artistBio.getContent(), Whitelist.simpleText()));
-            artistBio.setSummary(Jsoup.clean(artistBio.getSummary(), Whitelist.simpleText()));
+            //artistBio.setContent(artistBio.getContent().replaceAll("\\<.*?>", ""));
+            artistBio.setSummary(artistBio.getSummary().replaceAll("\\<.*?>", ""));
+
             cacheAllocator.cacheObject(artist);
 
             return artist;
@@ -256,7 +255,9 @@ public class LastFmClient {
     @Nullable
     private Reader retrieveReader(@NotNull String query) {
         String url = "http://ws.audioscrobbler.com/2.0/?api_key=".concat(Config.getInstance().getLastfmapikey()).concat("&format=json&").concat(query);
-        System.out.println(url);
+        if (Config.getInstance().isLastfmshowdebugginginfo()) {
+            System.out.println(url);
+        }
 
         @Nullable InputStream source = WebWorker.retrieveStream(url);
         try {

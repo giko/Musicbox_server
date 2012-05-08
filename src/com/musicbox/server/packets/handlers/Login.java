@@ -1,5 +1,6 @@
 package com.musicbox.server.packets.handlers;
 
+import com.musicbox.server.Config;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets;
 import com.musicbox.server.packets.Packets.Incoming;
@@ -29,7 +30,7 @@ public class Login extends AbstractHandler {
             @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.LOGINSUCCESS);
             connection.send(packet.toJson());
         } else {
-            connection.send(new Packets.Outgoing(Packets.Outgoing.Action.REDIRECTTOVK).toJson());
+            connection.send(new Packets.Outgoing(Packets.Outgoing.Action.REDIRECTTOVK, Config.getInstance().getVkappid()).toJson());
         }
     }
 }

@@ -102,7 +102,6 @@ public class VkontakteClient {
     private Reader retrieveReader(@NotNull final String query, @NotNull final String token) {
         String url = "https://api.vkontakte.ru/method/".concat(query)
                 .concat("&access_token=").concat(token);
-        System.out.println(url);
 
         @Nullable InputStream source = WebWorker.retrieveStream(url);
         try {

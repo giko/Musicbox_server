@@ -9,7 +9,7 @@ package com.musicbox.lastfm.structure.artist;
 public class Bio {
     private String published;
     private String summary;
-    private String content;
+    //private String content;
 
     public String getPublished() {
         return published;
@@ -25,13 +25,5 @@ public class Bio {
 
     public void setSummary(String summary) {
         this.summary = summary;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 }

@@ -60,17 +60,22 @@ public class MusicboxServer extends BaseWebSocketHandler {
     @Override
     public void onMessage(@NotNull final WebSocketConnection connection, @NotNull String msg)
             throws Exception {
+
+        if (!connections.containsKey(connection) && msg.length() > 100) {
+            return;
+        }
+
         final Incoming incoming = json.fromJson(msg, Incoming.class);
 
-        if (incoming.getAction() == null || (connections.get(connection) == null &&
+        if (incoming.getAction() == null || (!connections.containsKey(connection) &&
                 (incoming.getAction() != Incoming.Action.LOGIN
                         && incoming.getAction() != Incoming.Action.LOGINBYCODE))) {
-            //Someone is realy smart
+            //Someone is really smart
             return;
         }
 
         if (packethandlers.containsKey(incoming.getAction())) {
-            @NotNull Thread thread = new Thread() {
+            Thread thread = new Thread() {
                 @Override
                 public void run() {
                     packethandlers.get(incoming.getAction()).HandlePacket(connection, incoming);
@@ -79,7 +84,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
             thread.setDaemon(true);
             thread.start();
         } else {
-            //Ошибка, пакета нет
+            throw new RuntimeException("No Handler for ".concat(incoming.getAction().toString()).concat(" packet in packethandlers"));
         }
     }
 
@@ -103,7 +108,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
     @Override
     public void onClose(@NotNull WebSocketConnection connection) throws Exception {
         if (connection.data(USERNAME_KEY) != null) {
-            @NotNull Outgoing outgoing = new Outgoing(Outgoing.Action.LEAVE);
+            Outgoing outgoing = new Outgoing(Outgoing.Action.LEAVE);
             outgoing.setMessage(connections.get(connection).getFirst_name());
             broadcast(outgoing);
         }

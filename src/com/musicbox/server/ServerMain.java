@@ -11,12 +11,18 @@ public class ServerMain {
 
     public static void main(String[] args) throws Exception {
         int port = 80;
-        WebServer webServer = createWebServer(port)
-                .add(new LoggingHandler(
-                        new SimpleLogSink(MusicboxServer.USERNAME_KEY)))
-                .add("/musicbox", new MusicboxServer())
+        WebServer webServer = createWebServer(port);
+
+        if (Config.getInstance().isWebbitdebug()) {
+            webServer.add(new LoggingHandler(
+                    new SimpleLogSink(MusicboxServer.USERNAME_KEY)));
+        }
+
+        webServer.add("/musicbox", new MusicboxServer())
                 .add(new StaticFileHandler(
-                        "./content")).start()
-                .get();
+                        "./content"));
+
+
+        webServer.start().get();
     }
 }

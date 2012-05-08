@@ -20,6 +20,15 @@ public class Config {
     private String vksecretkey;
     private String lastfmapikey;
     private boolean lastfmshowdebugginginfo;
+    private boolean webbitdebug;
+
+    public boolean isWebbitdebug() {
+        return webbitdebug;
+    }
+
+    public void setWebbitdebug(boolean webbitdebug) {
+        this.webbitdebug = webbitdebug;
+    }
 
     public boolean isLastfmshowdebugginginfo() {
         return lastfmshowdebugginginfo;
@@ -69,6 +78,7 @@ public class Config {
             this.vksecretkey = configuration.getProperty("vk-secret-key");
             this.lastfmapikey = configuration.getProperty("lastfm-api-key");
             this.lastfmshowdebugginginfo = Boolean.parseBoolean(configuration.getProperty("lastfm-show-debugging-info"));
+            this.webbitdebug = Boolean.parseBoolean(configuration.getProperty("webbit-debug"));
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

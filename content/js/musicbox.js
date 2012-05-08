@@ -201,7 +201,7 @@ var musicboxclient = new function () {
                 break;
             case 'REDIRECTTOVK':
                 window.localStorage.token = '';
-                location.replace('http://api.vk.com/oauth/authorize?client_id=2810768&redirect_uri=' + document.domain + '&scope=audio,offline&display=page&response_type = code');
+                location.replace('http://api.vk.com/oauth/authorize?client_id=' + incoming.message + '&redirect_uri=' + document.domain + '&scope=audio,offline&display=page&response_type = code');
                 break;
             case 'EXECUTEREQUEST':
                 $.ajax({
@@ -210,7 +210,7 @@ var musicboxclient = new function () {
                     url:incoming.request.url,
                     data:incoming.request.data,
                     success:function (msg) {
-                        send({action:'EXECUTEREQUESTRESULT', message:JSON.stringify({action:incoming.request.action, result:JSON.stringify({query: incoming.message, data: msg})})});
+                        send({action:'EXECUTEREQUESTRESULT', message:JSON.stringify({action:incoming.request.action, result:JSON.stringify({query:incoming.message, data:msg})})});
                     }
                 });
                 break;
