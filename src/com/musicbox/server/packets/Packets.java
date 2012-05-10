@@ -20,7 +20,7 @@ public class Packets {
         }
 
         @Nullable
-        public Action getAction() {
+        public Incoming.Action getAction() {
             return action;
         }
 
@@ -30,7 +30,7 @@ public class Packets {
         }
 
         @NotNull
-        private Action action;
+        private Incoming.Action action;
         @Nullable
         private String message;
 
@@ -44,21 +44,20 @@ public class Packets {
             EXECUTEREQUEST, LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS, AUDIO
         }
 
-        public Outgoing(@NotNull Action caction) {
+        public Outgoing(@NotNull Outgoing.Action caction) {
             this.action = caction;
         }
 
-        public Outgoing(@NotNull Action action, @NotNull String msg) {
+        public Outgoing(@NotNull Outgoing.Action action, @NotNull String msg) {
             this.action = action;
             this.message = msg;
         }
 
         public Outgoing() {
-            // TODO Auto-generated constructor stub
         }
 
         @NotNull
-        private Action action;
+        private Outgoing.Action action;
         private String message;
         private List<Track> songs;
         private List<Artist> artists;
@@ -99,11 +98,11 @@ public class Packets {
         }
 
         @NotNull
-        public Action getAction() {
+        public Outgoing.Action getAction() {
             return action;
         }
 
-        public void setAction(@NotNull Action action) {
+        public void setAction(@NotNull Outgoing.Action action) {
             this.action = action;
         }
 

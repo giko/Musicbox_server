@@ -1,8 +1,7 @@
 package com.musicbox.server;
 
 import com.google.gson.Gson;
-import com.musicbox.server.packets.Packets.Incoming;
-import com.musicbox.server.packets.Packets.Outgoing;
+import com.musicbox.server.packets.Packets;
 import com.musicbox.server.packets.handlers.*;
 import com.musicbox.vkontakte.OAuthToken;
 import com.musicbox.vkontakte.structure.profiles.Profile;
@@ -12,6 +11,7 @@ import org.webbitserver.WebSocketConnection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MusicboxServer extends BaseWebSocketHandler {
 
@@ -22,7 +22,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
     @NotNull
     private final HashMap<WebSocketConnection, Profile> connections = new HashMap<WebSocketConnection, Profile>();
     @NotNull
-    private final HashMap<Incoming.Action, AbstractHandler> packethandlers = new HashMap<Incoming.Action, AbstractHandler>();
+    private final HashMap<Packets.Incoming.Action, AbstractHandler> packethandlers = new HashMap<Packets.Incoming.Action, AbstractHandler>();
 
     @NotNull
     public static final String USERNAME_KEY = "vktoken";
@@ -38,18 +38,18 @@ public class MusicboxServer extends BaseWebSocketHandler {
     }
 
     public MusicboxServer() {
-        packethandlers.put(Incoming.Action.LOGIN, new Login(this));
-        packethandlers.put(Incoming.Action.LOGINBYCODE, new LoginByCode(this));
-        packethandlers.put(Incoming.Action.SEARCH, new Search(this));
-        packethandlers.put(Incoming.Action.GETURLBYTRACK, new GetUrlByTrack(this));
-        packethandlers.put(Incoming.Action.CHATMESSAGE, new ChatMessage(this));
-        packethandlers.put(Incoming.Action.GETTOPSONGSBYARTISTID, new GetTopSongsByArtistId(this));
-        packethandlers.put(Incoming.Action.GETTOPSONGSBYARTISTNAME, new GetTopSongsByArtistName(this));
-        packethandlers.put(Incoming.Action.ADDTOLIBRARY, new AddToLibrary(this));
-        packethandlers.put(Incoming.Action.SEARCHBYTAG, new SearchByTag(this));
-        packethandlers.put(Incoming.Action.GETAUDIOBYTRACK, new GetAudioByTrack(this));
-        packethandlers.put(Incoming.Action.SEARCHSIMILARARTISTSBYNAME, new SearchSimilarArtistsByName(this));
-        packethandlers.put(Incoming.Action.EXECUTEREQUESTRESULT, new ExecuteRequestResult(this));
+        packethandlers.put(Packets.Incoming.Action.LOGIN, new Login(this));
+        packethandlers.put(Packets.Incoming.Action.LOGINBYCODE, new LoginByCode(this));
+        packethandlers.put(Packets.Incoming.Action.SEARCH, new Search(this));
+        packethandlers.put(Packets.Incoming.Action.GETURLBYTRACK, new GetUrlByTrack(this));
+        packethandlers.put(Packets.Incoming.Action.CHATMESSAGE, new ChatMessage(this));
+        packethandlers.put(Packets.Incoming.Action.GETTOPSONGSBYARTISTID, new GetTopSongsByArtistId(this));
+        packethandlers.put(Packets.Incoming.Action.GETTOPSONGSBYARTISTNAME, new GetTopSongsByArtistName(this));
+        packethandlers.put(Packets.Incoming.Action.ADDTOLIBRARY, new AddToLibrary(this));
+        packethandlers.put(Packets.Incoming.Action.SEARCHBYTAG, new SearchByTag(this));
+        packethandlers.put(Packets.Incoming.Action.GETAUDIOBYTRACK, new GetAudioByTrack(this));
+        packethandlers.put(Packets.Incoming.Action.SEARCHSIMILARARTISTSBYNAME, new SearchSimilarArtistsByName(this));
+        packethandlers.put(Packets.Incoming.Action.EXECUTEREQUESTRESULT, new ExecuteRequestResult(this));
     }
 
     @NotNull
@@ -65,11 +65,11 @@ public class MusicboxServer extends BaseWebSocketHandler {
             return;
         }
 
-        final Incoming incoming = json.fromJson(msg, Incoming.class);
+        final Packets.Incoming incoming = json.fromJson(msg, Packets.Incoming.class);
 
-        if (incoming.getAction() == null || (!connections.containsKey(connection) &&
-                (incoming.getAction() != Incoming.Action.LOGIN
-                        && incoming.getAction() != Incoming.Action.LOGINBYCODE))) {
+        if (incoming.getAction() == null || !connections.containsKey(connection) &&
+                incoming.getAction() != Packets.Incoming.Action.LOGIN
+                && incoming.getAction() != Packets.Incoming.Action.LOGINBYCODE) {
             //Someone is really smart
             return;
         }
@@ -84,12 +84,12 @@ public class MusicboxServer extends BaseWebSocketHandler {
             thread.setDaemon(true);
             thread.start();
         } else {
-            throw new RuntimeException("No Handler for ".concat(incoming.getAction().toString()).concat(" packet in packethandlers"));
+            throw new RuntimeException(("No Handler for " + incoming.getAction().toString()) + " packet in packethandlers");
         }
     }
 
 
-    public void broadcast(@NotNull Outgoing packet) {
+    public void broadcast(@NotNull Packets.Outgoing packet) {
         String jsonStr = this.json.toJson(packet);
         for (@NotNull WebSocketConnection connection : new ArrayList<WebSocketConnection>(
                 connections.keySet())) {
@@ -102,13 +102,13 @@ public class MusicboxServer extends BaseWebSocketHandler {
     @Override
     public void onOpen(@NotNull WebSocketConnection connection) throws Exception {
         connections.put(connection, null);
-        connection.send((new Outgoing(Outgoing.Action.MESSAGE, "bla")).toJson());
+        connection.send(new Packets.Outgoing(Packets.Outgoing.Action.MESSAGE, "bla").toJson());
     }
 
     @Override
     public void onClose(@NotNull WebSocketConnection connection) throws Exception {
         if (connection.data(USERNAME_KEY) != null) {
-            Outgoing outgoing = new Outgoing(Outgoing.Action.LEAVE);
+            Packets.Outgoing outgoing = new Packets.Outgoing(Packets.Outgoing.Action.LEAVE);
             outgoing.setMessage(connections.get(connection).getFirst_name());
             broadcast(outgoing);
         }
@@ -116,7 +116,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
     }
 
     @NotNull
-    public HashMap<Incoming.Action, AbstractHandler> getPackethandlers() {
+    public Map<Packets.Incoming.Action, AbstractHandler> getPackethandlers() {
         return packethandlers;
     }
 }

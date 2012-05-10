@@ -24,6 +24,6 @@ public class ExecuteRequestResult extends AbstractHandler {
     public void HandlePacket(WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
         Gson json = new Gson();
         ExecuteRequsetResponse response = json.fromJson(incoming.getMessage(), ExecuteRequsetResponse.class);
-        server.getPackethandlers().get(response.getAction()).HandleExecuteRequest(connection, response.getResult());
+        server_.getPackethandlers().get(response.getAction()).HandleExecuteRequest(connection, response.getResult());
     }
 }

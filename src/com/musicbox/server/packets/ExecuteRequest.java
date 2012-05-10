@@ -1,6 +1,7 @@
 package com.musicbox.server.packets;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,7 +12,7 @@ import java.util.HashMap;
 public class ExecuteRequest {
     private String url;
     private Packets.Incoming.Action action;
-    private HashMap<String, String> data = new HashMap<String, String>();
+    private Map<String, String> data = new HashMap<String, String>();
 
     public String getUrl() {
         return url;
@@ -29,11 +30,11 @@ public class ExecuteRequest {
         this.action = action;
     }
 
-    public HashMap<String, String> getData() {
+    public Map<String, String> getData() {
         return data;
     }
 
-    public void setData(HashMap<String, String> data) {
+    public void setData(Map<String, String> data) {
         this.data = data;
     }
 }

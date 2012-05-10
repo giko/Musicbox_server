@@ -77,8 +77,8 @@ public class Config {
             this.vkappid = configuration.getProperty("vk-app-id");
             this.vksecretkey = configuration.getProperty("vk-secret-key");
             this.lastfmapikey = configuration.getProperty("lastfm-api-key");
-            this.lastfmshowdebugginginfo = Boolean.parseBoolean(configuration.getProperty("lastfm-show-debugging-info"));
-            this.webbitdebug = Boolean.parseBoolean(configuration.getProperty("webbit-debug"));
+            this.lastfmshowdebugginginfo = Boolean.parseBoolean(configuration.getProperty("lastfm-show-debugging-info", "false"));
+            this.webbitdebug = Boolean.parseBoolean(configuration.getProperty("webbit-debug", "true"));
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

@@ -10,31 +10,41 @@ import org.jetbrains.annotations.NotNull;
  * To change this template use File | Settings | File Templates.
  */
 public class CacheAllocator {
-    private final Cache cache;
-    private final Class objclass;
-    private final String method;
-    private final String query;
+    private final Cache cache_;
+    private final Class objClass_;
+    private final String method_;
+    private final String query_;
+    private final int expirationTime_;
 
     public CacheAllocator(Cache cache, String method, String query, Class objclass) {
-        this.cache = cache;
-        this.method = method;
-        this.query = query;
-        this.objclass = objclass;
+        cache_ = cache;
+        method_ = method;
+        query_ = query;
+        objClass_ = objclass;
+        expirationTime_ = 0;
+    }
+
+    public CacheAllocator(Cache cache, String method, String query, Class objclass, int expirationTime) {
+        cache_ = cache;
+        method_ = method;
+        query_ = query;
+        objClass_ = objclass;
+        expirationTime_ = expirationTime;
     }
 
     public boolean exists() {
-        return cache.exists(this.method, this.query, this.objclass);
+        return cache_.exists(method_, query_, objClass_);
     }
 
     public Object getObject() {
-        return cache.getObject(this.method, this.query, this.objclass);
+        return cache_.getObject(method_, query_, objClass_);
     }
 
     public void cacheObject(@NotNull Object object) {
-        cache.cacheObject(this.method, this.query, object);
+        if (expirationTime_ == 0) {
+            cache_.cacheObject(method_, query_, object);
+        } else {
+            cache_.cacheObject(method_, query_, object, expirationTime_);
+        }
     }
-
-    //public String getObjectData() {
-    //   return cache.getObjectData(this.method, this.query, this.objclass);
-    //}
 }

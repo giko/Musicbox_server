@@ -37,8 +37,7 @@ public class VkontakteClient {
     }
 
     public static OAuthToken getOauthTokenByCode(@NotNull final String code) {
-        @NotNull String query = "https://oauth.vkontakte.ru/access_token?client_id=" + appid + "&client_secret=" + appsecret + "&code="
-                .concat(code);
+        @NotNull String query = "https://oauth.vkontakte.ru/access_token?client_id=" + appid + "&client_secret=" + appsecret + "&code=" + code;
         @NotNull Gson json = new Gson();
         return json.fromJson(
                 new InputStreamReader(WebWorker.retrieveStream(query)),
@@ -70,9 +69,7 @@ public class VkontakteClient {
             Profile profile = this.json
                     .fromJson(
                             retrieveReader(
-                                    "getProfiles?uids="
-                                            .concat(String.valueOf(id))
-                                            .concat("&fields=photo_big,sex,bdate,city,country"),
+                                    ("getProfiles?uids=" + String.valueOf(id)) + "&fields=photo_big,sex,bdate,city,country",
                                     this.oauth.getAccess_token()), ProfileSearch.class).getResponse()
                     .get(0);
             profile.setToken(this.oauth);
@@ -100,16 +97,14 @@ public class VkontakteClient {
 
     @Nullable
     private Reader retrieveReader(@NotNull final String query, @NotNull final String token) {
-        String url = "https://api.vkontakte.ru/method/".concat(query)
-                .concat("&access_token=").concat(token);
+        String url = (("https://api.vkontakte.ru/method/" + query) + "&access_token=") + token;
 
         @Nullable InputStream source = WebWorker.retrieveStream(url);
         try {
             return new InputStreamReader(source, "utf-8");
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }

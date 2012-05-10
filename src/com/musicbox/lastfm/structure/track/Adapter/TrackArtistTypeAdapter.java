@@ -22,7 +22,7 @@ public class TrackArtistTypeAdapter implements JsonDeserializer<Artist> {
     public Artist deserialize(@NotNull JsonElement jsonElement, Type type, @NotNull JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         @NotNull Artist val = new Artist();
         if (jsonElement.isJsonObject()) {
-            val = ((Artist) jsonDeserializationContext.deserialize(jsonElement, Artist.class));
+            val = (Artist) jsonDeserializationContext.deserialize(jsonElement, Artist.class);
         } else if (!jsonElement.isJsonObject()) {
             val.setName((String) jsonDeserializationContext.deserialize(jsonElement, String.class));
         } else {

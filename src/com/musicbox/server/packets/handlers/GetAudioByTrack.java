@@ -46,17 +46,17 @@ public class GetAudioByTrack extends AbstractHandler {
     @Override
     public void HandlePacket(@NotNull WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
         @NotNull
-        CacheAllocator cacheAllocator = VkontakteClient.getCache().getAllocator("GetAudioByTrack", incoming.getMessage() + connections.get(connection).getUid(), Audio.class);
+        CacheAllocator cacheAllocator = VkontakteClient.getCache().getAllocator("GetAudioByTrack",
+                incoming.getMessage() + connections_.get(connection).getUid(), Audio.class);
 
         if (!cacheAllocator.exists()) {
-            @NotNull VkontakteClient vkclient = new VkontakteClient(connections.get(connection).getToken());
             @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.EXECUTEREQUEST);
 
             ExecuteRequest request = new ExecuteRequest();
             request.setAction(Packets.Incoming.Action.GETAUDIOBYTRACK);
             request.setUrl("https://api.vkontakte.ru/method/execute");
             request.getData().put("code", "return API.audio.search({\"q\":\"" + incoming.getMessage() + "\",\"count\":1, \"sort\":2, \"lyrics\":1})[1];");
-            request.getData().put("access_token", connections.get(connection).getToken().getAccess_token());
+            request.getData().put("access_token", connections_.get(connection).getToken().getAccess_token());
 
             packet.setMessage(incoming.getMessage());
             packet.setRequest(request);
@@ -76,7 +76,8 @@ public class GetAudioByTrack extends AbstractHandler {
         GetAudioByTrackExecuteRespond respond = json.fromJson(result, GetAudioByTrackExecuteRespond.class);
 
         @NotNull
-        CacheAllocator cacheAllocator = VkontakteClient.getCache().getAllocator("GetAudioByTrack", respond.getQuery() + connections.get(connection).getUid(), Audio.class);
+        CacheAllocator cacheAllocator = VkontakteClient.getCache().getAllocator("GetAudioByTrack",
+                respond.getQuery() + connections_.get(connection).getUid(), Audio.class, 10);
 
         cacheAllocator.cacheObject(respond.getData().getResponse());
 

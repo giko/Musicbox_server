@@ -20,7 +20,7 @@ public class GetUrlByTrack extends AbstractHandler {
 
     @Override
     public void HandlePacket(@NotNull WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
-        @NotNull VkontakteClient vkclient = new VkontakteClient(connections.get(connection).getToken());
+        @NotNull VkontakteClient vkclient = new VkontakteClient(connections_.get(connection).getToken());
         @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.SONGURL);
         packet.setMessage(vkclient.getAudioByTrack(incoming.getMessage()).getUrl());
         connection.send(packet.toJson());

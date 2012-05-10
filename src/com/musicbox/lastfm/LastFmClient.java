@@ -44,7 +44,7 @@ public class LastFmClient {
             final Gson json = new GsonBuilder()
                     .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
                     .create();
-            List<Artist> artists = json.fromJson(retrieveReader("method=artist.getsimilar&limit=10&artist=".concat(URLEncoder.encode(name))), SimilarArtistsResult.class).getSimilarartists().getArtist();
+            List<Artist> artists = json.fromJson(retrieveReader("method=artist.getsimilar&limit=10&artist=" + URLEncoder.encode(name)), SimilarArtistsResult.class).getSimilarartists().getArtist();
 
             cacheAllocator.cacheObject(artists);
             return artists;
@@ -59,7 +59,7 @@ public class LastFmClient {
             final Gson json = new GsonBuilder()
                     .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
                     .create();
-            Artist artist = json.fromJson(retrieveReader("method=artist.getinfo&artist=".concat(URLEncoder.encode(name))), Artistmatches.class).getArtist().get(0);
+            Artist artist = json.fromJson(retrieveReader("method=artist.getinfo&artist=" + URLEncoder.encode(name)), Artistmatches.class).getArtist().get(0);
 
             Bio artistBio = artist.getBio();
             //artistBio.setContent(artistBio.getContent().replaceAll("\\<.*?>", ""));
@@ -78,7 +78,7 @@ public class LastFmClient {
             final Gson json = new GsonBuilder()
                     .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
                     .create();
-            Artist artist = json.fromJson(retrieveReader("method=artist.getinfo&mbid=".concat(URLEncoder.encode(id))), Artistmatches.class).getArtist().get(0);
+            Artist artist = json.fromJson(retrieveReader("method=artist.getinfo&mbid=" + URLEncoder.encode(id)), Artistmatches.class).getArtist().get(0);
 
             Bio artistBio = artist.getBio();
             //artistBio.setContent(artistBio.getContent().replaceAll("\\<.*?>", ""));
@@ -93,12 +93,12 @@ public class LastFmClient {
 
     @NotNull
     public List<Track> getTopTracksByArtistName(@NotNull String query) {
-        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getTopTracksByArtistName", query, ArrayList.class);
+        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getTopTracksByArtistName", query, ArrayList.class, 24);
         if (!cacheAllocator.exists()) {
             final Gson json = new GsonBuilder()
                     .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
                     .create();
-            List<Track> toptracks = json.fromJson(retrieveReader("method=artist.gettoptracks&artist=".concat(URLEncoder.encode(query))), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
+            List<Track> toptracks = json.fromJson(retrieveReader("method=artist.gettoptracks&artist=" + URLEncoder.encode(query)), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
             cacheAllocator.cacheObject(toptracks);
             return toptracks;
         }
@@ -107,12 +107,12 @@ public class LastFmClient {
 
     @NotNull
     public List<Track> getTopTracksByArtistID(@NotNull String query) {
-        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getTopTracksByArtistID", query, ArrayList.class);
+        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getTopTracksByArtistID", query, ArrayList.class, 24);
         if (!cacheAllocator.exists()) {
             final Gson json = new GsonBuilder()
                     .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
                     .create();
-            List<Track> toptracks = json.fromJson(retrieveReader("method=artist.gettoptracks&mbid=".concat(query)), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
+            List<Track> toptracks = json.fromJson(retrieveReader("method=artist.gettoptracks&mbid=" + query), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
             cacheAllocator.cacheObject(toptracks);
             return toptracks;
         }
@@ -126,8 +126,7 @@ public class LastFmClient {
                 .create();
         return json
                 .fromJson(
-                        retrieveReader("method=artist.getTopAlbums&mbid="
-                                .concat(query)),
+                        retrieveReader("method=artist.getTopAlbums&mbid=" + query),
                         TopAlbumSearchResult.class).getTopalbums().getAlbums();
     }
 
@@ -143,8 +142,8 @@ public class LastFmClient {
             try {
                 List<Artist> searchresult = json
                         .fromJson(
-                                retrieveReader("method=artist.search&limit=3&artist=".concat(java.net.URLEncoder
-                                        .encode(query))), ArtistSearchResult.class)
+                                retrieveReader("method=artist.search&limit=3&artist=" + URLEncoder
+                                        .encode(query)), ArtistSearchResult.class)
                         .getResults().getArtistmatches().getArtist();
                 cacheAllocator.cacheObject(searchresult);
                 return searchresult;
@@ -178,7 +177,7 @@ public class LastFmClient {
                     .create();
             try {
                 List<Track> searchresult = jsontracks
-                        .fromJson(retrieveReader("method=track.search&limit=3&track=".concat(URLEncoder.encode(query))), TrackSearch.class)
+                        .fromJson(retrieveReader("method=track.search&limit=3&track=" + URLEncoder.encode(query)), TrackSearch.class)
                         .getResults().getTrackmatches().getTrack();
                 cacheAllocator.cacheObject(searchresult);
                 return searchresult;
@@ -237,7 +236,7 @@ public class LastFmClient {
 
     @NotNull
     public List<Artist> getTopArtists() {
-        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getTopArtists", "", ArrayList.class);
+        @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getTopArtists", "", ArrayList.class, 12);
         if (!cacheAllocator.exists()) {
             final Gson json = new GsonBuilder()
                     .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
@@ -254,7 +253,7 @@ public class LastFmClient {
 
     @Nullable
     private Reader retrieveReader(@NotNull String query) {
-        String url = "http://ws.audioscrobbler.com/2.0/?api_key=".concat(Config.getInstance().getLastfmapikey()).concat("&format=json&").concat(query);
+        String url = (("http://ws.audioscrobbler.com/2.0/?api_key=" + Config.getInstance().getLastfmapikey()) + "&format=json&") + query;
         if (Config.getInstance().isLastfmshowdebugginginfo()) {
             System.out.println(url);
         }

@@ -5,13 +5,13 @@ body {
 
 #barContainer {
     background: #006cb7;
-    height: 118px;
+    height: 130px;
     color: #fff;
 
     position: fixed;
-    top: 88%;
-    left: 50%;
-    margin-left: -500px;
+    top: 87%;
+
+    margin-left: 25%;
     border-top: 1px solid #00c6ff;
     -moz-border-radius: 20px;
     -webkit-border-top-left-radius: 10px;
@@ -25,6 +25,8 @@ body {
 }
 
 #bar #play {
+    margin-left: 10px;
+    margin-top: 5px;
     float: left;
     width: 100px;
     background: transparent url(../images/play.jpg) no-repeat scroll center 22px;
@@ -61,8 +63,8 @@ body {
     background: blue;
 }
 
-#bar #slider{
-
+#bar #slider {
+    margin-top: 10px;
 }
 
 #bar #volume {

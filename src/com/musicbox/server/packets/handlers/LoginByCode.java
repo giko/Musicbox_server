@@ -9,6 +9,8 @@ import com.musicbox.vkontakte.VkontakteClient;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
+import java.util.UUID;
+
 /**
  * Created by IntelliJ IDEA.
  * User: giko
@@ -16,6 +18,7 @@ import org.webbitserver.WebSocketConnection;
  * Time: 10:44
  */
 public class LoginByCode extends AbstractHandler {
+
 
     public LoginByCode(MusicboxServer server) {
         super(server);
@@ -28,8 +31,12 @@ public class LoginByCode extends AbstractHandler {
             OAuthToken oauth = VkontakteClient.getOauthTokenByCode(code);
             if (oauth.getError() == null || oauth.getError().equals("")) {
                 @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.TOKEN);
-                packet.setMessage(MD5.getMD5(oauth.getAccess_token()) + MD5.getMD5(oauth.getUser_id() + " go%d"));
-                logintokens.put(MD5.getMD5(oauth.getAccess_token()) + MD5.getMD5(oauth.getUser_id() + " go%d"), oauth);
+
+                String token = MD5.getMD5(oauth.getAccess_token()) +
+                        MD5.getMD5(oauth.getUser_id() + UUID.randomUUID().toString());
+
+                packet.setMessage(token);
+                logintokens_.put(token, oauth);
                 connection.send(packet.toJson());
             }
         } else {
