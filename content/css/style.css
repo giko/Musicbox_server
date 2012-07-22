@@ -3,72 +3,45 @@ body {
     padding-bottom: 40px;
 }
 
-#barContainer {
-    background: #006cb7;
-    height: 130px;
-    color: #fff;
-
-    position: fixed;
-    top: 87%;
-
-    margin-left: 25%;
-    border-top: 1px solid #00c6ff;
-    -moz-border-radius: 20px;
-    -webkit-border-top-left-radius: 10px;
-    -webkit-border-top-right-radius: 20px;
-}
-
-#bar {
-    width: 1000px;
-    line-height: 118px;
-    margin: 0pt auto;
-}
-
-#bar #play {
+#play {
     margin-left: 10px;
+    margin-top: 8px;
+    float: left;
+    width: 25px;
+    height: 25px;
+    background: url(../images/play.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+#play-next {
+    margin-left: 10px;
+    margin-top: 14px;
+}
+
+#song {
+    width: 40%;
+    float: left;
+    padding-left: 15px;
+}
+
+#slider {
+    width: 100%;
     margin-top: 5px;
+    margin-bottom: 8px;
+    padding-top: 3px;
+}
+
+span.title {
+    margin-bottom: 5px;
+    width: 100%;
+    font-size: 18px;
+    color: #ffffff;
     float: left;
-    width: 100px;
-    background: transparent url(../images/play.jpg) no-repeat scroll center 22px;
 }
 
-#bar #play a {
-    display: block;
-}
-
-#bar #song {
-    width: 750px;
-    float: left;
-    background: transparent url(../images/barBackground.jpg) no-repeat scroll center top;
-    text-align: center;
-    font-size: 24px;
-    margin: 0pt auto;
-}
-
-#bar #song #previous {
-    float: left;
-    background: red;
-}
-
-#bar #song span.title {
-    margin: 0 15px 0 15px;
-}
-
-#bar #song span.position {
-    margin: 0 15px 0 15px;
-}
-
-#bar #song #next {
-    float: left;
-    background: blue;
-}
-
-#bar #slider {
-    margin-top: 10px;
-}
-
-#bar #volume {
-    float: left;
-    width: 150px;
-    height: 90px;
+span.position {
+    margin-top: -3px;
+    color: #000000;
+    font-size: 12px;
+    float: right;
 }

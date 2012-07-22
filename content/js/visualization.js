@@ -17,8 +17,6 @@ var visualization = new (function () {
         mainctx = maincanvas.getContext('2d');
 
         basscanvas = document.getElementById("bassvolume");
-        basscanvas.height = 90;
-        basscanvas.width = 190;
 
         bassctx = basscanvas.getContext('2d');
     }
@@ -101,7 +99,7 @@ var visualization = new (function () {
         max_y = 100;
         bassctx.clearRect(0, 0, basscanvas.width, basscanvas.height);
         bassctx.beginPath();
-        bassctx.lineWidth = 40;
+        bassctx.lineWidth = 20;
         bassctx.strokeStyle = "rgb(0,0," + Math.round((1 + peakData.left) * 127) + ")";
         bassctx.moveTo(50, max_y);
         bassctx.lineTo(50, basscanvas.height - peakData.left * basscanvas.height);

@@ -26,6 +26,15 @@ var player = new (function () {
     //Status: 0:pause, 1:play
     this.status = 1;
     this.timeout = 30;
+    this.playList = new Array();
+
+    this.addToQueye = function (song) {
+        this.playList.push(song);
+    }
+
+    this.clearQueue = function () {
+        this.playList = new Array();
+    }
 
     this.getSound = function () {
         return sound;
@@ -36,16 +45,15 @@ var player = new (function () {
             this.position = 0;
         else
             this.position++;
-        //So, the reference to this class is not lost
-        var me = this;
-        $(".title").fadeOut(200,
-            function () {
-                $(this).text(me.playList[me.position]);
-            }).fadeIn();
+
+        var song = this.playList[this.position];
+        var trackname = typeof(song.artist) == 'undefined' ? song.name : (song.artist.name) + ' ' + song.name;
+        musicboxclient.send({action:'GETAUDIOBYTRACK', message:trackname});
     }
+
     this.play = function (audio) {
         this.status = 0;
-        $("#play").css("backgroundImage", "url('../images/pause.jpg')");
+        $("#play").css("backgroundImage", "url('../images/pause.png')");
         if (typeof(sound) != 'undefined') {
             sound.destruct();
         }
@@ -56,8 +64,11 @@ var player = new (function () {
             whileplaying:function () {
                 $(".position").text(Math.round(sound.position / 1000 / 60) + '/' + Math.round(sound.duration / 1000 / 60));
                 visualization.drawMainVisualzation(2, this.waveformData, this.eqData, this.peakData);
-                visualization.drawMainBass(this.peakData);
-                $('#slider').slider( "value" , this.position / this.duration * 1000);
+                //visualization.drawMainBass(this.peakData);
+                $('#slider').slider("value", this.position / this.duration * 1000);
+            },
+            onfinish:function () {
+                player.nextSong();
             }
         });
 
@@ -106,11 +117,11 @@ var player = new (function () {
                 function () {
                     if (me.status == 0) {
                         sound.resume();
-                        $(this).css("backgroundImage", "url('../images/pause.jpg')");
+                        $(this).css("backgroundImage", "url('../images/pause.png')");
                     }
 
                     else {
-                        $(this).css("backgroundImage", "url('../images/play.jpg')");
+                        $(this).css("backgroundImage", "url('../images/play.png')");
                         sound.pause();
                     }
                 }).fadeIn(200);

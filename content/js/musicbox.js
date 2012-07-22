@@ -2,6 +2,8 @@ WEB_SOCKET_SWF_LOCATION = "bootstrap/js/WebSocketMain.swf";
 
 
 var musicboxclient = new function () {
+    var last_search;
+
     this.init = function () {
         $('#artist-info').hide();
         visualization.init();
@@ -22,6 +24,10 @@ var musicboxclient = new function () {
         $('#brand').click(function () {
             send({action:'SEARCH', message:''});
         });
+
+        $('#play-next').click(function () {
+            player.nextSong();
+        })
 
         // wire up text input event
         var searchentry = document.getElementById('searchfield');
@@ -98,6 +104,8 @@ var musicboxclient = new function () {
                 console.log(incoming.message);
                 break;
             case 'SEARCHRESULT':
+                last_search = incoming;
+
                 $("#content").fadeOut(200,
                     function () {
 
@@ -188,6 +196,12 @@ var musicboxclient = new function () {
                             songname = $('<td>', {text:incoming.songs[key].name});
                             songname.click(function () {
                                 send({action:'GETAUDIOBYTRACK', message:this.parentElement.getAttribute("id")});
+
+                                player.clearQueue();
+                                for (song in last_search.songs) {
+                                    player.addToQueye(last_search.songs[song]);
+                                }
+                                player.position = 0;
                             });
 
                             li.append($('<td>', {text:parseInt(key) + 1}));
@@ -272,9 +286,11 @@ var musicboxclient = new function () {
     }
 
     // Send message to server over socket.
-    function send(outgoing) {
+    this.send = function (outgoing) {
         ws.send(JSON.stringify(outgoing));
     }
+
+    send = this.send;
 }
 
 // Connect on load.

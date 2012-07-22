@@ -25,6 +25,20 @@
             <div class="navbar-search pull-left">
                 <input id="chat-text" type="text" class="search-query" placeholder="Input text">
             </div>
+            <div id="play" class="pull-left" onclick="player.playPause();">
+            </div>
+            <img id="play-next" class="pull-left" src="images/next.png" alt="NEXT"/>
+
+            <div id="song">
+                <div id="slider">
+                    <span class="position"></span>
+                </div>
+                <span class="title"></span>
+            </div>
+
+            <div id="volume" class="pull-left">
+                <canvas id='bassvolume' width="0" height="0">Обновите браузер</canvas>
+            </div>
         </div>
     </div>
 </div>
@@ -73,25 +87,6 @@
             <div id="chatlog" class="hero-unit">
                 <h1>Hello, world!</h1>
             </div>
-        </div>
-    </div>
-</div>
-
-<div id="barContainer">
-    <div id="bar">
-        <div id="play">
-            <a href="" onclick="player.playPause(); return false;">&nbsp;</a>
-        </div>
-        <div id="song">
-            <a href="#"><img src="images/prev.jpg" alt="PREVIOUS"/></a>
-            <span class="title"></span>
-            <span class="position"></span>
-            <a href="#"><img src="images/next.jpg" alt="NEXT"/></a>
-        </div>
-        <div id="slider">
-        </div>
-        <div id="volume">
-            <canvas id='bassvolume' width="150" height="90">Обновите браузер</canvas>
         </div>
     </div>
 </div>
