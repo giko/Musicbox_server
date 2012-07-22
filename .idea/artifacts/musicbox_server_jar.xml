@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact name="musicbox_server:jar">
+    <output-path>$PROJECT_DIR$/build/complete</output-path>
+    <root id="root">
+      <element id="directory" name="config">
+        <element id="dir-copy" path="$PROJECT_DIR$/config" />
+      </element>
+      <element id="directory" name="content">
+        <element id="dir-copy" path="$PROJECT_DIR$/content" />
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/run.bat" />
+      <element id="artifact" artifact-name="musicbox_server:jar2" />
+    </root>
+  </artifact>
+</component>
