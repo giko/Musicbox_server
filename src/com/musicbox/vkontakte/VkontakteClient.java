@@ -37,7 +37,7 @@ public class VkontakteClient {
     }
 
     public static OAuthToken getOauthTokenByCode(@NotNull final String code) {
-        @NotNull String query = "https://oauth.vkontakte.ru/access_token?client_id=" + appid + "&client_secret=" + appsecret + "&code=" + code;
+        @NotNull String query = "https://oauth.vkontakte.ru/access_token?client_id=" + appid + "&client_secret=" + appsecret + "&code=" + code + "&redirect_uri=" + Config.getInstance().getServerIP();
         @NotNull Gson json = new Gson();
         return json.fromJson(
                 new InputStreamReader(WebWorker.retrieveStream(query)),

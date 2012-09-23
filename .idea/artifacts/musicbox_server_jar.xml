@@ -9,7 +9,7 @@
         <element id="dir-copy" path="$PROJECT_DIR$/content" />
       </element>
       <element id="file-copy" path="$PROJECT_DIR$/run.bat" />
-      <element id="artifact" artifact-name="musicbox_server:jar2" />
+      <element id="artifact" artifact-name="src:jar" />
     </root>
   </artifact>
 </component>

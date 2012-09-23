@@ -3,6 +3,7 @@ WEB_SOCKET_SWF_LOCATION = "bootstrap/js/WebSocketMain.swf";
 
 var musicboxclient = new function () {
     var last_search;
+    var connect_timeout = 1000;
 
     this.init = function () {
         $('#artist-info').hide();
@@ -215,7 +216,7 @@ var musicboxclient = new function () {
                 break;
             case 'REDIRECTTOVK':
                 window.localStorage.token = '';
-                location.replace('http://api.vk.com/oauth/authorize?client_id=' + incoming.message + '&redirect_uri=' + document.domain + '&scope=audio,offline&display=page&response_type = code');
+                location.replace('http://oauth.vk.com/authorize?client_id=' + incoming.message + '&redirect_uri=' + document.domain + '&scope=audio,offline&display=page&response_type = code');
                 break;
             case 'EXECUTEREQUEST':
                 $.ajax({
@@ -270,14 +271,14 @@ var musicboxclient = new function () {
             console.log('* Disconnected');
             setTimeout(function () {
                 musicboxclient.connect();
-            }, 3000);
+            }, connect_timeout = connect_timeout * 2);
         };
 
         ws.onerror = function (e) {
             console.log('* Unexpected error');
             setTimeout(function () {
                 musicboxclient.connect();
-            }, 3000);
+            }, connect_timeout = connect_timeout * 2);
         };
 
         ws.onmessage = function (e) {

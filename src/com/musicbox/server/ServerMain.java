@@ -22,7 +22,7 @@ public class ServerMain {
                 .add(new StaticFileHandler(
                         "./content"));
 
-
         webServer.start().get();
+
     }
 }

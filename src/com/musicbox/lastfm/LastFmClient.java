@@ -16,7 +16,6 @@ import com.musicbox.lastfm.structure.track.Adapter.TrackArtistTypeAdapter;
 import com.musicbox.lastfm.structure.track.ArtistTopTracksSearchResult;
 import com.musicbox.lastfm.structure.track.Track;
 import com.musicbox.lastfm.structure.track.TrackSearch;
-import com.musicbox.lastfm.structure.track.Trackmatches;
 import com.musicbox.server.Config;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -162,8 +161,8 @@ public class LastFmClient {
     }.getType();
     final Type searchtracktype = new TypeToken<List<Track>>() {
     }.getType();
-    final Type trackmatchestype = new TypeToken<Trackmatches>() {
-    }.getType();
+    //final Type trackmatchestype = new TypeToken<Trackmatches>() {
+    //}.getType();
 
     @Nullable
     public List<Track> SearchTrack(@NotNull String query) {
@@ -262,7 +261,7 @@ public class LastFmClient {
         try {
             return new InputStreamReader(source, "utf-8");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         return null;
     }

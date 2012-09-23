@@ -21,6 +21,11 @@ public class Config {
     private String lastfmapikey;
     private boolean lastfmshowdebugginginfo;
     private boolean webbitdebug;
+    private String serverip;
+
+    public String getServerIP() {
+        return serverip;
+    }
 
     public boolean isWebbitdebug() {
         return webbitdebug;
@@ -79,6 +84,7 @@ public class Config {
             this.lastfmapikey = configuration.getProperty("lastfm-api-key");
             this.lastfmshowdebugginginfo = Boolean.parseBoolean(configuration.getProperty("lastfm-show-debugging-info", "false"));
             this.webbitdebug = Boolean.parseBoolean(configuration.getProperty("webbit-debug", "true"));
+            this.serverip = configuration.getProperty("server-ip", "127.0.0.1");
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

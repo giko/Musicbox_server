@@ -27,8 +27,9 @@ public class LoginByCode extends AbstractHandler {
     @Override
     public void HandlePacket(@NotNull WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
         String code = incoming.getMessage();
+        OAuthToken oauth;
         if (!code.equals("")) {
-            OAuthToken oauth = VkontakteClient.getOauthTokenByCode(code);
+            oauth = VkontakteClient.getOauthTokenByCode(code);
             if (oauth.getError() == null || oauth.getError().equals("")) {
                 @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.TOKEN);
 
@@ -38,6 +39,9 @@ public class LoginByCode extends AbstractHandler {
                 packet.setMessage(token);
                 logintokens_.put(token, oauth);
                 connection.send(packet.toJson());
+            } else
+            {
+                System.out.println("ERROR!" + oauth.getError());
             }
         } else {
             connection.send(new Packets.Outgoing(Packets.Outgoing.Action.REDIRECTTOVK, Config.getInstance().getVkappid()).toJson());

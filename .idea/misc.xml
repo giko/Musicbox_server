@@ -11,6 +11,9 @@
     <entry_points version="2.0" />
   </component>
   <component name="IdProvider" IDEtalkID="4C7F73CBB93E583B022320951D2430C1" />
+  <component name="ProjectResources">
+    <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK" />
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
 </project>
