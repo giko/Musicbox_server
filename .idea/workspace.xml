@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed62a69f-3802-4105-8809-37c96d896ec6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/content/js/musicbox.js" afterPath="$PROJECT_DIR$/content/js/musicbox.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/content/js/player.js" afterPath="$PROJECT_DIR$/content/js/player.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/content/css/style.css" afterPath="$PROJECT_DIR$/content/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/content/js/visualization.js" afterPath="$PROJECT_DIR$/content/js/visualization.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/content/index.html" afterPath="$PROJECT_DIR$/content/index.html" />
+      <change type="MODIFICATION" beforePath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\musicbox.js" afterPath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\musicbox.js" />
+      <change type="MODIFICATION" beforePath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\player.js" afterPath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\player.js" />
+      <change type="MODIFICATION" beforePath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\css\style.css" afterPath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\css\style.css" />
+      <change type="MODIFICATION" beforePath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\visualization.js" afterPath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\visualization.js" />
+      <change type="MODIFICATION" beforePath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\index.html" afterPath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\index.html" />
     </list>
     <ignored path="musicbox_server.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -90,19 +90,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Config.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Config.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/Config.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="2" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="musicbox.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/content/js/musicbox.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="192" column="28" selection-start="7798" selection-end="7798" vertical-scroll-proportion="0.5547786">
+            <state line="25" column="2" selection-start="540" selection-end="540" vertical-scroll-proportion="0.019473081">
               <folding />
             </state>
           </provider>
@@ -114,31 +105,6 @@
             <state line="5" column="57" selection-start="183" selection-end="183" vertical-scroll-proportion="0.0">
               <folding />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="visualization.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/content/js/visualization.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="30" selection-start="4117" selection-end="4117" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="minified.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/content/css/minified.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="21566" selection-start="21795" selection-end="21795" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="play.jpg" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/content/images/play.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
           </provider>
         </entry>
       </file>
@@ -321,28 +287,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="content" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicbox_server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="content" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -779,16 +723,6 @@
         <state line="50" column="25" selection-start="1355" selection-end="1355" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/js/player.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="143" selection-start="3497" selection-end="3497" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="49" selection-start="1067" selection-end="1067" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/musicbox_server.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="14" selection-start="79" selection-end="79" vertical-scroll-proportion="0.030630631" />
@@ -797,11 +731,6 @@
     <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/LastFmClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="245" column="25" selection-start="11005" selection-end="11005" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="18" selection-start="303" selection-end="303" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/LoginByCode.java">
@@ -814,29 +743,9 @@
         <state line="82" column="67" selection-start="3136" selection-end="3136" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="2" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/main.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="57" selection-start="183" selection-end="183" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/js/visualization.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="30" selection-start="4117" selection-end="4117" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/css/minified.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="21566" selection-start="21795" selection-end="21795" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/images/play.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/MusicboxServer.java">
@@ -849,9 +758,9 @@
         <state line="23" column="8" selection-start="773" selection-end="773" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/js/musicbox.js">
+    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/Config.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="192" column="28" selection-start="7798" selection-end="7798" vertical-scroll-proportion="0.5547786">
+        <state line="25" column="2" selection-start="540" selection-end="540" vertical-scroll-proportion="0.019473081">
           <folding />
         </state>
       </provider>
