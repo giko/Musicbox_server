@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="mbApp">
+<head>
+    <title>Musicbox</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/controllers.js"></script>
+</head>
+<body>
+<ul ng-controller="PlayListCtrl">
+    {{playlists.length}}
+    <li ng-repeat="playlist in playlists">
+        <h3>{{playlist.name}}</h3>
+        {{playlist.songs.length}}
+        <ol>
+            <li ng-repeat="song in playlist.songs">
+                <button ng-click="DeleteSong(playlist, song)">d</button>
+                <h2>{{song.name}}</h2>
+            </li>
+        </ol>
+        <input ng-model="name">
+        <button ng-click="AddSong(name, playlist)"></button>
+
+    </li>
+    <input ng-model="name">
+    <button ng-click="AddToPlaylists(name)"></button>
+</ul>
+</body>
+</html>
