@@ -1,0 +1,7 @@
+   <div class="playlist">
+{{playlist.songs.length}}
+<li ng-repeat="song in playlist.songs">
+    <h3>{{song.name}}</h3>
+</li>
+<button ng-click="player.playlists.add(playlist)">add</button>
+   </div>

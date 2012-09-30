@@ -1,0 +1,40 @@
+body, html {
+    height: 100%;
+    margin: 0px;
+}
+
+h3{
+    margin: 5px;
+}
+
+.Three-Dee{
+    font-family: Georgia, serif;
+    line-height: 1em;
+    color: #f57627;
+    font-weight:bold;
+    font-size: 60px;
+    text-shadow:0px 0px 0 rgb(221,94,15),1px 1px 0 rgb(206,79,0),2px 2px 0 rgb(192,65,-14),3px 3px 0 rgb(177,50,-29),4px 4px 0 rgb(163,36,-43),5px 5px 0 rgb(148,21,-58), 6px 6px 0 rgb(134,7,-72),7px 7px 6px rgba(0,0,0,0.6),7px 7px 1px rgba(0,0,0,0.5),0px 0px 6px rgba(0,0,0,.2);}
+.playlists {
+    margin: 0;
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    background-image: url("/graphics/2479932.png");
+    padding: 30px;
+}
+
+.playlist {
+    background-color: rgba(240,216,168,0.8);
+    border-radius: 10px;
+    padding: 8px;
+    margin-top: 10px;
+}
+
+.view {
+    margin-left: 20%;
+    padding-left: 90px;
+    padding-right: 30px;
+    padding-top: 10px;
+    background-color: #554236;
+    height: 100%;
+}

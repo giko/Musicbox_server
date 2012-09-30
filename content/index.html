@@ -2,27 +2,32 @@
 <html ng-app="mbApp">
 <head>
     <title>Musicbox</title>
-    <script src="js/angular.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/angular.js"></script>
     <script src="js/controllers.js"></script>
+    <script src="ws/swfobject.js"></script>
+    <script src="ws/web_socket.js"></script>
 </head>
-<body>
-<ul ng-controller="PlayListCtrl">
-    {{playlists.length}}
-    <li ng-repeat="playlist in playlists">
+<body ng-controller="MainCtrl">
+
+<div class="playlists" ng-controller="PlayListCtrl">
+    <h1 class="Three-Dee">Playlists</h1>
+
+    <div class="playlist">Total count: {{player.playlists.length}}</div>
+    <div class="playlist" ng-repeat="playlist in player.playlists">
         <h3>{{playlist.name}}</h3>
         {{playlist.songs.length}}
         <ol>
             <li ng-repeat="song in playlist.songs">
-                <button ng-click="DeleteSong(playlist, song)">d</button>
-                <h2>{{song.name}}</h2>
+                {{song.name}}
             </li>
         </ol>
-        <input ng-model="name">
-        <button ng-click="AddSong(name, playlist)"></button>
+        <button ng-click="player.playlists.remove(playlist)">d</button>
+    </div>
+</div>
 
-    </li>
-    <input ng-model="name">
-    <button ng-click="AddToPlaylists(name)"></button>
-</ul>
+<div class="view">
+    <div ng-view></div>
+</div>
 </body>
 </html>

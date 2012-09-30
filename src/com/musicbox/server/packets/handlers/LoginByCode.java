@@ -41,7 +41,7 @@ public class LoginByCode extends AbstractHandler {
                 connection.send(packet.toJson());
             } else
             {
-                System.out.println("ERROR!" + oauth.getError());
+                System.out.println("ERROR!" + oauth.getError() + oauth.getError_description());
             }
         } else {
             connection.send(new Packets.Outgoing(Packets.Outgoing.Action.REDIRECTTOVK, Config.getInstance().getVkappid()).toJson());
