@@ -30,8 +30,9 @@ mbApp.factory('player', function (socket, audio, $rootScope) {
 
         playing:false,
 
-        play:function (track, album) {
-
+        play:function (query) {
+            audio.src = query;
+            audio.play();
         },
 
         pause:function () {
@@ -112,13 +113,13 @@ mbApp.factory('socket', function ($rootScope, $location) {
     };
 });
 
-function MainCtrl($scope, $location, socket) {
+function MainCtrl($scope, $location, $http, socket) {
     socket.on("MESSAGE", function (data) {
         $scope.msg = data.message;
     });
     socket.on("REDIRECTTOVK", function (data) {
         window.localStorage.token = "";
-        location.replace('https://oauth.vk.com/authorize?client_id=' + data.message + '&redirect_uri=http://' + document.domain + '/&scope=audio,offline&response_type=code');
+        location.replace('https://oauth.vk.com/authorize?client_id=' + data.message + '&scope=audio,offline&redirect_uri=http://' + document.domain + '/&response_type=code&display=page');
     });
 
     socket.on("TOKEN", function (data) {
@@ -129,6 +130,14 @@ function MainCtrl($scope, $location, socket) {
     socket.on("LOGINSUCCESS", function () {
         socket.send({action:"SEARCH", message:""});
     });
+
+    socket.on("EXECUTEREQUEST", function (data) {
+        $http.jsonp(data.request.url, {params:data.request.data}).success(function (msg, status) {
+            socket.send({action:'EXECUTEREQUESTRESULT', message:JSON.stringify({action:data.request.action, result:JSON.stringify({query:data.message, data:msg})})})
+        }).error(function () {
+                console.log("EXECUTEREQUEST FAILED!");
+            });
+    })
 }
 
 function HomeCtrl($scope, $location, socket) {
@@ -143,15 +152,25 @@ function HomeCtrl($scope, $location, socket) {
 
 function PlayListCtrl($scope, player, socket) {
     $scope.player = player;
+    socket.on("AUDIO", function (data) {
+        player.play(data.audio.url);
+    })
 }
 
 function SearchResultCtrl($scope, player, socket, $routeParams) {
     $scope.player = player;
     $scope.playlist;
+    $scope.loading = true;
+
+    $scope.requestSong = function (song) {
+        socket.send({action:'GETAUDIOBYTRACK', message:song.artist.name + " " + song.name})
+    }
+
     var query = $routeParams.query;
 
     socket.send({action:"SEARCH", message:query });
     socket.on("SEARCHRESULT", function (data) {
+        $scope.loading = false;
         $scope.playlist = {name:query, songs:data.songs};
     });
 }

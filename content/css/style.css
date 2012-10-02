@@ -38,3 +38,11 @@ h3{
     background-color: #554236;
     height: 100%;
 }
+
+.searching {
+    margin-left: 50%;
+    margin-top: 20%;
+    background-image: url("/graphics/loader.gif");
+    width: 128px;
+    height: 128px;
+}

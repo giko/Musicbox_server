@@ -176,7 +176,7 @@ public class LastFmClient {
                     .create();
             try {
                 List<Track> searchresult = jsontracks
-                        .fromJson(retrieveReader("method=track.search&limit=3&track=" + URLEncoder.encode(query)), TrackSearch.class)
+                        .fromJson(retrieveReader("method=track.search&limit=10&track=" + URLEncoder.encode(query)), TrackSearch.class)
                         .getResults().getTrackmatches().getTrack();
                 cacheAllocator.cacheObject(searchresult);
                 return searchresult;
