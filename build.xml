@@ -1,49 +1,215 @@
-<project name="MusicBox-Server" basedir="." default="main">
-
-    <property name="src.dir" value="src"/>
-
-    <property name="build.dir" value="build"/>
-    <property name="classes.dir" value="${build.dir}/classes"/>
-    <property name="jar.dir" value="${build.dir}/jar"/>
-
-    <property name="main-class" value="com.musicbox.server.ServerMain"/>
-
-    <property name="lib.dir" value="libs"/>
-
-    <path id="classpath">
-        <fileset dir="${lib.dir}" includes="**/*.jar"/>
-    </path>
-
-    <target name="clean">
-        <delete dir="${build.dir}"/>
-    </target>
-
-    <target name="compile">
-        <mkdir dir="${classes.dir}"/>
-        <javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
-    </target>
-
-    <target name="jar" depends="compile">
-        <mkdir dir="${jar.dir}"/>
-        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
-            <manifest>
-                <attribute name="Main-Class" value="${main-class}"/>
-            </manifest>
-        </jar>
-    </target>
-
-    <target name="run" depends="jar">
-        <java fork="true" classname="${main-class}">
-            <classpath>
-                <path refid="classpath"/>
-                <path location="${jar.dir}/${ant.project.name}.jar"/>
-            </classpath>
-        </java>
-    </target>
-
-
-    <target name="clean-build" depends="clean,jar"/>
-
-    <target name="main" depends="clean,run"/>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="musicbox_server" default="all">
+  
+  
+  <property file="build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+  </patternset>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.libs.classpath">
+    <fileset dir="${basedir}/libs">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module src -->
+  
+  <dirname property="module.src.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.src" value="${compiler.args}"/>
+  
+  <property name="src.output.dir" value="${module.src.basedir}/production/src"/>
+  <property name="src.testoutput.dir" value="${module.src.basedir}/test/src"/>
+  
+  <path id="src.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="src.module.production.classpath">
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  <path id="src.runtime.production.module.classpath">
+    <pathelement location="${src.output.dir}"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  <path id="src.module.classpath">
+    <pathelement location="${src.output.dir}"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  <path id="src.runtime.module.classpath">
+    <pathelement location="${src.testoutput.dir}"/>
+    <pathelement location="${src.output.dir}"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.src">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.src">
+    <patternset refid="excluded.from.module.src"/>
+  </patternset>
+  
+  <path id="src.module.sourcepath">
+    <dirset dir="${module.src.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.src" depends="compile.module.src.production,compile.module.src.tests" description="Compile module src"/>
+  
+  <target name="compile.module.src.production" description="Compile module src; production classes">
+    <mkdir dir="${src.output.dir}"/>
+    <javac destdir="${src.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.src}"/>
+      <bootclasspath refid="src.module.bootclasspath"/>
+      <classpath refid="src.module.production.classpath"/>
+      <src refid="src.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.src"/>
+    </javac>
+    
+    <copy todir="${src.output.dir}">
+      <fileset dir="${module.src.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.src.tests" depends="compile.module.src.production" description="compile module src; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.src" description="cleanup module">
+    <delete dir="${src.output.dir}"/>
+    <delete dir="${src.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.src, clean.artifact.musicbox_server:jar" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.src" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.musicbox_server:jar" value="${basedir}/build/complete"/>
+    <property name="artifact.output.src:jar" value="${basedir}/out/artifacts/src_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.musicbox_server.jar" value="${artifacts.temp.dir}/musicbox_server.jar"/>
+  </target>
+  
+  <target name="clean.artifact.musicbox_server:jar" description="clean musicbox_server:jar artifact output">
+    <delete dir="${artifact.output.musicbox_server:jar}"/>
+  </target>
+  
+  <target name="artifact.musicbox_server:jar" depends="init.artifacts, artifact.src:jar" description="Build &#39;musicbox_server:jar&#39; artifact">
+    <mkdir dir="${artifact.output.musicbox_server:jar}"/>
+    <mkdir dir="${artifact.output.musicbox_server:jar}/config"/>
+    <copy todir="${artifact.output.musicbox_server:jar}/config">
+      <fileset dir="${basedir}/config"/>
+    </copy>
+    <mkdir dir="${artifact.output.musicbox_server:jar}/content"/>
+    <copy todir="${artifact.output.musicbox_server:jar}/content">
+      <fileset dir="${basedir}/content"/>
+    </copy>
+    <copy file="${basedir}/run.bat" tofile="${artifact.output.musicbox_server:jar}/run.bat"/>
+    <copy todir="${artifact.output.musicbox_server:jar}">
+      <fileset dir="${artifact.temp.output.src:jar}"/>
+    </copy>
+  </target>
+  
+  <target name="artifact.src:jar" depends="init.artifacts, compile.module.src" description="Build &#39;src:jar&#39; artifact">
+    <property name="artifact.temp.output.src:jar" value="${artifacts.temp.dir}/src_jar"/>
+    <mkdir dir="${artifact.temp.output.src:jar}"/>
+    <jar destfile="${temp.jar.path.musicbox_server.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset file="${basedir}/src/META-INF/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${src.output.dir}"/>
+      <zipfileset src="${basedir}/libs/gson-2.1.jar"/>
+      <zipfileset src="${basedir}/libs/httpclient-4.1.2.jar"/>
+      <zipfileset src="${basedir}/libs/httpcore-4.1.2.jar"/>
+      <zipfileset src="${basedir}/libs/commons-logging-1.1.1.jar"/>
+      <zipfileset src="${basedir}/libs/annotations.jar"/>
+      <zipfileset src="${basedir}/libs/webbit-0.4.14.jar"/>
+      <zipfileset src="${basedir}/libs/netty-3.5.2.Final.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.musicbox_server.jar}" tofile="${artifact.temp.output.src:jar}/musicbox_server.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.musicbox_server:jar, artifact.src:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.src:jar}"/>
+    <copy todir="${artifact.output.src:jar}">
+      <fileset dir="${artifact.temp.output.src:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
 </project>
