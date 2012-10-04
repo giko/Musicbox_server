@@ -13,9 +13,9 @@
     </list>
     <ignored path="musicbox_server.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/index.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349342374895" ignored="false" />
-    <file path="/style.css" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349342169725" ignored="false" />
-    <file path="/controllers.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349340783854" ignored="false" />
+    <file path="/index.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349348464510" ignored="false" />
+    <file path="/controllers.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349348433483" ignored="false" />
+    <file path="/style.css" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349348212627" ignored="false" />
     <file path="/search-result.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349257623461" ignored="false" />
     <file path="/main.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349111020836" ignored="false" />
     <file path="/VkontakteClient.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1348843549546" ignored="false" />
@@ -483,7 +483,7 @@
       <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="28" selection-start="1225" selection-end="1225" vertical-scroll-proportion="0.0">
+            <state line="57" column="19" selection-start="1172" selection-end="1172" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -492,10 +492,19 @@
       <file leaf-file-name="controllers.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/js/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="10" selection-start="1569" selection-end="1569" vertical-scroll-proportion="0.0">
+            <state line="24" column="10" selection-start="737" selection-end="737" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="e#2160#3171#0" expanded="false" />
+                <element signature="e#2513#3524#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="81" column="67" selection-start="2384" selection-end="2384" vertical-scroll-proportion="0.28865978">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -509,10 +518,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="18" selection-start="1062" selection-end="1062" vertical-scroll-proportion="0.7513812">
+            <state line="21" column="80" selection-start="795" selection-end="795" vertical-scroll-proportion="-8.307693">
               <folding />
             </state>
           </provider>
@@ -564,7 +573,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/com/musicbox/server/packets/Packets.java" />
         <option value="$PROJECT_DIR$/content/js/visualization.js" />
         <option value="$PROJECT_DIR$/content/js/player.js" />
         <option value="$PROJECT_DIR$/content/js/musicbox.js" />
@@ -577,9 +585,10 @@
         <option value="$PROJECT_DIR$/src/com/musicbox/lastfm/LastFmClient.java" />
         <option value="$PROJECT_DIR$/content/partials/search-result.html" />
         <option value="$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/GetAudioByTrack.java" />
-        <option value="$PROJECT_DIR$/content/js/controllers.js" />
         <option value="$PROJECT_DIR$/content/css/style.css" />
+        <option value="$PROJECT_DIR$/content/js/controllers.js" />
         <option value="$PROJECT_DIR$/content/index.html" />
+        <option value="$PROJECT_DIR$/build.xml" />
       </list>
     </option>
   </component>
@@ -888,7 +897,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
     <property name="GenerateAntBuildDialog.inclineRuntiemClasspath" value="false" />
-    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="musicbox_server" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="build" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -899,7 +908,7 @@
     <property name="options.lastSelected" value="preferences.general" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
     <property name="GenerateAntBuildDialog.backupFiles" value="false" />
@@ -1076,7 +1085,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1092,7 +1101,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39984825" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32924226" sideWeight="0.67745537" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32254463" sideWeight="0.32230523" order="2" side_tool="false" content_ui="tabs" x="24" y="266" width="1318" height="192" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32254463" sideWeight="0.32230523" order="2" side_tool="false" content_ui="tabs" x="24" y="266" width="1318" height="192" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1164,11 +1173,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/LoginByCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="93" selection-start="1520" selection-end="1520" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/musicbox_server.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="14" selection-start="79" selection-end="79" vertical-scroll-proportion="0.030630631" />
@@ -1236,6 +1240,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/content/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="19" selection-start="1172" selection-end="1172" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/content/partials/search-result.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="25" selection-start="225" selection-end="225" vertical-scroll-proportion="-2.6153846">
@@ -1243,25 +1254,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/js/controllers.js">
+    <entry file="file://$PROJECT_DIR$/content/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="10" selection-start="1569" selection-end="1569" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#2160#3171#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="28" selection-start="1225" selection-end="1225" vertical-scroll-proportion="0.0">
+        <state line="21" column="80" selection-start="795" selection-end="795" vertical-scroll-proportion="-8.307693">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/index.html">
+    <entry file="file://$PROJECT_DIR$/content/js/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="18" selection-start="1062" selection-end="1062" vertical-scroll-proportion="0.7513812">
+        <state line="24" column="10" selection-start="737" selection-end="737" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#2513#3524#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="67" selection-start="2384" selection-end="2384" vertical-scroll-proportion="0.28865978">
           <folding />
         </state>
       </provider>

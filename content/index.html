@@ -11,6 +11,7 @@
 <body ng-controller="MainCtrl">
 
 <div class="left-bar" ng-controller="PlayListCtrl">
+    <button ng-click="player.next()">N</button>
     <h1 class="Three-Dee">Playlists</h1>
 
     <div class="playlists">
@@ -18,8 +19,7 @@
         <div class="playlist" ng-repeat="playlist in player.playlists">
             <h3>{{playlist.name}}</h3>
             <ol>
-                <li ng-class="{current: player.current.playlist == playlist && player.current.song == song,
-                loading:player.current.playlist == playlist && player.current.song == song && player.current.waiting}"
+                <li class="song" ng-class="{current: isCurrent(playlist, song), loading:isCurrent(playlist, song) && player.current.waiting}"
                     ng-click="player.play(playlist, song)" ng-repeat="song in playlist.songs">
                     {{song.name}}
                 </li>

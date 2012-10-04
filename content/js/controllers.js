@@ -53,7 +53,13 @@ mbApp.factory('player', function (socket, audio, $rootScope) {
         },
 
         next:function () {
+            var playlists_index = playlists.indexOf(current.playlist);
+            var song_index = playlists[playlists_index].songs.indexOf(current.song);
+            if (playlists[playlists_index].songs.length > song_index + 1) {
+                player.play(current.playlist, current.playlist.songs[song_index + 1])
+            } else {
 
+            }
         },
 
         previous:function () {
@@ -165,6 +171,10 @@ function HomeCtrl($scope, $location, socket) {
 
 function PlayListCtrl($scope, player, socket) {
     $scope.player = player;
+    $scope.isCurrent = function (playlist, song) {
+        return player.current.playlist == playlist && player.current.song == song;
+    };
+
     socket.on("AUDIO", function (data) {
         player.playURL(data.audio.url);
     });

@@ -54,6 +54,10 @@ h3{
     height: 128px;
 }
 
+.song {
+    cursor: pointer;
+}
+
 .current {
     background-color: red;
 }
