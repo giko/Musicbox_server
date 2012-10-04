@@ -57,6 +57,7 @@ public class GetAudioByTrack extends AbstractHandler {
             request.setUrl("https://api.vkontakte.ru/method/execute");
             request.getData().put("code", "return API.audio.search({\"q\":\"" + incoming.getMessage() + "\",\"count\":1, \"sort\":2, \"lyrics\":1})[1];");
             request.getData().put("access_token", connections_.get(connection).getToken().getAccess_token());
+            request.getData().put("callback", "JSON_CALLBACK");
 
             packet.setMessage(incoming.getMessage());
             packet.setRequest(request);

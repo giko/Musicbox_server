@@ -10,19 +10,22 @@
 </head>
 <body ng-controller="MainCtrl">
 
-<div class="playlists" ng-controller="PlayListCtrl">
+<div class="left-bar" ng-controller="PlayListCtrl">
     <h1 class="Three-Dee">Playlists</h1>
 
-    <div class="playlist">Total count: {{player.playlists.length}}</div>
-    <div class="playlist" ng-repeat="playlist in player.playlists">
-        <h3>{{playlist.name}}</h3>
-        {{playlist.songs.length}}
-        <ol>
-            <li ng-repeat="song in playlist.songs">
-                {{song.name}}
-            </li>
-        </ol>
-        <button ng-click="player.playlists.remove(playlist)">d</button>
+    <div class="playlists">
+        <div class="playlist">Total count: {{player.playlists.length}}</div>
+        <div class="playlist" ng-repeat="playlist in player.playlists">
+            <h3>{{playlist.name}}</h3>
+            <ol>
+                <li ng-class="{current: player.current.playlist == playlist && player.current.song == song,
+                loading:player.current.playlist == playlist && player.current.song == song && player.current.waiting}"
+                    ng-click="player.play(playlist, song)" ng-repeat="song in playlist.songs">
+                    {{song.name}}
+                </li>
+            </ol>
+            <button ng-click="player.playlists.remove(playlist)">d</button>
+        </div>
     </div>
 </div>
 

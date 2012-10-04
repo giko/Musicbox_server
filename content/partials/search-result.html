@@ -1,7 +1,7 @@
 <div class="searching" ng-show="loading"></div>
 <div class="playlist" ng-show="!loading">
     {{playlist.songs.length}}
-    <li ng-click="requestSong(song)" ng-repeat="song in playlist.songs">
+    <li ng-click="player.requestSong(song)" ng-repeat="song in playlist.songs">
         <h3>{{song.name}}</h3>
     </li>
     <button ng-click="player.playlists.add(playlist)">add</button>

@@ -19,6 +19,7 @@ mbApp.factory('player', function (socket, audio, $rootScope) {
         playlists = [],
         paused = false,
         current = {
+            waiting:false,
             playlist:0,
             track:0
         };
@@ -30,8 +31,16 @@ mbApp.factory('player', function (socket, audio, $rootScope) {
 
         playing:false,
 
-        play:function (query) {
-            audio.src = query;
+        play:function (playlist, song) {
+            current.waiting = true;
+            current.playlist = playlist;
+            current.song = song;
+            player.requestSong(song);
+        },
+
+        playURL:function (url) {
+            current.waiting = false;
+            audio.src = url;
             audio.play();
         },
 
@@ -49,11 +58,15 @@ mbApp.factory('player', function (socket, audio, $rootScope) {
 
         previous:function () {
 
+        },
+        requestSong:function (song) {
+            waiting = true;
+            socket.send({action:'GETAUDIOBYTRACK', message:song.artist.name + " " + song.name})
         }
     };
 
     playlists.add = function (playlist) {
-        if (playlists.indexOf(playlist) != -1) return;
+        //if (playlists.indexOf(playlist) != -1) return;
         playlists.push(playlist);
     };
 
@@ -124,7 +137,7 @@ function MainCtrl($scope, $location, $http, socket) {
 
     socket.on("TOKEN", function (data) {
         window.localStorage.token = data.message;
-        socket.send({action:"SEARCH", message:""});
+        socket.send({action:"LOGIN", message:data.message});
     });
 
     socket.on("LOGINSUCCESS", function () {
@@ -153,18 +166,14 @@ function HomeCtrl($scope, $location, socket) {
 function PlayListCtrl($scope, player, socket) {
     $scope.player = player;
     socket.on("AUDIO", function (data) {
-        player.play(data.audio.url);
-    })
+        player.playURL(data.audio.url);
+    });
 }
 
 function SearchResultCtrl($scope, player, socket, $routeParams) {
     $scope.player = player;
     $scope.playlist;
     $scope.loading = true;
-
-    $scope.requestSong = function (song) {
-        socket.send({action:'GETAUDIOBYTRACK', message:song.artist.name + " " + song.name})
-    }
 
     var query = $routeParams.query;
 
