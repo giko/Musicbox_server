@@ -4,133 +4,6 @@
  * Date: 23.09.12
  * Time: 21:04
  */
-WEB_SOCKET_SWF_LOCATION = "ws/WebSocketMain.swf";
-
-var mbApp = angular.module('mbApp', [], function ($locationProvider, $routeProvider) {
-    $locationProvider.html5Mode(true);
-    $routeProvider.
-        when('/', {templateUrl:'/partials/main.html', controller:HomeCtrl}).
-        when('/search/:query', {templateUrl:'/partials/search-result.html', controller:SearchResultCtrl}).
-        otherwise({redirectTo:'/'});
-});
-
-mbApp.factory('player', function (socket, audio, $rootScope) {
-    var player,
-        playlists = [],
-        paused = false,
-        current = {
-            waiting:false,
-            playlist:0,
-            track:0
-        };
-
-    player = {
-        playlists:playlists,
-
-        current:current,
-
-        playing:false,
-
-        play:function (playlist, song) {
-            current.waiting = true;
-            current.playlist = playlist;
-            current.song = song;
-            player.requestSong(song);
-        },
-
-        playURL:function (url) {
-            current.waiting = false;
-            audio.src = url;
-            audio.play();
-        },
-
-        pause:function () {
-
-        },
-
-        reset:function () {
-
-        },
-
-        next:function () {
-            var playlists_index = playlists.indexOf(current.playlist);
-            var song_index = playlists[playlists_index].songs.indexOf(current.song);
-            if (playlists[playlists_index].songs.length > song_index + 1) {
-                player.play(current.playlist, current.playlist.songs[song_index + 1])
-            } else {
-
-            }
-        },
-
-        previous:function () {
-
-        },
-        requestSong:function (song) {
-            waiting = true;
-            socket.send({action:'GETAUDIOBYTRACK', message:song.artist.name + " " + song.name})
-        }
-    };
-
-    playlists.add = function (playlist) {
-        //if (playlists.indexOf(playlist) != -1) return;
-        playlists.push(playlist);
-    };
-
-    playlists.remove = function (playlist) {
-        var index = playlists.indexOf(playlist);
-        if (index == current.playlist) player.reset();
-        playlists.splice(index, 1);
-    };
-
-    audio.addEventListener('ended', function () {
-        $rootScope.$apply(player.next);
-    }, false);
-
-    return player;
-});
-
-mbApp.factory('audio', function ($document) {
-    var audio = $document[0].createElement('audio');
-    return audio;
-});
-
-mbApp.factory('socket', function ($rootScope, $location) {
-    var socket = new WebSocket('ws://' + document.location.host + '/musicbox');
-    var callbacks = new Array();
-
-    socket.onmessage = function (event) {
-        var data = JSON.parse(event.data);
-        console.log(data.action);
-        $rootScope.$apply(function () {
-            callbacks[data.action](data);
-        });
-    };
-
-    socket.onopen = function (e) {
-        console.log('* Connected!');
-        socket.send(JSON.stringify({action:window.localStorage.token ? "LOGIN" : "LOGINBYCODE",
-            message:window.localStorage.token || ($location.search().code || "")}));
-    };
-
-    socket.onclose = function (e) {
-        console.log('* Disconnected');
-    };
-
-    socket.onerror = function (e) {
-        console.log('* Unexpected error');
-    };
-
-    return {
-        on:function (eventName, callback) {
-            callbacks[eventName] = callback;
-        },
-
-        send:function (data) {
-            socket.send(JSON.stringify(data));
-        },
-        state:socket.readyState
-    };
-});
 
 function MainCtrl($scope, $location, $http, socket) {
     socket.on("MESSAGE", function (data) {
@@ -157,19 +30,60 @@ function MainCtrl($scope, $location, $http, socket) {
                 console.log("EXECUTEREQUEST FAILED!");
             });
     })
-}
 
-function HomeCtrl($scope, $location, socket) {
-    socket.on("SEARCHRESULT", function (data) {
-        $scope.topArtists = data.artists;
-    });
-
-    $scope.search = function (query) {
-        $location.path("/search/" + query);
+    $scope.searchArtist = function (artist) {
+        if (angular.isDefined(artist.mbid)) {
+            $location.path("/artist/id/" + artist.mbid);
+        } else {
+            $location.path("/artist/" + artist.name);
+        }
     }
 }
 
-function PlayListCtrl($scope, player, socket) {
+function ArtistCtrl($scope, $routeParams, socket, player, ArtistCache) {
+    $scope.player = player;
+    $scope.loading = true;
+    var cache;
+
+    if (angular.isDefined($routeParams.query)) {
+        cache = ArtistCache.get($routeParams.query);
+        if (angular.isUndefined(cache)) {
+            socket.send({action:"GETTOPSONGSBYARTISTNAME", message:$routeParams.query});
+        }
+    } else {
+        cache = ArtistCache.get($routeParams.id);
+        if (angular.isUndefined(cache)) {
+            socket.send({action:"GETTOPSONGSBYARTISTID", message:$routeParams.id});
+        }
+    }
+
+    if (angular.isUndefined(cache)) {
+        socket.on("SEARCHRESULT", function (data) {
+            ArtistCache.put($routeParams.query || $routeParams.id, data);
+            $scope.loading = false;
+            $scope.artist = data.artists[0];
+            $scope.playlist = {name:data.artists[0].name, songs:data.songs};
+        });
+    } else {
+        $scope.loading = false;
+        $scope.artist = cache.artists[0];
+        $scope.playlist = {name:cache.artists[0].name, songs:cache.songs};
+    }
+}
+
+function HomeCtrl($scope, $location, socket, GlobalCache) {
+    var cache = GlobalCache.get("TopArtists");
+    if (angular.isDefined(cache)) {
+        $scope.topArtists = cache.artists;
+    } else {
+        socket.on("SEARCHRESULT", function (data) {
+            GlobalCache.put("TopArtists", data);
+            $scope.topArtists = data.artists;
+        });
+    }
+}
+
+function PlayListCtrl($scope, $location, player, socket) {
     $scope.player = player;
     $scope.isCurrent = function (playlist, song) {
         return player.current.playlist == playlist && player.current.song == song;
@@ -178,18 +92,30 @@ function PlayListCtrl($scope, player, socket) {
     socket.on("AUDIO", function (data) {
         player.playURL(data.audio.url);
     });
+
+    $scope.search = function (query) {
+        $location.path("/search/" + query);
+    }
 }
 
-function SearchResultCtrl($scope, player, socket, $routeParams) {
+function SearchResultCtrl($scope, player, socket, $routeParams, SearchCache) {
     $scope.player = player;
     $scope.playlist;
     $scope.loading = true;
 
     var query = $routeParams.query;
 
-    socket.send({action:"SEARCH", message:query });
-    socket.on("SEARCHRESULT", function (data) {
+    var cache = SearchCache.get(query);
+
+    if (angular.isDefined(cache)) {
         $scope.loading = false;
-        $scope.playlist = {name:query, songs:data.songs};
-    });
+        $scope.playlist = {name:query, songs:cache.songs};
+    } else {
+        socket.send({action:"SEARCH", message:query });
+        socket.on("SEARCHRESULT", function (data) {
+            SearchCache.put(query, data);
+            $scope.loading = false;
+            $scope.playlist = {name:query, songs:data.songs};
+        });
+    }
 }

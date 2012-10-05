@@ -1,7 +1,7 @@
 <div class="playlist">
-<li ng-repeat="artist in topArtists">
-    <h3>{{artist.name}}</h3>
-</li>
-<input ng-model="query">
-<button ng-click="search(query)">search</button>
+    <div ng-click="searchArtist(artist)" class="playlist" ng-repeat="artist in topArtists">
+        <img ng-src="{{artist.image[3]['#text']}}">
+        <h3>{{artist.name}}</h3>
+    </div>
+
 </div>

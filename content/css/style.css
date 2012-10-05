@@ -3,17 +3,18 @@ body, html {
     margin: 0px;
 }
 
-h3{
+h3 {
     margin: 5px;
 }
 
-.Three-Dee{
+.Three-Dee {
     font-family: Georgia, serif;
     line-height: 1em;
     color: #f57627;
-    font-weight:bold;
+    font-weight: bold;
     font-size: 60px;
-    text-shadow:0px 0px 0 rgb(221,94,15),1px 1px 0 rgb(206,79,0),2px 2px 0 rgb(192,65,-14),3px 3px 0 rgb(177,50,-29),4px 4px 0 rgb(163,36,-43),5px 5px 0 rgb(148,21,-58), 6px 6px 0 rgb(134,7,-72),7px 7px 6px rgba(0,0,0,0.6),7px 7px 1px rgba(0,0,0,0.5),0px 0px 6px rgba(0,0,0,.2);}
+    text-shadow: 0px 0px 0 rgb(221, 94, 15), 1px 1px 0 rgb(206, 79, 0), 2px 2px 0 rgb(192, 65, -14), 3px 3px 0 rgb(177, 50, -29), 4px 4px 0 rgb(163, 36, -43), 5px 5px 0 rgb(148, 21, -58), 6px 6px 0 rgb(134, 7, -72), 7px 7px 6px rgba(0, 0, 0, 0.6), 7px 7px 1px rgba(0, 0, 0, 0.5), 0px 0px 6px rgba(0, 0, 0, .2);
+}
 
 .left-bar {
     margin: 0;
@@ -31,7 +32,7 @@ h3{
 }
 
 .playlist {
-    background-color: rgba(240,216,168,0.8);
+    background-color: rgba(240, 216, 168, 0.8);
     border-radius: 10px;
     padding: 8px;
     margin-top: 10px;
@@ -43,7 +44,7 @@ h3{
     padding-right: 30px;
     padding-top: 10px;
     background-color: #554236;
-    height: 100%;
+    min-height: 100%;
 }
 
 .searching {
@@ -59,9 +60,73 @@ h3{
 }
 
 .current {
-    background-color: red;
+    background-color: #F77825;
 }
 
 .loading {
     background-color: green;
+}
+
+button.remove{
+    background-color: red;
+    background: url("/graphics/remove.png") center no-repeat;
+    width: 16px;
+    height: 16px;
+    float: left;
+    text-indent: -9999px;
+    border: 0;
+    margin-top: 10px;
+    padding-right: 25px;
+    cursor: pointer;
+}
+
+nav {
+    width: 180px;
+    margin: auto;
+    padding: 0;
+    background-color: rgba(240, 216, 168, 0.95);
+    border-radius: 2px;
+}
+
+nav button.control {
+    text-indent: -9999px;
+    width: 55px;
+    height: 50px;
+    border: 0;
+    padding: 10px;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+nav button.play {
+    background: url('../graphics/control_play.png') center no-repeat;
+}
+
+nav button.play:hover {
+    background: url('../graphics/control_play_hover.png') center no-repeat;
+}
+
+nav button.pause {
+    background: url('../graphics/control_pause.png') center no-repeat;
+}
+
+nav button.pause:hover {
+    background: url('../graphics/control_pause_hover.png') center no-repeat;
+}
+
+nav button.prev {
+    background: url('../graphics/control_start.png') center no-repeat;
+}
+
+nav button.prev:hover {
+    background: url('../graphics/control_start_hover.png') center no-repeat;
+}
+
+nav button.next {
+    background: url('../graphics/control_end.png') center no-repeat;
+}
+
+nav button.next:hover {
+    background: url('../graphics/control_end_hover.png') center no-repeat;
 }

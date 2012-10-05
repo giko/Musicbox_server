@@ -4,6 +4,9 @@
     <title>Musicbox</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/angular.js"></script>
+    <script src="js/module.js"></script>
+    <script src="js/keypress.js"></script>
+    <script src="js/system.js"></script>
     <script src="js/controllers.js"></script>
     <script src="ws/swfobject.js"></script>
     <script src="ws/web_socket.js"></script>
@@ -11,20 +14,30 @@
 <body ng-controller="MainCtrl">
 
 <div class="left-bar" ng-controller="PlayListCtrl">
-    <button ng-click="player.next()">N</button>
+    <nav>
+        <button class="control play" ng-click="player.play()" ng-hide="player.playing">Play</button>
+        <button class="control pause" ng-click="player.pause()" ng-show="player.playing">Pause</button>
+        <button class="control prev" ng-click="player.previous()">Prev</button>
+        <button class="control next" ng-click="player.next()">Next</button>
+    </nav>
+    <div style="width: 230px; margin: auto; margin-top: 10px;" class="playlist">
+        <input ng-model="query" ui-keypress="{13 : 'search(query)'}">
+        <button ng-click="search(query)">search</button>
+    </div>
     <h1 class="Three-Dee">Playlists</h1>
 
     <div class="playlists">
         <div class="playlist">Total count: {{player.playlists.length}}</div>
         <div class="playlist" ng-repeat="playlist in player.playlists">
-            <h3>{{playlist.name}}</h3>
+            <button class="remove" ng-click="player.playlists.remove(playlist)">Remove</button>
+            <h3 ng-model="playlist.name" contenteditable></h3>
             <ol>
-                <li class="song" ng-class="{current: isCurrent(playlist, song), loading:isCurrent(playlist, song) && player.current.waiting}"
+                <li class="song"
+                    ng-class="{current: isCurrent(playlist, song), loading:isCurrent(playlist, song) && player.current.waiting}"
                     ng-click="player.play(playlist, song)" ng-repeat="song in playlist.songs">
                     {{song.name}}
                 </li>
             </ol>
-            <button ng-click="player.playlists.remove(playlist)">d</button>
         </div>
     </div>
 </div>

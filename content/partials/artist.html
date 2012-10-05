@@ -1,0 +1,18 @@
+<div class="searching" ng-show="loading"></div>
+<div ng-show="!loading">
+    <div class="playlist" style="overflow: auto">
+        <div style="float: left;">
+            <img style="border-radius: 5px;" ng-src="{{artist.image[3]['#text']}}">
+
+            <h3>{{artist.name}}</h3>
+        </div>
+        <div style="padding-left: 20px;" ng-bind-html-unsafe="artist.bio.summary"></div>
+    </div>
+    <div class="playlist">
+        {{playlist.songs.length}}
+        <li ng-click="player.requestSong(song)" ng-repeat="song in playlist.songs">
+            <h3>{{song.name}}</h3>
+        </li>
+        <button ng-click="player.playlists.add(playlist)">add</button>
+    </div>
+</div>
