@@ -17,15 +17,19 @@ var mbApp = angular.module('mbApp', ['ui'], function ($locationProvider, $routeP
         otherwise({redirectTo:'/'});
 });
 
-mbApp.factory('GlobalCache', function($cacheFactory) {
+mbApp.factory('GlobalCache', function ($cacheFactory) {
     return $cacheFactory('GlobalCache');
 });
 
-mbApp.factory('SearchCache', function($cacheFactory) {
+mbApp.factory('SearchCache', function ($cacheFactory) {
     return $cacheFactory('SearchCache');
 });
 
-mbApp.factory('ArtistCache', function($cacheFactory) {
+mbApp.factory('AudioCache', function ($cacheFactory) {
+    return $cacheFactory('AudioCache');
+});
+
+mbApp.factory('ArtistCache', function ($cacheFactory) {
     return $cacheFactory('ArtistCache');
 });
 
@@ -54,7 +58,7 @@ mbApp.directive('contenteditable', function () {
     };
 });
 
-mbApp.factory('player', function (socket, audio, $rootScope) {
+mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
     var player,
         playlists = [],
         paused = false,
@@ -76,6 +80,7 @@ mbApp.factory('player', function (socket, audio, $rootScope) {
                 current.waiting = true;
                 current.playlist = playlist;
                 current.song = song;
+
                 player.requestSong(song);
             } else {
                 if (current.song != null && current.playlist != null) {
@@ -107,12 +112,20 @@ mbApp.factory('player', function (socket, audio, $rootScope) {
 
         next:function () {
             var playlists_index = playlists.indexOf(current.playlist);
-            var song_index = playlists[playlists_index].songs.indexOf(current.song);
-            if (playlists[playlists_index].songs.length > song_index + 1) {
-                player.play(current.playlist, current.playlist.songs[song_index + 1])
+            if (playlists_index == -1) {
+                var song_index = current.playlist.songs.indexOf(current.song);
+                if (current.playlist.songs.length > song_index + 1) {
+                    player.play(current.playlist, current.playlist.songs[song_index + 1]);
+                }
             } else {
+                var song_index = playlists[playlists_index].songs.indexOf(current.song);
+                if (playlists[playlists_index].songs.length > song_index + 1) {
+                    player.play(current.playlist, current.playlist.songs[song_index + 1])
+                } else {
 
+                }
             }
+
         },
 
         previous:function () {
@@ -142,6 +155,11 @@ mbApp.factory('player', function (socket, audio, $rootScope) {
     audio.addEventListener('ended', function () {
         $rootScope.$apply(player.next);
     }, false);
+
+    socket.on("AUDIO", function (data) {
+        //AudioCache.put(current.song.artist.name + current.song.name, data.audio);
+        player.playURL(data.audio.url);
+    });
 
     return player;
 });

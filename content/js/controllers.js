@@ -89,10 +89,6 @@ function PlayListCtrl($scope, $location, player, socket) {
         return player.current.playlist == playlist && player.current.song == song;
     };
 
-    socket.on("AUDIO", function (data) {
-        player.playURL(data.audio.url);
-    });
-
     $scope.search = function (query) {
         $location.path("/search/" + query);
     }

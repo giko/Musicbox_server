@@ -10,7 +10,7 @@
     </div>
     <div class="playlist">
         {{playlist.songs.length}}
-        <li ng-class="{current: player.current.song == song}"ng-click="player.play(playlist, song)" ng-repeat="song in playlist.songs">
+        <li ng-class="{current: player.current.song == song}" ng-click="player.play(playlist, song)" ng-repeat="song in playlist.songs">
             <h3>{{song.name}}</h3>
         </li>
         <button ng-click="player.playlists.add(playlist)">add</button>
