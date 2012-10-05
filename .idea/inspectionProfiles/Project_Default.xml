@@ -109,7 +109,6 @@
     <inspection_tool class="MagicNumber" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoreInHashCode" value="true" />
       <option name="ignoreInTestCode" value="false" />
-      <option name="ignoreInAnnotations" value="true" />
     </inspection_tool>
     <inspection_tool class="MethodOnlyUsedFromInnerClass" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoreMethodsAccessedFromAnonymousClass" value="false" />
@@ -231,7 +230,6 @@
     <inspection_tool class="UnnecessaryParentheses" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoreClarifyingParentheses" value="false" />
       <option name="ignoreParenthesesOnConditionals" value="false" />
-      <option name="ignoreParenthesesOnLambdaParameter" value="false" />
     </inspection_tool>
     <inspection_tool class="UnnecessaryQualifierForThis" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="UnnecessarySuperConstructor" enabled="true" level="WARNING" enabled_by_default="true" />

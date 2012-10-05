@@ -136,11 +136,22 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
             if (current.waiting) return;
 
             var playlists_index = playlists.indexOf(current.playlist);
-            var song_index = playlists[playlists_index].songs.indexOf(current.song);
-            if (song_index - 1 >= 0) {
-                player.play(current.playlist, current.playlist.songs[song_index - 1]);
+            if (playlists_index == -1) {
+                var song_index = current.playlist.songs.indexOf(current.song);
+                if (song_index - 1 >= 0) {
+                    player.play(current.playlist, current.playlist.songs[song_index - 1]);
+                }
+            } else {
+                var song_index = playlists[playlists_index].songs.indexOf(current.song);
+                if (playlists[playlists_index].songs.length > song_index - 1) {
+                    player.play(current.playlist, current.playlist.songs[song_index - 1]);
+                } else {
+
+                }
             }
+
         },
+
         requestSong:function (song) {
             current.waiting = true;
             var cache = AudioCache.get(song.artist.name + song.name);
