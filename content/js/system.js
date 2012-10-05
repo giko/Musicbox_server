@@ -76,6 +76,8 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
         playing:false,
 
         play:function (playlist, song) {
+            if (current.waiting) return;
+
             if (angular.isDefined(playlist) && angular.isDefined(song)) {
                 current.waiting = true;
                 current.playlist = playlist;
@@ -111,6 +113,8 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
         },
 
         next:function () {
+            if (current.waiting) return;
+
             var playlists_index = playlists.indexOf(current.playlist);
             if (playlists_index == -1) {
                 var song_index = current.playlist.songs.indexOf(current.song);
@@ -129,6 +133,8 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
         },
 
         previous:function () {
+            if (current.waiting) return;
+
             var playlists_index = playlists.indexOf(current.playlist);
             var song_index = playlists[playlists_index].songs.indexOf(current.song);
             if (song_index - 1 >= 0) {
@@ -136,13 +142,18 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
             }
         },
         requestSong:function (song) {
-            waiting = true;
-            socket.send({action:'GETAUDIOBYTRACK', message:song.artist.name + " " + song.name})
+            current.waiting = true;
+            var cache = AudioCache.get(song.artist.name + song.name);
+            if (angular.isDefined(cache)) {
+                player.playURL(cache.url);
+            } else {
+                socket.send({action:'GETAUDIOBYTRACK', message:song.artist.name + " " + song.name});
+            }
         }
     };
 
     playlists.add = function (playlist) {
-        //if (playlists.indexOf(playlist) != -1) return;
+        if (playlists.indexOf(playlist) != -1) return;
         playlists.push(playlist);
     };
 
@@ -157,7 +168,7 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
     }, false);
 
     socket.on("AUDIO", function (data) {
-        //AudioCache.put(current.song.artist.name + current.song.name, data.audio);
+        AudioCache.put(current.song.artist.name + current.song.name, data.audio);
         player.playURL(data.audio.url);
     });
 

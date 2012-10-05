@@ -19,11 +19,12 @@
     </list>
     <ignored path="musicbox_server.iws" />
     <ignored path=".idea/workspace.xml" />
+    <file path="/style.css" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349452979913" ignored="false" />
+    <file path="/index.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349452775032" ignored="false" />
+    <file path="/system.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349452584456" ignored="false" />
     <file path="/artist.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349429833448" ignored="false" />
     <file path="/search-result.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349429641929" ignored="false" />
     <file path="/controllers.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349428992429" ignored="false" />
-    <file path="/index.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349428113442" ignored="false" />
-    <file path="/style.css" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349423038591" ignored="false" />
     <file path="/main.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349422101286" ignored="false" />
     <file path="/VkontakteClient.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1348843549546" ignored="false" />
     <file path="/Config.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1348842648845" ignored="false" />
@@ -413,7 +414,6 @@
     <file path="/ServerMain.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1348834530133" ignored="false" />
     <file path="/fragment.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1348836298961" ignored="false" />
     <file path="/GetAudioByTrack.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349200817559" ignored="false" />
-    <file path="/system.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349445866022" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -480,7 +480,7 @@
       <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="7" selection-start="882" selection-end="882" vertical-scroll-proportion="0.0">
+            <state line="45" column="16" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -500,7 +500,7 @@
       <file leaf-file-name="system.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/js/system.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="148" column="29" selection-start="4667" selection-end="4667" vertical-scroll-proportion="0.0">
+            <state line="86" column="19" selection-start="2593" selection-end="2593" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -518,7 +518,7 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/content/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="13" selection-start="898" selection-end="898" vertical-scroll-proportion="0.33609468">
+            <state line="42" column="6" selection-start="1876" selection-end="1876" vertical-scroll-proportion="0.7253142">
               <folding />
             </state>
           </provider>
@@ -527,7 +527,7 @@
       <file leaf-file-name="search-result.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/partials/search-result.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="6" selection-start="538" selection-end="538" vertical-scroll-proportion="0.0">
+            <state line="13" column="35" selection-start="538" selection-end="538" vertical-scroll-proportion="-8.5">
               <folding />
             </state>
           </provider>
@@ -580,12 +580,12 @@
         <option value="$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/GetAudioByTrack.java" />
         <option value="$PROJECT_DIR$/build.xml" />
         <option value="$PROJECT_DIR$/content/partials/main.html" />
-        <option value="$PROJECT_DIR$/content/css/style.css" />
-        <option value="$PROJECT_DIR$/content/index.html" />
         <option value="$PROJECT_DIR$/content/partials/search-result.html" />
         <option value="$PROJECT_DIR$/content/partials/artist.html" />
         <option value="$PROJECT_DIR$/content/js/controllers.js" />
         <option value="$PROJECT_DIR$/content/js/system.js" />
+        <option value="$PROJECT_DIR$/content/css/style.css" />
+        <option value="$PROJECT_DIR$/content/index.html" />
       </list>
     </option>
   </component>
@@ -1115,8 +1115,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852808" sideWeight="0.32302406" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39984825" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32870865" sideWeight="0.67808217" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3219178" sideWeight="0.32230523" order="2" side_tool="false" content_ui="tabs" x="24" y="266" width="1318" height="192" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32870865" sideWeight="0.6785714" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32142857" sideWeight="0.32230523" order="2" side_tool="false" content_ui="tabs" x="24" y="266" width="1318" height="192" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1250,23 +1250,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/content/partials/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="6" selection-start="218" selection-end="218" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/content/partials/search-result.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="6" selection-start="538" selection-end="538" vertical-scroll-proportion="0.0">
+        <state line="13" column="35" selection-start="538" selection-end="538" vertical-scroll-proportion="-8.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/js/system.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="86" column="19" selection-start="2593" selection-end="2593" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/content/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="7" selection-start="882" selection-end="882" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/partials/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="6" selection-start="218" selection-end="218" vertical-scroll-proportion="0.0">
+        <state line="45" column="16" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1280,16 +1287,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/js/system.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="148" column="29" selection-start="4667" selection-end="4667" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/content/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="13" selection-start="898" selection-end="898" vertical-scroll-proportion="0.33609468">
+        <state line="42" column="6" selection-start="1876" selection-end="1876" vertical-scroll-proportion="0.7253142">
           <folding />
         </state>
       </provider>

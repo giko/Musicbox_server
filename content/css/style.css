@@ -43,6 +43,7 @@ h3 {
     padding-left: 90px;
     padding-right: 30px;
     padding-top: 10px;
+    padding-bottom: 10px;
     background-color: #554236;
     min-height: 100%;
 }
@@ -68,7 +69,6 @@ h3 {
 }
 
 button.remove{
-    background-color: red;
     background: url("/graphics/remove.png") center no-repeat;
     width: 16px;
     height: 16px;
