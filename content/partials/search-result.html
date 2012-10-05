@@ -1,7 +1,13 @@
 <div class="searching" ng-show="loading"></div>
+
+<div ng-click="searchArtist(artist)" class="playlist" ng-repeat="artist in artists">
+    <img ng-src="{{artist.image[3]['#text']}}">
+    <h3>{{artist.name}}</h3>
+</div>
+
 <div class="playlist" ng-show="!loading">
     {{playlist.songs.length}}
-    <li ng-click="player.requestSong(song)" ng-repeat="song in playlist.songs">
+    <li ng-class="{current: player.current.song == song}" ng-click="player.play(playlist, song)" ng-repeat="song in playlist.songs">
         <h3>{{song.name}}</h3>
     </li>
     <button ng-click="player.playlists.add(playlist)">add</button>

@@ -109,12 +109,14 @@ function SearchResultCtrl($scope, player, socket, $routeParams, SearchCache) {
 
     if (angular.isDefined(cache)) {
         $scope.loading = false;
+        $scope.artists = cache.artists;
         $scope.playlist = {name:query, songs:cache.songs};
     } else {
         socket.send({action:"SEARCH", message:query });
         socket.on("SEARCHRESULT", function (data) {
             SearchCache.put(query, data);
             $scope.loading = false;
+            $scope.artists = data.artists;
             $scope.playlist = {name:query, songs:data.songs};
         });
     }

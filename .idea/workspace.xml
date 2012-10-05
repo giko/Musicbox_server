@@ -13,13 +13,13 @@
     </list>
     <ignored path="musicbox_server.iws" />
     <ignored path=".idea/workspace.xml" />
+    <file path="/artist.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349429833448" ignored="false" />
+    <file path="/search-result.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349429641929" ignored="false" />
+    <file path="/controllers.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349428992429" ignored="false" />
     <file path="/index.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349428113442" ignored="false" />
-    <file path="/artist.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349427879775" ignored="false" />
-    <file path="/controllers.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349425154529" ignored="false" />
     <file path="/system.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349423463614" ignored="false" />
     <file path="/style.css" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349423038591" ignored="false" />
     <file path="/main.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349422101286" ignored="false" />
-    <file path="/search-result.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349257623461" ignored="false" />
     <file path="/VkontakteClient.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1348843549546" ignored="false" />
     <file path="/Config.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1348842648845" ignored="false" />
     <file path="/LoginByCode.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1348841775725" ignored="false" />
@@ -480,10 +480,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controllers.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="controllers.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/content/js/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="89" column="6" selection-start="3134" selection-end="3134" vertical-scroll-proportion="0.0">
+            <state line="56" column="11" selection-start="2027" selection-end="2027" vertical-scroll-proportion="0.712204">
               <folding />
             </state>
           </provider>
@@ -492,11 +492,12 @@
       <file leaf-file-name="artist.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/partials/artist.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="27" selection-start="322" selection-end="322" vertical-scroll-proportion="-5.230769">
+            <state line="12" column="60" selection-start="468" selection-end="516" vertical-scroll-proportion="-7.8461537">
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -511,10 +512,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="system.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="system.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/js/system.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="80" column="62" selection-start="2499" selection-end="2499" vertical-scroll-proportion="-0.1227758">
+            <state line="107" column="25" selection-start="3140" selection-end="3140" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#0#85#0" expanded="false" />
                 <element signature="e#227#698#0" expanded="false" />
@@ -532,7 +533,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="25" selection-start="924" selection-end="924" vertical-scroll-proportion="-14.384615">
+            <state line="22" column="25" selection-start="924" selection-end="924" vertical-scroll-proportion="-6.5384617">
               <folding />
             </state>
           </provider>
@@ -541,7 +542,7 @@
       <file leaf-file-name="search-result.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/partials/search-result.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="65" selection-start="230" selection-end="230" vertical-scroll-proportion="-2.6153846">
+            <state line="9" column="58" selection-start="349" selection-end="349" vertical-scroll-proportion="-5.8846154">
               <folding />
             </state>
           </provider>
@@ -550,7 +551,7 @@
       <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/partials/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="8" selection-start="123" selection-end="199" vertical-scroll-proportion="-1.3076923">
+            <state line="6" column="25" selection-start="218" selection-end="218" vertical-scroll-proportion="-3.9230769">
               <folding />
             </state>
           </provider>
@@ -591,15 +592,15 @@
         <option value="$PROJECT_DIR$/config/main.properties" />
         <option value="$PROJECT_DIR$/src/com/musicbox/vkontakte/VkontakteClient.java" />
         <option value="$PROJECT_DIR$/src/com/musicbox/lastfm/LastFmClient.java" />
-        <option value="$PROJECT_DIR$/content/partials/search-result.html" />
         <option value="$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/GetAudioByTrack.java" />
         <option value="$PROJECT_DIR$/build.xml" />
         <option value="$PROJECT_DIR$/content/partials/main.html" />
         <option value="$PROJECT_DIR$/content/css/style.css" />
-        <option value="$PROJECT_DIR$/content/js/controllers.js" />
-        <option value="$PROJECT_DIR$/content/partials/artist.html" />
         <option value="$PROJECT_DIR$/content/index.html" />
         <option value="$PROJECT_DIR$/content/js/system.js" />
+        <option value="$PROJECT_DIR$/content/js/controllers.js" />
+        <option value="$PROJECT_DIR$/content/partials/artist.html" />
+        <option value="$PROJECT_DIR$/content/partials/search-result.html" />
       </list>
     </option>
   </component>
@@ -1249,35 +1250,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/partials/search-result.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="65" selection-start="230" selection-end="230" vertical-scroll-proportion="-2.6153846">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/partials/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="8" selection-start="123" selection-end="199" vertical-scroll-proportion="-1.3076923">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/SearchSimilarArtistsByName.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="2" selection-start="304" selection-end="304" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/partials/artist.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="27" selection-start="322" selection-end="322" vertical-scroll-proportion="-5.230769">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1295,23 +1271,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="25" selection-start="924" selection-end="924" vertical-scroll-proportion="-14.384615">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/js/controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="6" selection-start="3134" selection-end="3134" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/content/js/system.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="62" selection-start="2499" selection-end="2499" vertical-scroll-proportion="-0.1227758">
+        <state line="107" column="25" selection-start="3140" selection-end="3140" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#0#85#0" expanded="false" />
             <element signature="e#227#698#0" expanded="false" />
@@ -1322,6 +1284,46 @@
             <element signature="e#4537#4611#0" expanded="false" />
             <element signature="e#4672#5683#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="25" selection-start="924" selection-end="924" vertical-scroll-proportion="-6.5384617">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/partials/artist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="60" selection-start="468" selection-end="516" vertical-scroll-proportion="-7.8461537">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/partials/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="25" selection-start="218" selection-end="218" vertical-scroll-proportion="-3.9230769">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/partials/search-result.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="58" selection-start="349" selection-end="349" vertical-scroll-proportion="-5.8846154">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/js/controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="11" selection-start="2027" selection-end="2027" vertical-scroll-proportion="0.712204">
+          <folding />
         </state>
       </provider>
     </entry>
