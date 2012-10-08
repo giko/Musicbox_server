@@ -32,7 +32,7 @@ function MainCtrl($scope, $location, $http, socket) {
     })
 
     $scope.searchArtist = function (artist) {
-        if (angular.isDefined(artist.mbid)) {
+        if (angular.isDefined(artist.mbid) && artist.mbid != "") {
             $location.path("/artist/id/" + artist.mbid);
         } else {
             $location.path("/artist/" + artist.name);
