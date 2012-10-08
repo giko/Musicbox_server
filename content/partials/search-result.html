@@ -1,14 +1,22 @@
 <div class="searching" ng-show="loading"></div>
 
-<div ng-click="searchArtist(artist)" class="playlist" ng-repeat="artist in artists">
-    <img ng-src="{{artist.image[3]['#text']}}">
-    <h3>{{artist.name}}</h3>
-</div>
+<div ng-show="!loading">
+    <div class="playlist" ng-show="artists.length > 0">
+        <h1 class="Three-Dee">Artists</h1>
+        <div ng-click="searchArtist(artist)" class="playlist" ng-repeat="artist in artists">
 
-<div class="playlist" ng-show="!loading">
-    {{playlist.songs.length}}
-    <li ng-class="{current: player.current.song == song}" ng-click="player.play(playlist, song)" ng-repeat="song in playlist.songs">
-        <h3>{{song.name}}</h3>
-    </li>
-    <button ng-click="player.playlists.add(playlist)">add</button>
+            <img class="artist-image" ng-src="{{artist.image[3]['#text']}}">
+
+            <h3>{{artist.name}}</h3>
+        </div>
+    </div>
+
+    <div class="playlist" ng-show="playlist.songs.length > 0">
+        <h1 class="Three-Dee">Songs</h1>
+        <li ng-class="{current: player.current.song == song}" ng-click="player.play(playlist, song)"
+            ng-repeat="song in playlist.songs">
+            <h3>{{song.name}}</h3>
+        </li>
+        <button ng-click="player.playlists.add(playlist)">add</button>
+    </div>
 </div>

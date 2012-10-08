@@ -1,7 +1,7 @@
 <div class="playlist">
+    <h1 class="Three-Dee" style="margin-top: 10px; margin-bottom: 20px;">Top Artists</h1>
     <div ng-click="searchArtist(artist)" class="playlist" ng-repeat="artist in topArtists">
-        <img ng-src="{{artist.image[3]['#text']}}">
+        <img ng-src="{{artist.image[3]['#text']}}" class="artist-image">
         <h3>{{artist.name}}</h3>
     </div>
-
 </div>

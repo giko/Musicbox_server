@@ -40,10 +40,14 @@ function MainCtrl($scope, $location, $http, socket) {
     }
 }
 
-function ArtistCtrl($scope, $routeParams, socket, player, ArtistCache) {
+function ArtistCtrl($scope, $location, $routeParams, socket, player, ArtistCache) {
     $scope.player = player;
     $scope.loading = true;
     var cache;
+
+    $scope.findSimilar = function (artist) {
+        $location.path("/artist/" + artist.name + "/similar");
+    }
 
     if (angular.isDefined($routeParams.query)) {
         cache = ArtistCache.get($routeParams.query);
@@ -90,6 +94,8 @@ function PlayListCtrl($scope, $location, player, socket) {
     };
 
     $scope.search = function (query) {
+        if (angular.isUndefined(query)) return;
+
         $location.path("/search/" + query);
     }
 }
@@ -99,21 +105,30 @@ function SearchResultCtrl($scope, player, socket, $routeParams, SearchCache) {
     $scope.playlist;
     $scope.loading = true;
 
+
     var query = $routeParams.query;
 
-    var cache = SearchCache.get(query);
+    if (angular.isDefined(query)) {
+        var cache = SearchCache.get(query);
 
-    if (angular.isDefined(cache)) {
-        $scope.loading = false;
-        $scope.artists = cache.artists;
-        $scope.playlist = {name:query, songs:cache.songs};
+        if (angular.isDefined(cache)) {
+            $scope.loading = false;
+            $scope.artists = cache.artists;
+            $scope.playlist = {name:query, songs:cache.songs};
+        } else {
+            socket.send({action:"SEARCH", message:query });
+            socket.on("SEARCHRESULT", function (data) {
+                SearchCache.put(query, data);
+                $scope.loading = false;
+                $scope.artists = data.artists;
+                $scope.playlist = {name:query, songs:data.songs};
+            });
+        }
     } else {
-        socket.send({action:"SEARCH", message:query });
+        socket.send({action:"SEARCHSIMILARARTISTSBYNAME", message:$routeParams.id});
         socket.on("SEARCHRESULT", function (data) {
-            SearchCache.put(query, data);
             $scope.loading = false;
             $scope.artists = data.artists;
-            $scope.playlist = {name:query, songs:data.songs};
         });
     }
 }

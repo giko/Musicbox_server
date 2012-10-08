@@ -3,13 +3,10 @@
 <head>
     <title>Musicbox</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/angular.js"></script>
-    <script src="js/module.js"></script>
-    <script src="js/keypress.js"></script>
+    <script src="js/vendor.min.js"></script>
     <script src="js/system.js"></script>
     <script src="js/controllers.js"></script>
-    <script src="ws/swfobject.js"></script>
-    <script src="ws/web_socket.js"></script>
+
 </head>
 <body ng-controller="MainCtrl">
 
@@ -24,10 +21,12 @@
         <input ng-model="query" ui-keypress="{13 : 'search(query)'}">
         <button ng-click="search(query)">search</button>
     </div>
-    <h1 class="Three-Dee">Playlists</h1>
 
     <div class="playlists">
-        <div class="playlist">Total count: {{player.playlists.length}}</div>
+        <div class="playlist">
+            <h1 class="Three-Dee">Playlists</h1>
+            Total count: {{player.playlists.length}}
+        </div>
         <div class="playlist" ng-repeat="playlist in player.playlists">
             <button class="remove" ng-click="player.playlists.remove(playlist)">Remove</button>
             <h3 ng-model="playlist.name" contenteditable></h3>

@@ -14,6 +14,9 @@ var mbApp = angular.module('mbApp', ['ui'], function ($locationProvider, $routeP
         when('/search/:query', {templateUrl:'/partials/search-result.html', controller:SearchResultCtrl}).
         when('/artist/:query', {templateUrl:'/partials/artist.html', controller:ArtistCtrl}).
         when('/artist/id/:id', {templateUrl:'/partials/artist.html', controller:ArtistCtrl}).
+        when('/artist/id/:id/similar', {templateUrl:'/partials/search-result.html', controller:SearchResultCtrl}).
+        when('/artist/:id/similar', {templateUrl:'/partials/search-result.html', controller:SearchResultCtrl}).
+
         otherwise({redirectTo:'/'});
 });
 
@@ -76,9 +79,9 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
         playing:false,
 
         play:function (playlist, song) {
-            if (current.waiting) return;
-
             if (angular.isDefined(playlist) && angular.isDefined(song)) {
+                if (current.waiting) return;
+
                 current.waiting = true;
                 current.playlist = playlist;
                 current.song = song;
@@ -149,7 +152,6 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
 
                 }
             }
-
         },
 
         requestSong:function (song) {

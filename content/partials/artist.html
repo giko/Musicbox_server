@@ -1,18 +1,24 @@
 <div class="searching" ng-show="loading"></div>
 <div ng-show="!loading">
-    <div class="playlist" style="overflow: auto">
-        <div style="float: left;">
-            <img style="border-radius: 5px;" ng-src="{{artist.image[3]['#text']}}">
+    <div class="playlist artist-info">
+        <h1 class="Three-Dee" style="margin-top: 10px; margin-bottom: 5px;">{{artist.name}}</h1>
 
-            <h3>{{artist.name}}</h3>
+        <div class="left">
+            <img class="artist-image" ng-src="{{artist.image[3]['#text']}}">
+
         </div>
-        <div style="padding-left: 20px;" ng-bind-html-unsafe="artist.bio.summary"></div>
+        <div class="right">
+            <div ng-bind-html-unsafe="artist.bio.summary"></div>
+            <button ng-click="findSimilar(artist)">Find Similar</button>
+        </div>
     </div>
     <div class="playlist">
-        {{playlist.songs.length}}
-        <li ng-class="{current: player.current.song == song}" ng-click="player.play(playlist, song)" ng-repeat="song in playlist.songs">
+        <h1 class="Three-Dee" style="margin-top: 10px; margin-bottom: 10px;">Songs</h1>
+
+        <div ng-class="{current: player.current.song == song}" ng-click="player.play(playlist, song)"
+             ng-repeat="song in playlist.songs">
             <h3>{{song.name}}</h3>
-        </li>
+        </div>
         <button ng-click="player.playlists.add(playlist)">add</button>
     </div>
 </div>
