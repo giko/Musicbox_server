@@ -41,7 +41,7 @@ public class Packets {
 
     static public class Outgoing {
         public enum Action {
-            EXECUTEREQUEST, LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS, AUDIO
+            CRITICALERROR, EXECUTEREQUEST, LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS, AUDIO
         }
 
         public Outgoing(@NotNull Outgoing.Action caction) {

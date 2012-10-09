@@ -13,6 +13,7 @@ public class Profile {
     private String photo_big;
     private int sex;
     private int uid;
+    private OAuthToken token;
 
     public OAuthToken getToken() {
         return token;
@@ -26,8 +27,6 @@ public class Profile {
     public void setToken(OAuthToken token) {
         this.token = token;
     }
-
-    private OAuthToken token;
 
     public String getBdate() {
         return bdate;

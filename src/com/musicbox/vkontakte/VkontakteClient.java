@@ -62,7 +62,7 @@ public class VkontakteClient {
     }
 
     @NotNull
-    public final Profile getProfileById(final int id) {
+    public final Profile getProfileById(@NotNull final int id) {
         @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getProfileById", String.valueOf(id), Profile.class);
 
         if (!cacheAllocator.exists()) {

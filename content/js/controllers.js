@@ -9,6 +9,13 @@ function MainCtrl($scope, $location, $http, socket) {
     socket.on("MESSAGE", function (data) {
         $scope.msg = data.message;
     });
+
+    socket.on("CRITICALERROR", function (data) {
+        $scope.error = true;
+        $scope.error_msg = data.message;
+    });
+
+
     socket.on("REDIRECTTOVK", function (data) {
         window.localStorage.token = "";
         location.replace('https://oauth.vk.com/authorize?client_id=' + data.message + '&scope=audio,offline&redirect_uri=http://' + document.domain + '/&response_type=code&display=page');
@@ -38,6 +45,8 @@ function MainCtrl($scope, $location, $http, socket) {
             $location.path("/artist/" + artist.name);
         }
     }
+
+    $scope.left_bar = "/partials/left-bar.html";
 }
 
 function ArtistCtrl($scope, $location, $routeParams, socket, player, ArtistCache) {
