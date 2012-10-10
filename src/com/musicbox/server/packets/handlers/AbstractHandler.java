@@ -5,9 +5,12 @@ import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets;
 import com.musicbox.vkontakte.OAuthToken;
 import com.musicbox.vkontakte.structure.profiles.Profile;
+import org.jboss.netty.channel.UpstreamMessageEvent;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
+import java.lang.reflect.Field;
+import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +34,32 @@ public abstract class AbstractHandler {
         server_ = server;
         connections_ = this.server_.getConnections();
         logintokens_ = this.server_.getLogintokens();
+    }
+
+    String getIpByConnection(WebSocketConnection connection) {
+        Field messageEvent = null;
+        Field remoteAddress = null;
+        String ip = null;
+
+        try {
+            messageEvent = connection.httpRequest().getClass().getDeclaredField("messageEvent");
+            messageEvent.setAccessible(true);
+
+            remoteAddress = UpstreamMessageEvent.class.getDeclaredField("remoteAddress");
+            remoteAddress.setAccessible(true);
+
+            try {
+                ip = ((InetSocketAddress) remoteAddress.get(messageEvent.get(connection.httpRequest()))).getAddress().toString();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return ip;
     }
 
     public abstract void HandlePacket(WebSocketConnection connection, Packets.Incoming incoming);

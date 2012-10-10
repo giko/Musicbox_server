@@ -102,7 +102,6 @@ public class MusicboxServer extends BaseWebSocketHandler {
     @Override
     public void onOpen(@NotNull WebSocketConnection connection) throws Exception {
         connections.put(connection, null);
-        connection.send(new Packets.Outgoing(Packets.Outgoing.Action.MESSAGE, "bla").toJson());
     }
 
     @Override

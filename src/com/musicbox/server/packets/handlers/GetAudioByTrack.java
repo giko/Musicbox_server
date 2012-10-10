@@ -47,7 +47,7 @@ public class GetAudioByTrack extends AbstractHandler {
     public void HandlePacket(@NotNull WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
         @NotNull
         CacheAllocator cacheAllocator = VkontakteClient.getCache().getAllocator("GetAudioByTrack",
-                incoming.getMessage() + connections_.get(connection).getUid(), Audio.class);
+                incoming.getMessage() + connections_.get(connection).getUid() + getIpByConnection(connection), Audio.class);
 
         if (!cacheAllocator.exists()) {
             @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.EXECUTEREQUEST);
@@ -73,12 +73,13 @@ public class GetAudioByTrack extends AbstractHandler {
     @Override
     public void HandleExecuteRequest(@NotNull WebSocketConnection connection, @NotNull String result) {
         Gson json = new Gson();
+
         @NotNull
         GetAudioByTrackExecuteRespond respond = json.fromJson(result, GetAudioByTrackExecuteRespond.class);
 
         @NotNull
         CacheAllocator cacheAllocator = VkontakteClient.getCache().getAllocator("GetAudioByTrack",
-                respond.getQuery() + connections_.get(connection).getUid(), Audio.class, 10);
+                respond.getQuery() + connections_.get(connection).getUid() + getIpByConnection(connection), Audio.class, 10);
 
         cacheAllocator.cacheObject(respond.getData().getResponse());
 
