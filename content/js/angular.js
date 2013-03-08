@@ -3428,7 +3428,7 @@ function $TemplateCacheProvider() {
  */
 
 
-var NON_ASSIGNABLE_MODEL_EXPRESSION = 'Non-assignable model expression: ';
+var NON_ASSIGNABLE_MODEL_EXPRESSION = 'Non-assignable com.musicbox.model expression: ';
 
 
 /**
@@ -3486,8 +3486,8 @@ var NON_ASSIGNABLE_MODEL_EXPRESSION = 'Non-assignable model expression: ';
       }
     </script>
     <div ng-controller="Ctrl">
-      <input ng-model="name"> <br>
-      <textarea ng-model="html"></textarea> <br>
+      <input ng-com.musicbox.model="name"> <br>
+      <textarea ng-com.musicbox.model="html"></textarea> <br>
       <div compile="html"></div>
     </div>
    </doc:source>
@@ -5483,7 +5483,7 @@ function $LocationProvider(){
        <div ng-controller="LogCtrl">
          <p>Reload this page with open console, enter text and hit the log button...</p>
          Message:
-         <input type="text" ng-model="message"/>
+         <input type="text" ng-com.musicbox.model="message"/>
          <button ng-click="$log.log(message)">log</button>
          <button ng-click="$log.warn(message)">warn</button>
          <button ng-click="$log.info(message)">info</button>
@@ -6455,7 +6455,7 @@ function $ParseProvider() {
  *
  *     setTimeout(function() {
  *       // since this fn executes async in a future turn of the event loop, we need to wrap
- *       // our code into an $apply call so that the model changes are properly observed.
+ *       // our code into an $apply call so that the com.musicbox.model changes are properly observed.
  *       scope.$apply(function() {
  *         if (okToGreet(name)) {
  *           deferred.resolve('Hello, ' + name + '!');
@@ -6547,7 +6547,7 @@ function $ParseProvider() {
  *
  *  There are three main differences:
  *
- * - $q is integrated with the {@link ng.$rootScope.Scope} Scope model observation
+ * - $q is integrated with the {@link ng.$rootScope.Scope} Scope com.musicbox.model observation
  *   mechanism in angular, which means faster propagation of resolution or rejection into your
  *   models and avoiding unnecessary browser repaints, which would result in flickering UI.
  * - $q promises are recognized by the templating engine in angular, which means that in templates
@@ -7340,7 +7340,7 @@ function $RouteParamsProvider() {
  * @description
  *
  * Sets the number of digest iteration the scope should attempt to execute before giving up and
- * assuming that the model is unstable.
+ * assuming that the com.musicbox.model is unstable.
  *
  * The current default is 10 iterations.
  *
@@ -7354,7 +7354,7 @@ function $RouteParamsProvider() {
  * @description
  *
  * Every application has a single root {@link ng.$rootScope.Scope scope}.
- * All other scopes are child scopes of the root scope. Scopes provide mechanism for watching the model and provide
+ * All other scopes are child scopes of the root scope. Scopes provide mechanism for watching the com.musicbox.model and provide
  * event processing life-cycle. See {@link guide/scope developer guide on scopes}.
  */
 function $RootScopeProvider(){
@@ -7462,7 +7462,7 @@ function $RootScopeProvider(){
        *
        * {@link ng.$rootScope.Scope#$destroy $destroy()} must be called on a scope when it is desired for
        * the scope and its child scopes to be permanently detached from the parent and thus stop
-       * participating in model change detection and listener notification by invoking.
+       * participating in com.musicbox.model change detection and listener notification by invoking.
        *
        * @param {boolean} isolate if true then the scoped does not prototypically inherit from the
        *         parent scope. The scope is isolated, as it can not se parent scope properties.
@@ -7525,7 +7525,7 @@ function $RootScopeProvider(){
        *   {@link angular.equals} function. To save the value of the object for later comparison
        *   {@link angular.copy} function is used. It also means that watching complex options will
        *   have adverse memory and performance implications.
-       * - The watch `listener` may change the model, which may trigger other `listener`s to fire. This
+       * - The watch `listener` may change the com.musicbox.model, which may trigger other `listener`s to fire. This
        *   is achieved by rerunning the watchers until no changes are detected. The rerun iteration
        *   limit is 100 to prevent infinity loop deadlock.
        *
@@ -7618,7 +7618,7 @@ function $RootScopeProvider(){
        *
        * @description
        * Process all of the {@link ng.$rootScope.Scope#$watch watchers} of the current scope and its children.
-       * Because a {@link ng.$rootScope.Scope#$watch watcher}'s listener can change the model, the
+       * Because a {@link ng.$rootScope.Scope#$watch watcher}'s listener can change the com.musicbox.model, the
        * `$digest()` keeps calling the {@link ng.$rootScope.Scope#$watch watchers} until no more listeners are
        * firing. This means that it is possible to get into an infinite loop. This function will throw
        * `'Maximum iteration limit exceeded.'` if the number of iterations exceeds 10.
@@ -8149,7 +8149,7 @@ function $SnifferProvider() {
  * @example
    <doc:example>
      <doc:source>
-       <input ng-init="$window = $service('$window'); greeting='Hello World!'" type="text" ng-model="greeting" />
+       <input ng-init="$window = $service('$window'); greeting='Hello World!'" type="text" ng-com.musicbox.model="greeting" />
        <button ng-click="$window.alert(greeting)">ALERT</button>
      </doc:source>
      <doc:scenario>
@@ -8563,11 +8563,11 @@ function $HttpProvider() {
       <example>
         <file name="index.html">
           <div ng-controller="FetchCtrl">
-            <select ng-model="method">
+            <select ng-com.musicbox.model="method">
               <option>GET</option>
               <option>JSONP</option>
             </select>
-            <input type="text" ng-model="url" size="80"/>
+            <input type="text" ng-com.musicbox.model="url" size="80"/>
             <button ng-click="fetch()">fetch</button><br>
             <button ng-click="updateModel('GET', 'http-hello.html')">Sample GET</button>
             <button ng-click="updateModel('JSONP', 'http://angularjs.org/greet.php?callback=JSON_CALLBACK&name=Super%20Hero')">Sample JSONP</button>
@@ -9147,7 +9147,7 @@ function $TimeoutProvider() {
       *
       * @param {function()} fn A function, who's execution should be delayed.
       * @param {number=} [delay=0] Delay in milliseconds.
-      * @param {boolean=} [invokeApply=true] If set to false skips model dirty checking, otherwise
+      * @param {boolean=} [invokeApply=true] If set to false skips com.musicbox.model dirty checking, otherwise
       *   will invoke `fn` within the {@link ng.$rootScope.Scope#$apply $apply} block.
       * @returns {*} Promise that will be resolved when the timeout is reached. The value this
       *   promise will be resolved with is the return value of the `fn` function.
@@ -9349,7 +9349,7 @@ function $FilterProvider($provide) {
                                 {name:'Adam', phone:'555-5678'},
                                 {name:'Julie', phone:'555-8765'}]"></div>
 
-       Search: <input ng-model="searchText">
+       Search: <input ng-com.musicbox.model="searchText">
        <table id="searchTextResults">
          <tr><th>Name</th><th>Phone</th><tr>
          <tr ng-repeat="friend in friends | filter:searchText">
@@ -9358,9 +9358,9 @@ function $FilterProvider($provide) {
          <tr>
        </table>
        <hr>
-       Any: <input ng-model="search.$"> <br>
-       Name only <input ng-model="search.name"><br>
-       Phone only <input ng-model="search.phone"å><br>
+       Any: <input ng-com.musicbox.model="search.$"> <br>
+       Name only <input ng-com.musicbox.model="search.name"><br>
+       Phone only <input ng-com.musicbox.model="search.phone"å><br>
        <table id="searchObjResults">
          <tr><th>Name</th><th>Phone</th><tr>
          <tr ng-repeat="friend in friends | filter:search">
@@ -9494,7 +9494,7 @@ function filterFilter() {
          }
        </script>
        <div ng-controller="Ctrl">
-         <input type="number" ng-model="amount"> <br>
+         <input type="number" ng-com.musicbox.model="amount"> <br>
          default currency symbol ($): {{amount | currency}}<br>
          custom currency identifier (USD$): {{amount | currency:"USD$"}}
        </div>
@@ -9545,7 +9545,7 @@ function currencyFilter($locale) {
          }
        </script>
        <div ng-controller="Ctrl">
-         Enter number: <input ng-model='val'><br>
+         Enter number: <input ng-com.musicbox.model='val'><br>
          Default formatting: {{val | number}}<br>
          No fractions: {{val | number:0}}<br>
          Negative number: {{-val | number:4}}
@@ -9942,13 +9942,13 @@ var uppercaseFilter = valueFn(uppercase);
          }
        </script>
        <div ng-controller="Ctrl">
-         Limit {{numbers}} to: <input type="integer" ng-model="limit">
+         Limit {{numbers}} to: <input type="integer" ng-com.musicbox.model="limit">
          <p>Output: {{ numbers | limitTo:limit }}</p>
        </div>
      </doc:source>
      <doc:scenario>
        it('should limit the numer array to first three items', function() {
-         expect(element('.doc-example-live input[ng-model=limit]').val()).toBe('3');
+         expect(element('.doc-example-live input[ng-com.musicbox.model=limit]').val()).toBe('3');
          expect(binding('numbers | limitTo:limit')).toEqual('[1,2,3]');
        });
 
@@ -10154,7 +10154,7 @@ function ngDirective(directive) {
  *
  * The reasoning for this change is to allow easy creation of action links with `ngClick` directive
  * without changing the location or causing page reloads, e.g.:
- * <a href="" ng-click="model.$save()">Save</a>
+ * <a href="" ng-click="com.musicbox.model.$save()">Save</a>
  */
 var htmlAnchorDirective = valueFn({
   restrict: 'E',
@@ -10205,7 +10205,7 @@ var htmlAnchorDirective = valueFn({
  * This example uses `link` variable inside `href` attribute:
     <doc:example>
       <doc:source>
-        <input ng-model="value" /><br />
+        <input ng-com.musicbox.model="value" /><br />
         <a id="link-1" href ng-click="value = 1">link 1</a> (link, don't reload)<br />
         <a id="link-2" href="" ng-click="value = 2">link 2</a> (link, don't reload)<br />
         <a id="link-3" ng-href="/{{'123'}}">link 3</a> (link, reload!)<br />
@@ -10303,8 +10303,8 @@ var htmlAnchorDirective = valueFn({
  * @example
     <doc:example>
       <doc:source>
-        Click me to toggle: <input type="checkbox" ng-model="checked"><br/>
-        <button ng-model="button" ng-disabled="checked">Button</button>
+        Click me to toggle: <input type="checkbox" ng-com.musicbox.model="checked"><br/>
+        <button ng-com.musicbox.model="button" ng-disabled="checked">Button</button>
       </doc:source>
       <doc:scenario>
         it('should toggle button', function() {
@@ -10333,7 +10333,7 @@ var htmlAnchorDirective = valueFn({
  * @example
     <doc:example>
       <doc:source>
-        Check me to check both: <input type="checkbox" ng-model="master"><br/>
+        Check me to check both: <input type="checkbox" ng-com.musicbox.model="master"><br/>
         <input id="checkSlave" type="checkbox" ng-checked="master">
       </doc:source>
       <doc:scenario>
@@ -10364,7 +10364,7 @@ var htmlAnchorDirective = valueFn({
  * @example
      <doc:example>
        <doc:source>
-         Check me check multiple: <input type="checkbox" ng-model="checked"><br/>
+         Check me check multiple: <input type="checkbox" ng-com.musicbox.model="checked"><br/>
          <select id="select" ng-multiple="checked">
            <option>Misko</option>
            <option>Igor</option>
@@ -10399,7 +10399,7 @@ var htmlAnchorDirective = valueFn({
  * @example
     <doc:example>
       <doc:source>
-        Check me to make text readonly: <input type="checkbox" ng-model="checked"><br/>
+        Check me to make text readonly: <input type="checkbox" ng-com.musicbox.model="checked"><br/>
         <input type="text" ng-readonly="checked" value="I'm Angular"/>
       </doc:source>
       <doc:scenario>
@@ -10429,7 +10429,7 @@ var htmlAnchorDirective = valueFn({
  * @example
     <doc:example>
       <doc:source>
-        Check me to select: <input type="checkbox" ng-model="selected"><br/>
+        Check me to select: <input type="checkbox" ng-com.musicbox.model="selected"><br/>
         <select>
           <option>Hello!</option>
           <option id="greet" ng-selected="selected">Greetings!</option>
@@ -10693,7 +10693,7 @@ function FormController(element, attrs) {
          }
        </script>
        <form name="myForm" ng-controller="Ctrl">
-         userType: <input name="input" ng-model="userType" required>
+         userType: <input name="input" ng-com.musicbox.model="userType" required>
          <span class="error" ng-show="myForm.input.$error.REQUIRED">Required!</span><br>
          <tt>userType = {{userType}}</tt><br>
          <tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br>
@@ -10703,7 +10703,7 @@ function FormController(element, attrs) {
         </form>
       </doc:source>
       <doc:scenario>
-        it('should initialize to model', function() {
+        it('should initialize to com.musicbox.model', function() {
          expect(binding('userType')).toEqual('guest');
          expect(binding('myForm.input.$valid')).toEqual('true');
         });
@@ -10812,7 +10812,7 @@ var inputType = {
            }
          </script>
          <form name="myForm" ng-controller="Ctrl">
-           Single word: <input type="text" name="input" ng-model="text"
+           Single word: <input type="text" name="input" ng-com.musicbox.model="text"
                                ng-pattern="word" required>
            <span class="error" ng-show="myForm.input.$error.required">
              Required!</span>
@@ -10827,7 +10827,7 @@ var inputType = {
           </form>
         </doc:source>
         <doc:scenario>
-          it('should initialize to model', function() {
+          it('should initialize to com.musicbox.model', function() {
             expect(binding('text')).toEqual('guest');
             expect(binding('myForm.input.$valid')).toEqual('true');
           });
@@ -10880,7 +10880,7 @@ var inputType = {
            }
          </script>
          <form name="myForm" ng-controller="Ctrl">
-           Number: <input type="number" name="input" ng-model="value"
+           Number: <input type="number" name="input" ng-com.musicbox.model="value"
                           min="0" max="99" required>
            <span class="error" ng-show="myForm.list.$error.required">
              Required!</span>
@@ -10894,7 +10894,7 @@ var inputType = {
           </form>
         </doc:source>
         <doc:scenario>
-          it('should initialize to model', function() {
+          it('should initialize to com.musicbox.model', function() {
            expect(binding('value')).toEqual('12');
            expect(binding('myForm.input.$valid')).toEqual('true');
           });
@@ -10946,7 +10946,7 @@ var inputType = {
            }
          </script>
          <form name="myForm" ng-controller="Ctrl">
-           URL: <input type="url" name="input" ng-model="text" required>
+           URL: <input type="url" name="input" ng-com.musicbox.model="text" required>
            <span class="error" ng-show="myForm.input.$error.required">
              Required!</span>
            <span class="error" ng-show="myForm.input.$error.url">
@@ -10960,7 +10960,7 @@ var inputType = {
           </form>
         </doc:source>
         <doc:scenario>
-          it('should initialize to model', function() {
+          it('should initialize to com.musicbox.model', function() {
             expect(binding('text')).toEqual('http://google.com');
             expect(binding('myForm.input.$valid')).toEqual('true');
           });
@@ -11009,7 +11009,7 @@ var inputType = {
            }
          </script>
            <form name="myForm" ng-controller="Ctrl">
-             Email: <input type="email" name="input" ng-model="text" required>
+             Email: <input type="email" name="input" ng-com.musicbox.model="text" required>
              <span class="error" ng-show="myForm.input.$error.required">
                Required!</span>
              <span class="error" ng-show="myForm.input.$error.email">
@@ -11023,7 +11023,7 @@ var inputType = {
            </form>
         </doc:source>
         <doc:scenario>
-          it('should initialize to model', function() {
+          it('should initialize to com.musicbox.model', function() {
             expect(binding('text')).toEqual('me@example.com');
             expect(binding('myForm.input.$valid')).toEqual('true');
           });
@@ -11066,9 +11066,9 @@ var inputType = {
            }
          </script>
          <form name="myForm" ng-controller="Ctrl">
-           <input type="radio" ng-model="color" value="red">  Red <br/>
-           <input type="radio" ng-model="color" value="green"> Green <br/>
-           <input type="radio" ng-model="color" value="blue"> Blue <br/>
+           <input type="radio" ng-com.musicbox.model="color" value="red">  Red <br/>
+           <input type="radio" ng-com.musicbox.model="color" value="green"> Green <br/>
+           <input type="radio" ng-com.musicbox.model="color" value="blue"> Blue <br/>
            <tt>color = {{color}}</tt><br/>
           </form>
         </doc:source>
@@ -11109,8 +11109,8 @@ var inputType = {
            }
          </script>
          <form name="myForm" ng-controller="Ctrl">
-           Value1: <input type="checkbox" ng-model="value1"> <br/>
-           Value2: <input type="checkbox" ng-model="value2"
+           Value1: <input type="checkbox" ng-com.musicbox.model="value1"> <br/>
+           Value2: <input type="checkbox" ng-com.musicbox.model="value2"
                           ng-true-value="YES" ng-false-value="NO"> <br/>
            <tt>value1 = {{value1}}</tt><br/>
            <tt>value2 = {{value2}}</tt><br/>
@@ -11458,10 +11458,10 @@ function checkboxInputType(scope, element, attr, ctrl) {
        </script>
        <div ng-controller="Ctrl">
          <form name="myForm">
-           User name: <input type="text" name="userName" ng-model="user.name" required>
+           User name: <input type="text" name="userName" ng-com.musicbox.model="user.name" required>
            <span class="error" ng-show="myForm.userName.$error.required">
              Required!</span><br>
-           Last name: <input type="text" name="lastName" ng-model="user.last"
+           Last name: <input type="text" name="lastName" ng-com.musicbox.model="user.last"
              ng-minlength="3" ng-maxlength="10">
            <span class="error" ng-show="myForm.lastName.$error.minlength">
              Too short!</span>
@@ -11481,7 +11481,7 @@ function checkboxInputType(scope, element, attr, ctrl) {
        </div>
       </doc:source>
       <doc:scenario>
-        it('should initialize to model', function() {
+        it('should initialize to com.musicbox.model', function() {
           expect(binding('user')).toEqual('{"name":"guest","last":"visitor"}');
           expect(binding('myForm.userName.$valid')).toEqual('true');
           expect(binding('myForm.$valid')).toEqual('true');
@@ -11543,11 +11543,11 @@ var VALID_CLASS = 'ng-valid',
  * @name ng.directive:ngModel.NgModelController
  *
  * @property {string} $viewValue Actual string value in the view.
- * @property {*} $modelValue The value in the model, that the control is bound to.
+ * @property {*} $modelValue The value in the com.musicbox.model, that the control is bound to.
  * @property {Array.<Function>} $parsers Whenever the control reads value from the DOM, it executes
  *     all of these functions to sanitize / convert the value as well as validate.
  *
- * @property {Array.<Function>} $formatters Whenever the model value changes, it executes all of
+ * @property {Array.<Function>} $formatters Whenever the com.musicbox.model value changes, it executes all of
  *     these functions to convert the value as well as validate.
  *
  * @property {Object} $error An bject hash with all errors as keys.
@@ -11559,14 +11559,14 @@ var VALID_CLASS = 'ng-valid',
  *
  * @description
  *
- * `NgModelController` provides API for the `ng-model` directive. The controller contains
+ * `NgModelController` provides API for the `ng-com.musicbox.model` directive. The controller contains
  * services for data-binding, validation, CSS update, value formatting and parsing. It
  * specifically does not contain any logic which deals with DOM rendering or listening to
  * DOM events. The `NgModelController` is meant to be extended by other directives where, the
  * directive provides DOM manipulation and the `NgModelController` provides the data-binding.
  *
  * This example shows how to use `NgModelController` with a custom control to achieve
- * data-binding. Notice how different directives (`contenteditable`, `ng-model`, and `required`)
+ * data-binding. Notice how different directives (`contenteditable`, `ng-com.musicbox.model`, and `required`)
  * collaborate together to achieve the desired result.
  *
  * <example module="customControl">
@@ -11589,7 +11589,7 @@ var VALID_CLASS = 'ng-valid',
             restrict: 'A', // only activate on element attribute
             require: '?ngModel', // get a hold of NgModelController
             link: function(scope, element, attrs, ngModel) {
-              if(!ngModel) return; // do nothing if no ng-model
+              if(!ngModel) return; // do nothing if no ng-com.musicbox.model
 
               // Specify how UI should be updated
               ngModel.$render = function() {
@@ -11602,7 +11602,7 @@ var VALID_CLASS = 'ng-valid',
               });
               read(); // initialize
 
-              // Write data to the model
+              // Write data to the com.musicbox.model
               function read() {
                 ngModel.$setViewValue(element.html());
               }
@@ -11613,11 +11613,11 @@ var VALID_CLASS = 'ng-valid',
     <file name="index.html">
       <form name="myForm">
        <div contenteditable
-            name="myWidget" ng-model="userContent"
+            name="myWidget" ng-com.musicbox.model="userContent"
             required>Change me!</div>
         <span ng-show="myForm.myWidget.$error.required">Required!</span>
        <hr>
-       <textarea ng-model="userContent"></textarea>
+       <textarea ng-com.musicbox.model="userContent"></textarea>
       </form>
     </file>
     <file name="scenario.js">
@@ -11660,7 +11660,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * @methodOf ng.directive:ngModel.NgModelController
    *
    * @description
-   * Called when the view needs to be updated. It is expected that the user of the ng-model
+   * Called when the view needs to be updated. It is expected that the user of the ng-com.musicbox.model
    * directive will implement this method.
    */
   this.$render = noop;
@@ -11736,7 +11736,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * For example {@link ng.directive:input input} or
    * {@link ng.directive:select select} directives call it.
    *
-   * It internally calls all `formatters` and if resulted value is valid, updates the model and
+   * It internally calls all `formatters` and if resulted value is valid, updates the com.musicbox.model and
    * calls all registered change listeners.
    *
    * @param {string} value Value from the view.
@@ -11769,7 +11769,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
     }
   };
 
-  // model -> value
+  // com.musicbox.model -> value
   var ctrl = this;
   $scope.$watch(ngModelGet, function(value) {
 
@@ -11804,7 +11804,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  *
  * `ngModel` is responsible for:
  *
- * - binding the view into the model, which other directives such as `input`, `textarea` or `select`
+ * - binding the view into the com.musicbox.model, which other directives such as `input`, `textarea` or `select`
  *   require,
  * - providing validation behavior (i.e. required, number, email, url),
  * - keeping state of the control (valid/invalid, dirty/pristine, validation errors),
@@ -11851,7 +11851,7 @@ var ngModelDirective = function() {
  *
  * @description
  * Evaluate given expression when user changes the input.
- * The expression is not evaluated when the value change is coming from the model.
+ * The expression is not evaluated when the value change is coming from the com.musicbox.model.
  *
  * Note, this directive requires `ngModel` to be present.
  *
@@ -11869,8 +11869,8 @@ var ngModelDirective = function() {
  *       }
  *     </script>
  *     <div ng-controller="Controller">
- *       <input type="checkbox" ng-model="confirmed" ng-change="change()" id="ng-change-example1" />
- *       <input type="checkbox" ng-model="confirmed" id="ng-change-example2" />
+ *       <input type="checkbox" ng-com.musicbox.model="confirmed" ng-change="change()" id="ng-change-example1" />
+ *       <input type="checkbox" ng-com.musicbox.model="confirmed" id="ng-change-example2" />
  *       <label for="ng-change-example2">Confirmed</label><br />
  *       debug = {{confirmed}}<br />
  *       counter = {{counter}}
@@ -11884,7 +11884,7 @@ var ngModelDirective = function() {
  *       expect(binding('confirmed')).toEqual('true');
  *     });
  *
- *     it('should not evaluate the expression if changing from model', function() {
+ *     it('should not evaluate the expression if changing from com.musicbox.model', function() {
  *       element('#ng-change-example2').click();
  *       expect(binding('counter')).toEqual('0');
  *       expect(binding('confirmed')).toEqual('true');
@@ -11950,7 +11950,7 @@ var requiredDirective = function() {
          }
        </script>
        <form name="myForm" ng-controller="Ctrl">
-         List: <input name="namesInput" ng-model="names" ng-list required>
+         List: <input name="namesInput" ng-com.musicbox.model="names" ng-list required>
          <span class="error" ng-show="myForm.list.$error.required">
            Required!</span>
          <tt>names = {{names}}</tt><br/>
@@ -11961,7 +11961,7 @@ var requiredDirective = function() {
         </form>
       </doc:source>
       <doc:scenario>
-        it('should initialize to model', function() {
+        it('should initialize to com.musicbox.model', function() {
           expect(binding('names')).toEqual('["igor","misko","vojta"]');
           expect(binding('myForm.namesInput.$valid')).toEqual('true');
         });
@@ -12061,7 +12061,7 @@ var ngValueDirective = function() {
          }
        </script>
        <div ng-controller="Ctrl">
-         Enter name: <input type="text" ng-model="name"><br>
+         Enter name: <input type="text" ng-com.musicbox.model="name"><br>
          Hello <span ng-bind="name"></span>!
        </div>
      </doc:source>
@@ -12108,8 +12108,8 @@ var ngBindDirective = ngDirective(function(scope, element, attr) {
          }
        </script>
        <div ng-controller="Ctrl">
-        Salutation: <input type="text" ng-model="salutation"><br>
-        Name: <input type="text" ng-model="name"><br>
+        Salutation: <input type="text" ng-com.musicbox.model="salutation"><br>
+        Name: <input type="text" ng-com.musicbox.model="name"><br>
         <pre ng-bind-template="{{salutation}} {{name}}!"></pre>
        </div>
      </doc:source>
@@ -12447,16 +12447,16 @@ var ngCloakDirective = ngDirective({
         }
       </script>
       <div ng-controller="SettingsController">
-        Name: <input type="text" ng-model="name"/>
+        Name: <input type="text" ng-com.musicbox.model="name"/>
         [ <a href="" ng-click="greet()">greet</a> ]<br/>
         Contact:
         <ul>
           <li ng-repeat="contact in contacts">
-            <select ng-model="contact.type">
+            <select ng-com.musicbox.model="contact.type">
                <option>phone</option>
                <option>email</option>
             </select>
-            <input type="text" ng-model="contact.value"/>
+            <input type="text" ng-com.musicbox.model="contact.value"/>
             [ <a href="" ng-click="clearContact(contact)">clear</a>
             | <a href="" ng-click="removeContact(contact)">X</a> ]
           </li>
@@ -12709,7 +12709,7 @@ forEach(
       </script>
       <form ng-submit="submit()" ng-controller="Ctrl">
         Enter text and hit enter:
-        <input type="text" ng-model="text" name="text" />
+        <input type="text" ng-com.musicbox.model="text" name="text" />
         <input type="submit" id="submit" value="Submit" />
         <pre>list={{list}}</pre>
       </form>
@@ -12765,7 +12765,7 @@ var ngSubmitDirective = ngDirective(function(scope, element, attrs) {
   <example>
     <file name="index.html">
      <div ng-controller="Ctrl">
-       <select ng-model="template" ng-options="t.name for t in templates">
+       <select ng-com.musicbox.model="template" ng-options="t.name for t in templates">
         <option value="">(blank)</option>
        </select>
        url of the template: <tt>{{template.url}}</tt>
@@ -13035,9 +13035,9 @@ var ngNonBindableDirective = ngDirective({ terminal: true, priority: 1000 });
           }
         </script>
         <div ng-controller="Ctrl">
-          Person 1:<input type="text" ng-model="person1" value="Igor" /><br/>
-          Person 2:<input type="text" ng-model="person2" value="Misko" /><br/>
-          Number of People:<input type="text" ng-model="personCount" value="1" /><br/>
+          Person 1:<input type="text" ng-com.musicbox.model="person1" value="Igor" /><br/>
+          Person 2:<input type="text" ng-com.musicbox.model="person2" value="Misko" /><br/>
+          Number of People:<input type="text" ng-com.musicbox.model="personCount" value="1" /><br/>
 
           <!--- Example with simple pluralization rules for en locale --->
           Without Offset:
@@ -13335,7 +13335,7 @@ var ngRepeatDirective = ngDirective({
  * @example
    <doc:example>
      <doc:source>
-        Click me: <input type="checkbox" ng-model="checked"><br/>
+        Click me: <input type="checkbox" ng-com.musicbox.model="checked"><br/>
         Show: <span ng-show="checked">I show up when your checkbox is checked.</span> <br/>
         Hide: <span ng-hide="checked">I hide when your checkbox is checked.</span>
      </doc:source>
@@ -13375,7 +13375,7 @@ var ngShowDirective = ngDirective(function(scope, element, attr){
  * @example
    <doc:example>
      <doc:source>
-        Click me: <input type="checkbox" ng-model="checked"><br/>
+        Click me: <input type="checkbox" ng-com.musicbox.model="checked"><br/>
         Show: <span ng-show="checked">I show up when you checkbox is checked?</span> <br/>
         Hide: <span ng-hide="checked">I hide when you checkbox is checked?</span>
      </doc:source>
@@ -13478,7 +13478,7 @@ var ngStyleDirective = ngDirective(function(scope, element, attr) {
           }
         </script>
         <div ng-controller="Ctrl">
-          <select ng-model="selection" ng-options="item for item in items">
+          <select ng-com.musicbox.model="selection" ng-options="item for item in items">
           </select>
           <tt>selection={{selection}}</tt>
           <hr/>
@@ -13589,8 +13589,8 @@ var ngSwitchDefaultDirective = ngDirective({
          });
        </script>
        <div ng-controller="Ctrl">
-         <input ng-model="title"><br>
-         <textarea ng-model="text"></textarea> <br/>
+         <input ng-com.musicbox.model="title"><br>
+         <textarea ng-com.musicbox.model="text"></textarea> <br/>
          <pane title="{{title}}">{{text}}</pane>
        </div>
      </doc:source>
@@ -13837,7 +13837,7 @@ var scriptDirective = ['$templateCache', function($templateCache) {
  * `ngOptions` expression.
  *˝˝
  * When an item in the select menu is select, the value of array element or object property
- * represented by the selected option will be bound to the model identified by the `ngModel`
+ * represented by the selected option will be bound to the com.musicbox.model identified by the `ngModel`
  * directive of the parent select element.
  *
  * Optionally, a single hard-coded `<option>` element, with the value set to an empty string, can
@@ -13846,7 +13846,7 @@ var scriptDirective = ['$templateCache', function($templateCache) {
  *
  * Note: `ngOptions` provides iterator facility for `<option>` element which should be used instead
  * of {@link ng.directive:ngRepeat ngRepeat} when you want the
- * `select` model to be bound to a non-string value. This is because an option element can currently
+ * `select` com.musicbox.model to be bound to a non-string value. This is because an option element can currently
  * be bound to string values only.
  *
  * @param {string} name assignable expression to data-bind to.
@@ -13873,7 +13873,7 @@ var scriptDirective = ['$templateCache', function($templateCache) {
  *   * `key`: local variable which will refer to a property name in `object` during iteration.
  *   * `label`: The result of this expression will be the label for `<option>` element. The
  *     `expression` will most likely refer to the `value` variable (e.g. `value.propertyName`).
- *   * `select`: The result of this expression will be bound to the model of the parent `<select>`
+ *   * `select`: The result of this expression will be bound to the com.musicbox.model of the parent `<select>`
  *      element. If not specified, `select` expression will default to `value`.
  *   * `group`: The result of this expression will be used to group options using the `<optgroup>`
  *      DOM element.
@@ -13896,7 +13896,7 @@ var scriptDirective = ['$templateCache', function($templateCache) {
         <div ng-controller="MyCntrl">
           <ul>
             <li ng-repeat="color in colors">
-              Name: <input ng-model="color.name">
+              Name: <input ng-com.musicbox.model="color.name">
               [<a href ng-click="colors.splice($index, 1)">X</a>]
             </li>
             <li>
@@ -13905,17 +13905,17 @@ var scriptDirective = ['$templateCache', function($templateCache) {
           </ul>
           <hr/>
           Color (null not allowed):
-          <select ng-model="color" ng-options="c.name for c in colors"></select><br>
+          <select ng-com.musicbox.model="color" ng-options="c.name for c in colors"></select><br>
 
           Color (null allowed):
           <span  class="nullable">
-            <select ng-model="color" ng-options="c.name for c in colors">
+            <select ng-com.musicbox.model="color" ng-options="c.name for c in colors">
               <option value="">-- chose color --</option>
             </select>
           </span><br/>
 
           Color grouped by shade:
-          <select ng-model="color" ng-options="c.name group by c.shade for c in colors">
+          <select ng-com.musicbox.model="color" ng-options="c.name group by c.shade for c in colors">
           </select><br/>
 
 
@@ -14144,7 +14144,7 @@ var selectDirective = ['$compile', '$parse', function($compile,   $parse) {
           nullOption.remove();
         }
 
-        // clear contents, we'll add what's needed based on the model
+        // clear contents, we'll add what's needed based on the com.musicbox.model
         selectElement.html('');
 
         selectElement.bind('change', function() {
@@ -14359,7 +14359,7 @@ var optionDirective = ['$interpolate', function($interpolate) {
 
         if (selectCtrl && selectCtrl.databound) {
           // For some reason Opera defaults to true and if not overridden this messes up the repeater.
-          // We don't want the view to drive the initialization of the model anyway.
+          // We don't want the view to drive the initialization of the com.musicbox.model anyway.
           element.prop('selected', false);
         } else {
           selectCtrl = nullSelectCtrl;

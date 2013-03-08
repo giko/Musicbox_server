@@ -3,9 +3,7 @@ package com.musicbox.lastfm;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.musicbox.Cache;
-import com.musicbox.CacheAllocator;
-import com.musicbox.WebWorker;
+import com.musicbox.*;
 import com.musicbox.lastfm.structure.SingleArrayListType;
 import com.musicbox.lastfm.structure.artist.Adapter.ArtistTypeAdapter;
 import com.musicbox.lastfm.structure.artist.*;
@@ -17,6 +15,8 @@ import com.musicbox.lastfm.structure.track.ArtistTopTracksSearchResult;
 import com.musicbox.lastfm.structure.track.Track;
 import com.musicbox.lastfm.structure.track.TrackSearch;
 import com.musicbox.server.Config;
+import com.musicbox.server.db.Connection;
+import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,11 +30,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LastFmClient {
-    final Type locationInfoListType = new TypeToken<List<Artist>>() {
-    }.getType();
-
     @NotNull
     private static final Cache cache = new Cache();
+    final Type locationInfoListType = new TypeToken<List<Artist>>() {
+    }.getType();
+    final Type trackartisttype = new TypeToken<Artist>() {
+    }.getType();
+    final Type searchtracktype = new TypeToken<List<Track>>() {
+    }.getType();
+    final Type tagtype = new TypeToken<List<Tag>>() {
+    }.getType();
 
     @NotNull
     public List<Artist> getSimilarArtistsByName(@NotNull String name) {
@@ -128,6 +133,8 @@ public class LastFmClient {
                         retrieveReader("method=artist.getTopAlbums&mbid=" + query),
                         TopAlbumSearchResult.class).getTopalbums().getAlbums();
     }
+    //final Type trackmatchestype = new TypeToken<Trackmatches>() {
+    //}.getType();
 
     @Nullable
     public List<Artist> SearchArtist(@NotNull String query) {
@@ -156,13 +163,6 @@ public class LastFmClient {
 
         return (List<Artist>) cacheAllocator.getObject();
     }
-
-    final Type trackartisttype = new TypeToken<Artist>() {
-    }.getType();
-    final Type searchtracktype = new TypeToken<List<Track>>() {
-    }.getType();
-    //final Type trackmatchestype = new TypeToken<Trackmatches>() {
-    //}.getType();
 
     @Nullable
     public List<Track> SearchTrack(@NotNull String query) {
@@ -206,10 +206,6 @@ public class LastFmClient {
         return (List<Artist>) cacheAllocator.getObject();
     }
 
-
-    final Type tagtype = new TypeToken<List<Tag>>() {
-    }.getType();
-
     @Nullable
     public List<Tag> SearchTag(String query) {
         query = URLEncoder.encode(query.toLowerCase().trim());
@@ -238,13 +234,23 @@ public class LastFmClient {
         @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getTopArtists", "", ArrayList.class, 12);
         if (!cacheAllocator.exists()) {
             final Gson json = new GsonBuilder()
+                    .setExclusionStrategies(new BasicSerialisationExclusionStrategy())
                     .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
                     .create();
             List<Artist> searchresult = json
                     .fromJson(
                             retrieveReader("method=chart.gettopartists&limit=10"), TopArtistsResult.class)
                     .getArtists().getArtist();
-            cacheAllocator.cacheObject(searchresult);
+
+            Session session = Connection.getSession();
+
+            for (Artist artist : searchresult) {
+                artist.setData();
+                session.saveOrUpdate(artist);
+            }
+            session.flush();
+            session.close();
+
             return searchresult;
         }
         return (List<Artist>) cacheAllocator.getObject();

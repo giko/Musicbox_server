@@ -4,15 +4,14 @@
     <root id="archive" name="musicbox_server.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+        <element id="jpa-descriptors" facet="Musicbox_server/jpa/JPA" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/persistence.xml" />
       </element>
-      <element id="module-output" name="src" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libs/gson-2.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libs/httpclient-4.1.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libs/httpcore-4.1.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libs/commons-logging-1.1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libs/annotations.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libs/webbit-0.4.14.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libs/netty-3.5.2.Final.jar" path-in-jar="/" />
+      <element id="module-output" name="Musicbox_server" />
+      <element id="library" level="project" name="annotations" />
+      <element id="library" level="project" name="org.hibernate:hibernate-entitymanager:4.1.9.Final" />
+      <element id="library" level="project" name="postgresql-9.2-1002.jdbc4" />
+      <element id="library" level="project" name="webbit" />
     </root>
   </artifact>
 </component>

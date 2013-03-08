@@ -5,11 +5,17 @@ import org.webbitserver.handler.StaticFileHandler;
 import org.webbitserver.handler.logging.LoggingHandler;
 import org.webbitserver.handler.logging.SimpleLogSink;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import static org.webbitserver.WebServers.createWebServer;
 
 public class ServerMain {
 
+
     public static void main(String[] args) throws Exception {
+
+
         int port = 80;
         WebServer webServer = createWebServer(port);
 

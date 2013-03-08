@@ -7,7 +7,7 @@
 
 WEB_SOCKET_SWF_LOCATION = "ws/WebSocketMain.swf";
 
-var mbApp = angular.module('mbApp', ['ui'], function ($locationProvider, $routeProvider) {
+var mbApp = angular.module('mbApp', [], function ($locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider.
         when('/', {templateUrl:'/partials/main.html', controller:HomeCtrl}).
@@ -41,7 +41,7 @@ mbApp.directive('contenteditable', function () {
         restrict:'A', // only activate on element attribute
         require:'?ngModel', // get a hold of NgModelController
         link:function (scope, element, attrs, ngModel) {
-            if (!ngModel) return; // do nothing if no ng-model
+            if (!ngModel) return; // do nothing if no ng-com.musicbox.model
 
             // Specify how UI should be updated
             ngModel.$render = function () {
@@ -53,7 +53,7 @@ mbApp.directive('contenteditable', function () {
                 scope.$apply(read);
             });
 
-            // Write data to the model
+            // Write data to the com.musicbox.model
             function read() {
                 ngModel.$setViewValue(element.html());
             }

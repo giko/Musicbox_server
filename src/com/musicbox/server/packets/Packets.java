@@ -1,6 +1,8 @@
 package com.musicbox.server.packets;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.musicbox.BasicSerialisationExclusionStrategy;
 import com.musicbox.lastfm.structure.artist.Artist;
 import com.musicbox.lastfm.structure.tag.Tag;
 import com.musicbox.lastfm.structure.track.Track;
@@ -12,12 +14,13 @@ import java.util.List;
 
 public class Packets {
     @NotNull
-    protected static Gson json = new Gson();
+    protected static Gson json = new GsonBuilder().setExclusionStrategies(new BasicSerialisationExclusionStrategy()).create();
 
     static public class Incoming {
-        public enum Action {
-            EXECUTEREQUESTRESULT, SEARCHSIMILARARTISTSBYNAME, GETAUDIOBYTRACK, LOGIN, SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME, ADDTOLIBRARY, SEARCHBYTAG
-        }
+        @NotNull
+        private Incoming.Action action;
+        @Nullable
+        private String message;
 
         @Nullable
         public Incoming.Action getAction() {
@@ -29,20 +32,24 @@ public class Packets {
             return message;
         }
 
-        @NotNull
-        private Incoming.Action action;
-        @Nullable
-        private String message;
-
         public String toJson() {
             return Packets.json.toJson(this);
+        }
+
+        public enum Action {
+            EXECUTEREQUESTRESULT, SEARCHSIMILARARTISTSBYNAME, GETAUDIOBYTRACK, LOGIN, SEARCH, LISTENING, LOGINBYTOKEN, LOGINBYCODE, GETSONGBYID, GETURLBYTRACK, CHATMESSAGE, GETTOPSONGSBYARTISTID, GETTOPSONGSBYARTISTNAME, ADDTOLIBRARY, SEARCHBYTAG
         }
     }
 
     static public class Outgoing {
-        public enum Action {
-            CRITICALERROR, EXECUTEREQUEST, LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS, AUDIO
-        }
+        @NotNull
+        private Outgoing.Action action;
+        private String message;
+        private List<Track> songs;
+        private List<Artist> artists;
+        private List<Tag> tags;
+        private Audio audio;
+        private ExecuteRequest request;
 
         public Outgoing(@NotNull Outgoing.Action caction) {
             this.action = caction;
@@ -55,15 +62,6 @@ public class Packets {
 
         public Outgoing() {
         }
-
-        @NotNull
-        private Outgoing.Action action;
-        private String message;
-        private List<Track> songs;
-        private List<Artist> artists;
-        private List<Tag> tags;
-        private Audio audio;
-        private ExecuteRequest request;
 
         public ExecuteRequest getRequest() {
             return request;
@@ -124,6 +122,10 @@ public class Packets {
 
         public String toJson() {
             return Packets.json.toJson(this);
+        }
+
+        public enum Action {
+            CRITICALERROR, EXECUTEREQUEST, LISTENING, SEARCHRESULT, JOIN, LEAVE, SONGS, TOKEN, MESSAGE, SONGURL, REDIRECTTOVK, LOGINSUCCESS, AUDIO
         }
     }
 }

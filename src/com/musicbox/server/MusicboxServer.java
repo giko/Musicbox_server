@@ -14,30 +14,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MusicboxServer extends BaseWebSocketHandler {
-
     @NotNull
-    private final Gson json = new Gson();
+    public static final String USERNAME_KEY = "vktoken";
     @NotNull
     private static final HashMap<String, OAuthToken> logintokens = new HashMap<String, OAuthToken>();
+    @NotNull
+    private final Gson json = new Gson();
     @NotNull
     private final HashMap<WebSocketConnection, Profile> connections = new HashMap<WebSocketConnection, Profile>();
     @NotNull
     private final HashMap<Packets.Incoming.Action, AbstractHandler> packethandlers = new HashMap<Packets.Incoming.Action, AbstractHandler>();
 
-    @NotNull
-    public static final String USERNAME_KEY = "vktoken";
-
-    @NotNull
-    public static String getUsernameKey() {
-        return USERNAME_KEY;
-    }
-
-    @NotNull
-    public static HashMap<String, OAuthToken> getLogintokens() {
-        return logintokens;
-    }
-
     public MusicboxServer() {
+
         packethandlers.put(Packets.Incoming.Action.LOGIN, new Login(this));
         packethandlers.put(Packets.Incoming.Action.LOGINBYCODE, new LoginByCode(this));
         packethandlers.put(Packets.Incoming.Action.SEARCH, new Search(this));
@@ -50,6 +39,16 @@ public class MusicboxServer extends BaseWebSocketHandler {
         packethandlers.put(Packets.Incoming.Action.GETAUDIOBYTRACK, new GetAudioByTrack(this));
         packethandlers.put(Packets.Incoming.Action.SEARCHSIMILARARTISTSBYNAME, new SearchSimilarArtistsByName(this));
         packethandlers.put(Packets.Incoming.Action.EXECUTEREQUESTRESULT, new ExecuteRequestResult(this));
+    }
+
+    @NotNull
+    public static String getUsernameKey() {
+        return USERNAME_KEY;
+    }
+
+    @NotNull
+    public static HashMap<String, OAuthToken> getLogintokens() {
+        return logintokens;
     }
 
     @NotNull
@@ -88,7 +87,6 @@ public class MusicboxServer extends BaseWebSocketHandler {
         }
     }
 
-
     public void broadcast(@NotNull Packets.Outgoing packet) {
         String jsonStr = this.json.toJson(packet);
         for (@NotNull WebSocketConnection connection : new ArrayList<WebSocketConnection>(
@@ -102,6 +100,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
     @Override
     public void onOpen(@NotNull WebSocketConnection connection) throws Exception {
         connections.put(connection, null);
+
     }
 
     @Override

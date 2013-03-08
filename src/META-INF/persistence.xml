@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="server">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <!--<jta-data-source>java:/DefaultDS</jta-data-source>-->
+        <class>com.musicbox.model.UserEntity</class>
+        <class>com.musicbox.lastfm.structure.artist.Artist</class>
+        <class>com.musicbox.lastfm.structure.artist.Image</class>
+        <class>com.musicbox.lastfm.structure.artist.Bio</class>
+
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost/musicbox"/>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.username" value="postgres"/>
+            <property name="hibernate.connection.password" value="pass"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+        </properties>
+    </persistence-unit>
+</persistence>
