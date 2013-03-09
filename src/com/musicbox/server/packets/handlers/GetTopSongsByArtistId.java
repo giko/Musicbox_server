@@ -1,6 +1,6 @@
 package com.musicbox.server.packets.handlers;
 
-import com.musicbox.lastfm.structure.artist.Artist;
+import com.musicbox.model.lastfm.structure.artist.Artist;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets;
 import org.jetbrains.annotations.NotNull;

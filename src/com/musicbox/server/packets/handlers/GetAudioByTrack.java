@@ -5,9 +5,9 @@ import com.musicbox.CacheAllocator;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.ExecuteRequest;
 import com.musicbox.server.packets.Packets;
-import com.musicbox.vkontakte.VkontakteClient;
-import com.musicbox.vkontakte.structure.audio.Audio;
-import com.musicbox.vkontakte.structure.audio.AudioSearch;
+import com.musicbox.model.vkontakte.VkontakteClient;
+import com.musicbox.model.vkontakte.structure.audio.Audio;
+import com.musicbox.model.vkontakte.structure.audio.AudioSearch;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
@@ -47,7 +47,7 @@ public class GetAudioByTrack extends AbstractHandler {
     public void HandlePacket(@NotNull WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
         @NotNull
         CacheAllocator cacheAllocator = VkontakteClient.getCache().getAllocator("GetAudioByTrack",
-                incoming.getMessage() + connections_.get(connection).getUid() + getIpByConnection(connection), Audio.class);
+                incoming.getMessage() + connections_.get(connection).getId() + getIpByConnection(connection), Audio.class);
 
         if (!cacheAllocator.exists()) {
             @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.EXECUTEREQUEST);
@@ -79,7 +79,7 @@ public class GetAudioByTrack extends AbstractHandler {
 
         @NotNull
         CacheAllocator cacheAllocator = VkontakteClient.getCache().getAllocator("GetAudioByTrack",
-                respond.getQuery() + connections_.get(connection).getUid() + getIpByConnection(connection), Audio.class, 10);
+                respond.getQuery() + connections_.get(connection).getId() + getIpByConnection(connection), Audio.class, 10);
 
         cacheAllocator.cacheObject(respond.getData().getResponse());
 

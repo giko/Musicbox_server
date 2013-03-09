@@ -1,8 +1,8 @@
 package com.musicbox.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.musicbox.model.vkontakte.structure.profiles.Profile;
+
+import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,10 +14,33 @@ import javax.persistence.Id;
 @javax.persistence.Table(name = "user", schema = "public", catalog = "musicbox")
 @Entity
 public class UserEntity {
-    private int id;
-
     @javax.persistence.Column(name = "id")
     @Id
+    @GeneratedValue
+    private int id;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "vkid")
+    private Profile profile;
+    private String name;
+    @OneToOne(mappedBy = "user")
+    private LoginTokenEntity loginToken;
+
+    public LoginTokenEntity getLoginToken() {
+        return loginToken;
+    }
+
+    public void setLoginToken(LoginTokenEntity loginToken) {
+        this.loginToken = loginToken;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
     public int getId() {
         return id;
     }
@@ -25,8 +48,6 @@ public class UserEntity {
     public void setId(int id) {
         this.id = id;
     }
-
-    private String name;
 
     @javax.persistence.Column(name = "name")
     @Basic

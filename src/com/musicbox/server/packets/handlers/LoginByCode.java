@@ -1,11 +1,14 @@
 package com.musicbox.server.packets.handlers;
 
+import com.musicbox.model.LoginTokenEntity;
 import com.musicbox.server.Config;
 import com.musicbox.server.MusicboxServer;
+import com.musicbox.server.db.Connection;
 import com.musicbox.server.logic.tools.MD5;
 import com.musicbox.server.packets.Packets;
-import com.musicbox.vkontakte.OAuthToken;
-import com.musicbox.vkontakte.VkontakteClient;
+import com.musicbox.model.vkontakte.OAuthToken;
+import com.musicbox.model.vkontakte.VkontakteClient;
+import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
@@ -37,6 +40,16 @@ public class LoginByCode extends AbstractHandler {
                         MD5.getMD5(oauth.getUser_id() + UUID.randomUUID().toString());
 
                 packet.setMessage(token);
+                Session session = Connection.getSession();
+
+                LoginTokenEntity loginTokenEntity = new LoginTokenEntity();
+                loginTokenEntity.setoAuthToken(oauth);
+                loginTokenEntity.setToken(token);
+
+                session.save(loginTokenEntity);
+                session.flush();
+                session.close();
+
                 logintokens_.put(token, oauth);
                 connection.send(packet.toJson());
             } else {

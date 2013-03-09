@@ -2,7 +2,7 @@ package com.musicbox.server.packets.handlers;
 
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets;
-import com.musicbox.vkontakte.VkontakteClient;
+import com.musicbox.model.vkontakte.VkontakteClient;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 

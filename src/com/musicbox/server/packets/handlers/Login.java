@@ -1,13 +1,17 @@
 package com.musicbox.server.packets.handlers;
 
+import com.musicbox.model.LoginTokenEntity;
+import com.musicbox.model.vkontakte.VkontakteClient;
+import com.musicbox.model.vkontakte.structure.profiles.Profile;
 import com.musicbox.server.Config;
 import com.musicbox.server.MusicboxServer;
+import com.musicbox.server.db.Connection;
 import com.musicbox.server.packets.Packets;
-import com.musicbox.vkontakte.VkontakteClient;
-import com.musicbox.vkontakte.structure.profiles.Profile;
+import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
+import javax.persistence.EntityManager;
 import java.util.Iterator;
 
 /**
@@ -36,7 +40,7 @@ public class Login extends AbstractHandler {
             while (it.hasNext()) {
                 Profile current_profile = it.next();
 
-                if (current_profile != null && current_profile.getUid() == vkclient.getProfile().getUid()) {
+                if (current_profile != null && current_profile.getId() == vkclient.getProfile().getId()) {
                     exists = true;
                     break;
                 }
@@ -50,7 +54,23 @@ public class Login extends AbstractHandler {
                 connection.send(new Packets.Outgoing(Packets.Outgoing.Action.CRITICALERROR, "Already Logged in").toJson());
             }
         } else {
-            connection.send(new Packets.Outgoing(Packets.Outgoing.Action.REDIRECTTOVK, Config.getInstance().getVkappid()).toJson());
+            EntityManager entityManager = Connection.getEntityManager();
+            try {
+                LoginTokenEntity loginTokenEntity = (LoginTokenEntity) entityManager.createQuery("from LoginTokenEntity where token = :token").setParameter("token", token).getSingleResult();
+
+                @NotNull VkontakteClient vkclient = new VkontakteClient(loginTokenEntity.getoAuthToken());
+
+                Profile profile = loginTokenEntity.getoAuthToken().getProfile() == null ? vkclient.getProfile() : loginTokenEntity.getoAuthToken().getProfile();
+                connections_.put(connection, profile);
+
+                loginTokenEntity.getoAuthToken().setProfile(profile);
+                ((Session) entityManager.getDelegate()).flush();
+
+                Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.LOGINSUCCESS);
+                connection.send(packet.toJson());
+            } catch (Exception e) {
+                connection.send(new Packets.Outgoing(Packets.Outgoing.Action.REDIRECTTOVK, Config.getInstance().getVkappid()).toJson());
+            }
         }
     }
 }

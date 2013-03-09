@@ -1,8 +1,8 @@
 package com.musicbox.server.packets.handlers;
 
-import com.musicbox.lastfm.structure.artist.Artist;
-import com.musicbox.lastfm.structure.tag.Tag;
-import com.musicbox.lastfm.structure.track.Track;
+import com.musicbox.model.lastfm.structure.artist.Artist;
+import com.musicbox.model.lastfm.structure.tag.Tag;
+import com.musicbox.model.lastfm.structure.track.Track;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets;
 import org.jetbrains.annotations.NotNull;

@@ -5,9 +5,17 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <!--<jta-data-source>java:/DefaultDS</jta-data-source>-->
         <class>com.musicbox.model.UserEntity</class>
-        <class>com.musicbox.lastfm.structure.artist.Artist</class>
-        <class>com.musicbox.lastfm.structure.artist.Image</class>
-        <class>com.musicbox.lastfm.structure.artist.Bio</class>
+        <class>com.musicbox.model.LoginTokenEntity</class>
+        <class>com.musicbox.model.lastfm.structure.artist.Artist</class>
+        <class>com.musicbox.model.lastfm.structure.artist.Image</class>
+        <class>com.musicbox.model.lastfm.structure.artist.Bio</class>
+        <class>com.musicbox.model.lastfm.structure.track.Track</class>
+
+        <class>com.musicbox.model.vkontakte.OAuthToken</class>
+        <class>com.musicbox.model.vkontakte.structure.profiles.Profile</class>
+
+
+
 
         <properties>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost/musicbox"/>

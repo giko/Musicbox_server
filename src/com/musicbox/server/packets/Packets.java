@@ -3,10 +3,10 @@ package com.musicbox.server.packets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.musicbox.BasicSerialisationExclusionStrategy;
-import com.musicbox.lastfm.structure.artist.Artist;
-import com.musicbox.lastfm.structure.tag.Tag;
-import com.musicbox.lastfm.structure.track.Track;
-import com.musicbox.vkontakte.structure.audio.Audio;
+import com.musicbox.model.lastfm.structure.artist.Artist;
+import com.musicbox.model.lastfm.structure.tag.Tag;
+import com.musicbox.model.lastfm.structure.track.Track;
+import com.musicbox.model.vkontakte.structure.audio.Audio;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

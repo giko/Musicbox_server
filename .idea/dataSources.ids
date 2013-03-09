@@ -2305,28 +2305,87 @@
       <column name="definition" sqlType="text" length="2147483647" precision="0" nullable="true" jdbcType="12" />
     </table>
     <table name="artist" schema="public" catalog="musicbox" type="TABLE">
-      <column name="id" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="mbid" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="name" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
       <primary-key name="artist_pkey" columns="id" />
-      <exported-key name="fk5faa95b3833523f" table="image" schema="public" catalog="musicbox" columns="artistid" />
+      <exported-key name="fk5faa95bf4408564" table="image" schema="public" catalog="musicbox" columns="artistid" />
+      <exported-key name="fk697f14bf4408564" table="track" schema="public" catalog="musicbox" columns="artistid" />
     </table>
     <table name="bio" schema="public" catalog="musicbox" type="TABLE">
       <column name="id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
-      <column name="published" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="summary" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="published" sqlType="text" length="2147483647" precision="0" nullable="true" jdbcType="12" />
+      <column name="summary" sqlType="text" length="2147483647" precision="0" nullable="true" jdbcType="12" />
       <primary-key name="bio_pkey" columns="id" />
+    </table>
+    <table name="hibernate_sequence" schema="public" catalog="musicbox" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" length="2147483647" precision="0" nullable="false" jdbcType="12" />
+      <column name="last_value" sqlType="int8" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="start_value" sqlType="int8" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="increment_by" sqlType="int8" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="max_value" sqlType="int8" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="min_value" sqlType="int8" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="cache_value" sqlType="int8" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="log_cnt" sqlType="int8" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="is_cycled" sqlType="bool" length="1" precision="0" nullable="false" jdbcType="-7" />
+      <column name="is_called" sqlType="bool" length="1" precision="0" nullable="false" jdbcType="-7" />
     </table>
     <table name="image" schema="public" catalog="musicbox" type="TABLE">
       <column name="link" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
       <column name="size" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="artistid" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="artistid" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="trackid" sqlType="int4" length="10" precision="0" nullable="true" jdbcType="4" />
       <primary-key name="image_pkey" columns="link" />
-      <foreign-key name="fk5faa95b3833523f" columns="artistid" ref-table="artist" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk5faa95bf4408564" columns="artistid" ref-table="artist" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk5faa95b6a262242" columns="trackid" ref-table="track" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
+    </table>
+    <table name="logintoken" schema="public" catalog="musicbox" type="TABLE">
+      <column name="token" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="oauthtokenid" sqlType="int4" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="userid" sqlType="int4" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="logintoken_pkey" columns="token" />
+      <foreign-key name="fk98fb04306e0ac932" columns="oauthtokenid" ref-table="ouathtoken" ref-schema="public" ref-catalog="" ref-columns="user_id" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk98fb043053aca6f4" columns="userid" ref-table="user" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
+    </table>
+    <table name="ouathtoken" schema="public" catalog="musicbox" type="TABLE">
+      <column name="user_id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="access_token" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="expires_in" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="ouathtoken_pkey" columns="user_id" />
+      <exported-key name="fk98fb04306e0ac932" table="logintoken" schema="public" catalog="musicbox" columns="oauthtokenid" />
+    </table>
+    <table name="profile" schema="public" catalog="musicbox" type="TABLE">
+      <column name="id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="bdate" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="city" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="country" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="first_name" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="last_name" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="photo_big" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="sex" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="profile_pkey" columns="id" />
+      <exported-key name="fk36ebcb3cf47063" table="user" schema="public" catalog="musicbox" columns="vkid" />
+    </table>
+    <table name="track" schema="public" catalog="musicbox" type="TABLE">
+      <column name="id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="duration" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="listeners" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="mbid" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="name" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="playcount" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="url" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="artistid" sqlType="int4" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="track_pkey" columns="id" />
+      <foreign-key name="fk697f14bf4408564" columns="artistid" ref-table="artist" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
+      <exported-key name="fk5faa95b6a262242" table="image" schema="public" catalog="musicbox" columns="trackid" />
     </table>
     <table name="user" schema="public" catalog="musicbox" type="TABLE">
       <column name="id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
       <column name="name" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="vkid" sqlType="int4" length="10" precision="0" nullable="true" jdbcType="4" />
       <primary-key name="user_pkey" columns="id" />
+      <foreign-key name="fk36ebcb3cf47063" columns="vkid" ref-table="profile" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
+      <exported-key name="fk98fb043053aca6f4" table="logintoken" schema="public" catalog="musicbox" columns="userid" />
     </table>
     <procedure name="_pg_char_max_length" schema="information_schema" catalog="musicbox" type="2">
       <prototype return="true">

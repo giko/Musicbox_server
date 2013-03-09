@@ -1,6 +1,7 @@
 package com.musicbox;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.musicbox.utils.Pair;
 import org.jetbrains.annotations.NotNull;
@@ -10,11 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Cache {
-    private final HashMap<String, JsonElement> cache_ = new HashMap<String, JsonElement>();
-    private final Gson json_ = new Gson();
-    private final CacheCleaner cleaner_ = new CacheCleaner(this);
-
     private static int totalcount = 0;
+    private final HashMap<String, JsonElement> cache_ = new HashMap<String, JsonElement>();
+    private final Gson json_ = new GsonBuilder().setExclusionStrategies(new BasicSerialisationExclusionStrategy()).create();
+    private final CacheCleaner cleaner_ = new CacheCleaner(this);
 
 
     public Cache() {
