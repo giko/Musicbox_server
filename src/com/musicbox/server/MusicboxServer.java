@@ -26,7 +26,6 @@ public class MusicboxServer extends BaseWebSocketHandler {
     private final HashMap<Packets.Incoming.Action, AbstractHandler> packethandlers = new HashMap<Packets.Incoming.Action, AbstractHandler>();
 
     public MusicboxServer() {
-
         packethandlers.put(Packets.Incoming.Action.LOGIN, new Login(this));
         packethandlers.put(Packets.Incoming.Action.LOGINBYCODE, new LoginByCode(this));
         packethandlers.put(Packets.Incoming.Action.SEARCH, new Search(this));
@@ -100,7 +99,6 @@ public class MusicboxServer extends BaseWebSocketHandler {
     @Override
     public void onOpen(@NotNull WebSocketConnection connection) throws Exception {
         connections.put(connection, null);
-
     }
 
     @Override

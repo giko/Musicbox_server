@@ -43,7 +43,7 @@ h1 {
     margin-top: 10px;
 }
 
-.artist-image{
+.artist-image {
     border-radius: 5px;
     box-shadow: 5px 5px 7px #888;
 }
@@ -62,12 +62,12 @@ h1 {
     overflow: auto;
 }
 
-.artist-info .left{
+.artist-info .left {
     float: left;
     margin-right: 20px;
 }
 
-.artist-info .right{
+.artist-info .right {
     font-size: 18px;
 }
 
@@ -91,7 +91,7 @@ h1 {
     background-color: green;
 }
 
-button.remove{
+button.remove {
     background: url("/graphics/remove.png") center no-repeat;
     width: 16px;
     height: 16px;

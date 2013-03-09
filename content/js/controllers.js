@@ -23,16 +23,16 @@ function MainCtrl($scope, $location, $http, socket) {
 
     socket.on("TOKEN", function (data) {
         window.localStorage.token = data.message;
-        socket.send({action:"LOGIN", message:data.message});
+        socket.send({action: "LOGIN", message: data.message});
     });
 
     socket.on("LOGINSUCCESS", function () {
-        socket.send({action:"SEARCH", message:""});
+        socket.send({action: "SEARCH", message: ""});
     });
 
     socket.on("EXECUTEREQUEST", function (data) {
-        $http.jsonp(data.request.url, {params:data.request.data}).success(function (msg, status) {
-            socket.send({action:'EXECUTEREQUESTRESULT', message:JSON.stringify({action:data.request.action, result:JSON.stringify({query:data.message, data:msg})})})
+        $http.jsonp(data.request.url, {params: data.request.data}).success(function (msg, status) {
+            socket.send({action: 'EXECUTEREQUESTRESULT', message: JSON.stringify({action: data.request.action, result: JSON.stringify({query: data.message, data: msg})})})
         }).error(function () {
                 console.log("EXECUTEREQUEST FAILED!");
             });
@@ -61,12 +61,12 @@ function ArtistCtrl($scope, $location, $routeParams, socket, player, ArtistCache
     if (angular.isDefined($routeParams.query)) {
         cache = ArtistCache.get($routeParams.query);
         if (angular.isUndefined(cache)) {
-            socket.send({action:"GETTOPSONGSBYARTISTNAME", message:$routeParams.query});
+            socket.send({action: "GETTOPSONGSBYARTISTNAME", message: $routeParams.query});
         }
     } else {
         cache = ArtistCache.get($routeParams.id);
         if (angular.isUndefined(cache)) {
-            socket.send({action:"GETTOPSONGSBYARTISTID", message:$routeParams.id});
+            socket.send({action: "GETTOPSONGSBYARTISTID", message: $routeParams.id});
         }
     }
 
@@ -75,12 +75,12 @@ function ArtistCtrl($scope, $location, $routeParams, socket, player, ArtistCache
             ArtistCache.put($routeParams.query || $routeParams.id, data);
             $scope.loading = false;
             $scope.artist = data.artists[0];
-            $scope.playlist = {name:data.artists[0].name, songs:data.songs};
+            $scope.playlist = {name: data.artists[0].name, songs: data.songs};
         });
     } else {
         $scope.loading = false;
         $scope.artist = cache.artists[0];
-        $scope.playlist = {name:cache.artists[0].name, songs:cache.songs};
+        $scope.playlist = {name: cache.artists[0].name, songs: cache.songs};
     }
 }
 
@@ -123,18 +123,18 @@ function SearchResultCtrl($scope, player, socket, $routeParams, SearchCache) {
         if (angular.isDefined(cache)) {
             $scope.loading = false;
             $scope.artists = cache.artists;
-            $scope.playlist = {name:query, songs:cache.songs};
+            $scope.playlist = {name: query, songs: cache.songs};
         } else {
-            socket.send({action:"SEARCH", message:query });
+            socket.send({action: "SEARCH", message: query });
             socket.on("SEARCHRESULT", function (data) {
                 SearchCache.put(query, data);
                 $scope.loading = false;
                 $scope.artists = data.artists;
-                $scope.playlist = {name:query, songs:data.songs};
+                $scope.playlist = {name: query, songs: data.songs};
             });
         }
     } else {
-        socket.send({action:"SEARCHSIMILARARTISTSBYNAME", message:$routeParams.id});
+        socket.send({action: "SEARCHSIMILARARTISTSBYNAME", message: $routeParams.id});
         socket.on("SEARCHRESULT", function (data) {
             $scope.loading = false;
             $scope.artists = data.artists;

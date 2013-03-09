@@ -11,10 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ed62a69f-3802-4105-8809-37c96d896ec6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\player.js" afterPath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\player.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/content/index.html" afterPath="$PROJECT_DIR$/content/index.html" />
       <change type="MODIFICATION" beforePath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\musicbox.js" afterPath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\musicbox.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/content/css/style.css" afterPath="$PROJECT_DIR$/content/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/content/index.html" afterPath="$PROJECT_DIR$/content/index.html" />
       <change type="MODIFICATION" beforePath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\visualization.js" afterPath="C:\Users\giko\Dropbox\Programming\Projects\musicbox_server\content\js\visualization.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/content/css/style.css" afterPath="$PROJECT_DIR$/content/css/style.css" />
     </list>
     <ignored path="musicbox_server.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -414,9 +414,9 @@
     <file path="/system.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349452584456" ignored="false" />
     <file path="/index.html" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362688251956" ignored="false" />
     <file path="/controllers.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1349611403431" ignored="false" />
-    <file path="/a.sql" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362757275245" ignored="false" />
-    <file path="/dummy.sql" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362757275245" ignored="false" />
-    <file path="/Artist.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362761941619" ignored="false" />
+    <file path="/a.sql" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362769260008" ignored="false" />
+    <file path="/dummy.sql" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362769260008" ignored="false" />
+    <file path="/Artist.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362775383967" ignored="false" />
     <file path="/MusicboxServer.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362733785931" ignored="false" />
     <file path="/server" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362755670280" ignored="false" />
     <file path="/Connection.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362756132100" ignored="false" />
@@ -426,6 +426,8 @@
     <file path="/LastFmClient.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362767915814" ignored="false" />
     <file path="/FieldExclude.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362767606636" ignored="false" />
     <file path="/Packets.java" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362767973023" ignored="false" />
+    <file path="$PROJECT_DIR$/content/ws/web_socket.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362768845998" ignored="false" />
+    <file path="$PROJECT_DIR$/content/ws/swfobject.js" changelist="ed62a69f-3802-4105-8809-37c96d896ec6" time="1362768858444" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -450,7 +452,6 @@
     <sortChildren value="false" />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -485,6 +486,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -496,13 +498,56 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="LastFmClient.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/LastFmClient.java">
+      <file leaf-file-name="MusicboxServer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/MusicboxServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="234" column="59" selection-start="10627" selection-end="10627" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="86" column="37" selection-start="3700" selection-end="3700" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GetTopSongsByArtistId.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/GetTopSongsByArtistId.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="13" selection-start="423" selection-end="423" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GetTopSongsByArtistName.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/GetTopSongsByArtistName.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="13" selection-start="423" selection-end="423" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="artist.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/content/partials/artist.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="12" selection-start="927" selection-end="927" vertical-scroll-proportion="-15.038462">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="controllers.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/content/js/controllers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="51" column="85" selection-start="1737" selection-end="1737" vertical-scroll-proportion="0.1827957">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginByCode.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/LoginByCode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="14" selection-start="627" selection-end="627" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -510,77 +555,19 @@
       <file leaf-file-name="AbstractHandler.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/AbstractHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="22" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Search.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/Search.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="33" selection-start="1506" selection-end="1506" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Packets.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/Packets.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="21" selection-start="492" selection-end="492" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="persistence.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/META-INF/persistence.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="70" selection-start="976" selection-end="976" vertical-scroll-proportion="0.47971782">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Artist.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Artist.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="23" selection-start="656" selection-end="660" vertical-scroll-proportion="0.0">
+            <state line="66" column="0" selection-start="2193" selection-end="2193" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#getIpByConnection#0;class#AbstractHandler#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bio.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Bio.java">
+      <file leaf-file-name="GetAudioByTrack.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/GetAudioByTrack.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="20" selection-start="463" selection-end="463" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExcludeFromSerialisation.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicbox/ExcludeFromSerialisation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="21" selection-start="318" selection-end="318" vertical-scroll-proportion="0.0">
+            <state line="73" column="16" selection-start="2544" selection-end="2544" vertical-scroll-proportion="0.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Image.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Image.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="19" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -598,19 +585,19 @@
         <option value="$PROJECT_DIR$/META-INF/persistence.xml" />
         <option value="$PROJECT_DIR$/src/com/musicbox/server/db/Connection.java" />
         <option value="dbtable:/1e2e2c24/9a05fd03-e7b7-4a0e-931e-bb5ec4adfd80/musicbox.public.user" />
-        <option value="$PROJECT_DIR$/src/com/musicbox/server/MusicboxServer.java" />
         <option value="dbtable:/1e2e2c24/9a05fd03-e7b7-4a0e-931e-bb5ec4adfd80/musicbox.public.artist" />
         <option value="dbtable:/1e2e2c24/9a05fd03-e7b7-4a0e-931e-bb5ec4adfd80/musicbox.public.bio" />
         <option value="$PROJECT_DIR$/src/com/musicbox/ExcludeFromSerialization.java" />
         <option value="$PROJECT_DIR$/src/com/musicbox/BasicSerialisationExclusionStrategy.java" />
         <option value="$PROJECT_DIR$/src/com/musicbox/ExcludeFromSerialisation.java" />
-        <option value="$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Artist.java" />
         <option value="$PROJECT_DIR$/src/META-INF/persistence.xml" />
         <option value="$PROJECT_DIR$/src/com/musicbox/FieldExclude.java" />
         <option value="$PROJECT_DIR$/src/com/musicbox/lastfm/LastFmClient.java" />
         <option value="$PROJECT_DIR$/src/com/musicbox/server/packets/Packets.java" />
         <option value="$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Image.java" />
         <option value="$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Bio.java" />
+        <option value="$PROJECT_DIR$/src/com/musicbox/server/MusicboxServer.java" />
+        <option value="$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Artist.java" />
       </list>
     </option>
   </component>
@@ -875,6 +862,26 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="All">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -897,7 +904,21 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="META-INF" />
+              <option name="myItemId" value="partials" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Musicbox_server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Musicbox_server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -981,24 +1002,44 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="All">
           <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Musicbox_server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Musicbox_server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.musicbox" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="db" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Musicbox_server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Musicbox_server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.musicbox" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lastfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -1007,7 +1048,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="OverrideImplement.combined" value="false" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="Repository.Attach.JavaDocs" value="false" />
@@ -1020,11 +1061,11 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="Repository.Attach.Sources" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
     <property name="Downloaded.Files.Path" value="C:\Users\giko\Documents\GitHub\Musicbox_server\libs" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -1111,6 +1152,13 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -1130,13 +1178,6 @@
       </option>
       <envs />
       <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="true" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
@@ -1214,30 +1255,30 @@
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25133404" sideWeight="0.21404682" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32887402" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18303095" sideWeight="0.6845039" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18303095" sideWeight="0.67001116" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24919957" sideWeight="0.67745537" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hibernate Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.48932764" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39910814" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.506937" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852808" sideWeight="0.33161512" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32107022" sideWeight="0.48292422" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852808" sideWeight="0.32302406" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.6845039" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39984825" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25133404" sideWeight="0.6845039" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3154961" sideWeight="0.71237993" order="2" side_tool="false" content_ui="tabs" x="24" y="266" width="1318" height="192" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25133404" sideWeight="0.67001116" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3154961" sideWeight="0.71237993" order="2" side_tool="false" content_ui="tabs" x="24" y="266" width="1318" height="192" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="JPA Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3924192" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="JPA Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3924192" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32887402" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hibernate Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.48932764" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32107022" sideWeight="0.48292422" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32997763" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39932886" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1336,104 +1377,23 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_15/src.zip!/java/lang/Object.java">
+    <entry file="file://$PROJECT_DIR$/src/com/musicbox/ExcludeFromSerialisation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="148" column="19" selection-start="5841" selection-end="5841" vertical-scroll-proportion="0.33333334">
+        <state line="15" column="21" selection-start="318" selection-end="318" vertical-scroll-proportion="0.35978836">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/Cache.java">
+    <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Bio.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="93" column="5" selection-start="3041" selection-end="3041" vertical-scroll-proportion="0.0">
+        <state line="11" column="9" selection-start="226" selection-end="226" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/LastFmClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="234" column="59" selection-start="10627" selection-end="10627" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/AbstractHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="22" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/TopArtistsResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="19" selection-start="248" selection-end="248" vertical-scroll-proportion="0.36452243">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Artist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="23" selection-start="656" selection-end="660" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/Search.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="33" selection-start="1506" selection-end="1506" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://db-console:/1e2e2c24/9a05fd03-e7b7-4a0e-931e-bb5ec4adfd80/">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/1e2e2c24/9a05fd03-e7b7-4a0e-931e-bb5ec4adfd80/musicbox.public.image">
-      <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.DatabaseTableFileEditorProvider">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/Packets.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="21" selection-start="492" selection-end="492" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Image.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="19" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Bio.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="20" selection-start="463" selection-end="463" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/WebWorker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="387" selection-end="387" vertical-scroll-proportion="0.119929455">
+        <state line="12" column="21" selection-start="485" selection-end="485" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1443,21 +1403,91 @@
         <state />
       </provider>
       <provider editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicbox/lastfm/structure/artist/Artist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="8" selection-start="2168" selection-end="2168" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicbox/ExcludeFromSerialisation.java">
+    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/db/Connection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="21" selection-start="318" selection-end="318" vertical-scroll-proportion="0.0">
+        <state line="15" column="13" selection-start="354" selection-end="354" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/META-INF/persistence.xml">
+    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/AbstractHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="70" selection-start="976" selection-end="976" vertical-scroll-proportion="0.47971782">
+        <state line="66" column="0" selection-start="2193" selection-end="2193" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="method#getIpByConnection#0;class#AbstractHandler#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/GetAudioByTrack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="16" selection-start="2544" selection-end="2544" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/LoginByCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="14" selection-start="627" selection-end="627" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/MusicboxServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="86" column="37" selection-start="3700" selection-end="3700" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/GetTopSongsByArtistId.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="423" selection-end="423" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicbox/server/packets/handlers/GetTopSongsByArtistName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="423" selection-end="423" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/partials/artist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="12" selection-start="927" selection-end="927" vertical-scroll-proportion="-15.038462">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Dropbox/Programming/Projects/musicbox_server/src/com/musicbox/lastfm/structure/artist/Album.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="23" selection-start="320" selection-end="320" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Dropbox/Programming/Projects/musicbox_server/src/com/musicbox/server/packets/handlers/Search.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="27" selection-start="1520" selection-end="1520" vertical-scroll-proportion="0.72">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/js/controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="85" selection-start="1737" selection-end="1737" vertical-scroll-proportion="0.1827957">
           <folding />
         </state>
       </provider>
@@ -1521,6 +1551,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
@@ -1540,7 +1571,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>gson-2.2.2</last-edited>
+          <last-edited>webbit</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

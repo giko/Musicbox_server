@@ -22,10 +22,10 @@ public class Artist implements Serializable {
     @Column(name = "name")
     private String name;
     //private String url;
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "artist", cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "artist", cascade = CascadeType.ALL)
     private Bio bio;
     @SerializedName("image")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "artist", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "artist", cascade = CascadeType.ALL)
     private Set<Image> images;
 
     @Nullable

@@ -3,6 +3,7 @@
 <div ng-show="!loading">
     <div class="playlist" ng-show="artists.length > 0">
         <h1 class="Three-Dee">Artists</h1>
+
         <div ng-click="searchArtist(artist)" class="playlist" ng-repeat="artist in artists">
 
             <img class="artist-image" ng-src="{{artist.image[3]['#text']}}">

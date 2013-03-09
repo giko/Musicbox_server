@@ -10,14 +10,14 @@ WEB_SOCKET_SWF_LOCATION = "ws/WebSocketMain.swf";
 var mbApp = angular.module('mbApp', [], function ($locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider.
-        when('/', {templateUrl:'/partials/main.html', controller:HomeCtrl}).
-        when('/search/:query', {templateUrl:'/partials/search-result.html', controller:SearchResultCtrl}).
-        when('/artist/:query', {templateUrl:'/partials/artist.html', controller:ArtistCtrl}).
-        when('/artist/id/:id', {templateUrl:'/partials/artist.html', controller:ArtistCtrl}).
-        when('/artist/id/:id/similar', {templateUrl:'/partials/search-result.html', controller:SearchResultCtrl}).
-        when('/artist/:id/similar', {templateUrl:'/partials/search-result.html', controller:SearchResultCtrl}).
+        when('/', {templateUrl: '/partials/main.html', controller: HomeCtrl}).
+        when('/search/:query', {templateUrl: '/partials/search-result.html', controller: SearchResultCtrl}).
+        when('/artist/:query', {templateUrl: '/partials/artist.html', controller: ArtistCtrl}).
+        when('/artist/id/:id', {templateUrl: '/partials/artist.html', controller: ArtistCtrl}).
+        when('/artist/id/:id/similar', {templateUrl: '/partials/search-result.html', controller: SearchResultCtrl}).
+        when('/artist/:id/similar', {templateUrl: '/partials/search-result.html', controller: SearchResultCtrl}).
 
-        otherwise({redirectTo:'/'});
+        otherwise({redirectTo: '/'});
 });
 
 mbApp.factory('GlobalCache', function ($cacheFactory) {
@@ -38,9 +38,9 @@ mbApp.factory('ArtistCache', function ($cacheFactory) {
 
 mbApp.directive('contenteditable', function () {
     return {
-        restrict:'A', // only activate on element attribute
-        require:'?ngModel', // get a hold of NgModelController
-        link:function (scope, element, attrs, ngModel) {
+        restrict: 'A', // only activate on element attribute
+        require: '?ngModel', // get a hold of NgModelController
+        link: function (scope, element, attrs, ngModel) {
             if (!ngModel) return; // do nothing if no ng-com.musicbox.model
 
             // Specify how UI should be updated
@@ -66,19 +66,19 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
         playlists = [],
         paused = false,
         current = {
-            waiting:false,
-            playlist:null,
-            track:null
+            waiting: false,
+            playlist: null,
+            track: null
         };
 
     player = {
-        playlists:playlists,
+        playlists: playlists,
 
-        current:current,
+        current: current,
 
-        playing:false,
+        playing: false,
 
-        play:function (playlist, song) {
+        play: function (playlist, song) {
             if (angular.isDefined(playlist) && angular.isDefined(song)) {
                 if (current.waiting) return;
 
@@ -95,19 +95,19 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
             }
         },
 
-        playURL:function (url) {
+        playURL: function (url) {
             current.waiting = false;
             player.playing = true;
             audio.src = url;
             audio.play();
         },
 
-        pause:function () {
+        pause: function () {
             player.playing = false;
             audio.pause();
         },
 
-        reset:function () {
+        reset: function () {
             audio.pause();
             player.playing = false;
             current.waiting = false;
@@ -115,7 +115,7 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
             current.playlist = null;
         },
 
-        next:function () {
+        next: function () {
             if (current.waiting) return;
 
             var playlists_index = playlists.indexOf(current.playlist);
@@ -135,7 +135,7 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
 
         },
 
-        previous:function () {
+        previous: function () {
             if (current.waiting) return;
 
             var playlists_index = playlists.indexOf(current.playlist);
@@ -154,13 +154,13 @@ mbApp.factory('player', function (socket, audio, AudioCache, $rootScope) {
             }
         },
 
-        requestSong:function (song) {
+        requestSong: function (song) {
             current.waiting = true;
             var cache = AudioCache.get(song.artist.name + song.name);
             if (angular.isDefined(cache)) {
                 player.playURL(cache.url);
             } else {
-                socket.send({action:'GETAUDIOBYTRACK', message:song.artist.name + " " + song.name});
+                socket.send({action: 'GETAUDIOBYTRACK', message: song.artist.name + " " + song.name});
             }
         }
     };
@@ -207,8 +207,8 @@ mbApp.factory('socket', function ($rootScope, $location) {
 
     socket.onopen = function (e) {
         console.log('* Connected!');
-        socket.send(JSON.stringify({action:window.localStorage.token ? "LOGIN" : "LOGINBYCODE",
-            message:window.localStorage.token || ($location.search().code || "")}));
+        socket.send(JSON.stringify({action: window.localStorage.token ? "LOGIN" : "LOGINBYCODE",
+            message: window.localStorage.token || ($location.search().code || "")}));
     };
 
     socket.onclose = function (e) {
@@ -220,13 +220,13 @@ mbApp.factory('socket', function ($rootScope, $location) {
     };
 
     return {
-        on:function (eventName, callback) {
+        on: function (eventName, callback) {
             callbacks[eventName] = callback;
         },
 
-        send:function (data) {
+        send: function (data) {
             socket.send(JSON.stringify(data));
         },
-        state:socket.readyState
+        state: socket.readyState
     };
 });

@@ -39,8 +39,7 @@ public class LoginByCode extends AbstractHandler {
                 packet.setMessage(token);
                 logintokens_.put(token, oauth);
                 connection.send(packet.toJson());
-            } else
-            {
+            } else {
                 System.out.println("ERROR!" + oauth.getError() + oauth.getError_description());
             }
         } else {

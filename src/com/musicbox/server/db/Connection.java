@@ -16,11 +16,11 @@ import javax.persistence.Persistence;
 public class Connection {
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("server");
 
-    public static EntityManager getEntityManager(){
+    public static EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public static Session getSession(){
+    public static Session getSession() {
         return (Session) getEntityManager().getDelegate();
     }
 
