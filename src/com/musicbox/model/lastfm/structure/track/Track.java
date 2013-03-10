@@ -9,28 +9,18 @@ import java.util.Set;
 @Entity
 @Table(name = "track", schema = "public", catalog = "musicbox")
 public class Track {
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "artistid")
+    @ManyToOne
+    @JoinColumn(name = "artistid", nullable = false)
     private Artist artist;
     private String duration;
-    @OneToMany(mappedBy = "track")
+    @OneToMany(mappedBy = "track", fetch = FetchType.EAGER)
     private Set<Image> image;
     private String listeners;
     @Id
-    @GeneratedValue
-    private int id;
     private String mbid;
     private String name;
     private String playcount;
-    private String url;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+//    private String url;
 
     public Artist getArtist() {
         return artist;
@@ -86,13 +76,5 @@ public class Track {
 
     public void setPlaycount(String playcount) {
         this.playcount = playcount;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }

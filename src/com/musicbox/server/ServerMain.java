@@ -1,5 +1,6 @@
 package com.musicbox.server;
 
+import com.musicbox.server.db.Connection;
 import org.webbitserver.WebServer;
 import org.webbitserver.handler.StaticFileHandler;
 import org.webbitserver.handler.logging.LoggingHandler;
@@ -11,7 +12,7 @@ public class ServerMain {
 
 
     public static void main(String[] args) throws Exception {
-
+        Connection.getEntityManager().close();
 
         int port = 80;
         WebServer webServer = createWebServer(port);

@@ -26,9 +26,9 @@ public class GetTopSongsByArtistId extends AbstractHandler {
 
 
         @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.SEARCHRESULT);
-        packet.setSongs(lfclient.getTopTracksByArtistID(incoming.getMessage()));
         List<Artist> artist = new ArrayList<Artist>();
         artist.add(lfclient.getArtistInfoById(incoming.getMessage()));
+        packet.setSongs(lfclient.getTopTracksByArtistID(incoming.getMessage()));
         packet.setArtists(artist);
         connection.send(packet.toJson());
     }

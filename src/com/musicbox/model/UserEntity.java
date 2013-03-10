@@ -11,7 +11,7 @@ import javax.persistence.*;
  * Time: 12:45 AM
  * To change this template use File | Settings | File Templates.
  */
-@javax.persistence.Table(name = "user", schema = "public", catalog = "musicbox")
+@javax.persistence.Table(name = "user", schema = "public", catalog = "musicbox", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "vkid"})})
 @Entity
 public class UserEntity {
     @javax.persistence.Column(name = "id")
@@ -19,7 +19,7 @@ public class UserEntity {
     @GeneratedValue
     private int id;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "vkid")
+    @JoinColumn(name = "vkid", nullable = false)
     private Profile profile;
     private String name;
     @OneToOne(mappedBy = "user")

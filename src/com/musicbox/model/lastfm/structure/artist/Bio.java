@@ -19,9 +19,9 @@ public class Bio implements Serializable {
     @PrimaryKeyJoinColumn
     @ExcludeFromSerialisation
     private Artist artist;
-    @Column(name = "published", columnDefinition="TEXT")
+    @Column(name = "published", columnDefinition = "TEXT")
     private String published;
-    @Column(name = "summary", columnDefinition="TEXT")
+    @Column(name = "summary", columnDefinition = "TEXT")
     private String summary;
     //private String content;
     @Id
@@ -31,14 +31,13 @@ public class Bio implements Serializable {
             strategy = "foreign",
             parameters = {@org.hibernate.annotations.Parameter(name = "property", value = "artist")})
     @Column(name = "id")
-    private Integer id;
+    private String id;
 
-
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

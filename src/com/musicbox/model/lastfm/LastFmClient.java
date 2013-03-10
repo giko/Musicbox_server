@@ -19,7 +19,9 @@ import com.musicbox.model.lastfm.structure.track.Track;
 import com.musicbox.model.lastfm.structure.track.TrackSearch;
 import com.musicbox.server.Config;
 import com.musicbox.server.db.Connection;
+import com.musicbox.server.logic.tools.MD5;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,7 +34,6 @@ import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class LastFmClient {
     @NotNull
@@ -47,6 +48,7 @@ public class LastFmClient {
     }.getType();
 
     @NotNull
+    //TODO: Hibernate this
     public List<Artist> getSimilarArtistsByName(@NotNull String name) {
         @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getSimilarArtistsByName", name, ArrayList.class);
         if (!cacheAllocator.exists()) {
@@ -62,6 +64,7 @@ public class LastFmClient {
     }
 
     @NotNull
+    @Deprecated
     public Artist getArtistInfoByName(@NotNull String name) {
         @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getArtistInfoByName", name, Artist.class);
         if (!cacheAllocator.exists()) {
@@ -84,9 +87,12 @@ public class LastFmClient {
     public Artist getArtistInfoById(@NotNull String id) {
         @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getArtistInfoById", id, Artist.class);
         if (!cacheAllocator.exists()) {
+            EntityManager entityManager = null;
+            Session session = null;
             try {
-                EntityManager entityManager = Connection.getEntityManager();
-
+                entityManager = Connection.getEntityManager();
+                session = Connection.getSessionByEntityManager(entityManager);
+                Transaction transaction = session.beginTransaction();
                 Artist artist = (Artist) entityManager.createQuery("from Artist where mbid = :id").setParameter("id", id).getSingleResult();
                 if (artist.getBio() == null) {
                     final Gson json = new GsonBuilder()
@@ -99,10 +105,19 @@ public class LastFmClient {
                 }
                 artist.setData();
 
-                (Connection.getSessionByEntityManager(entityManager)).flush();
+                transaction.commit();
+                session.close();
+
                 return artist;
             } catch (Exception e) {
-                EntityManager entityManager = Connection.getEntityManager();
+                try {
+                    if (session != null) {
+                        session.close();
+                    }
+                } catch (Exception e1) {
+
+                }
+
                 final Gson json = new GsonBuilder()
                         .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
                         .create();
@@ -114,8 +129,11 @@ public class LastFmClient {
                 artistBio.setArtist(artist);
                 artist.setData();
                 cacheAllocator.cacheObject(artist);
-                Connection.getSessionByEntityManager(entityManager).saveOrUpdate(artist);
-                Connection.getSessionByEntityManager(entityManager).flush();
+                session = Connection.getSession();
+                Transaction transaction = session.beginTransaction();
+                session.saveOrUpdate(artist);
+                transaction.commit();
+                session.close();
 
                 return artist;
             }
@@ -124,6 +142,7 @@ public class LastFmClient {
     }
 
     @NotNull
+    @Deprecated
     public List<Track> getTopTracksByArtistName(@NotNull String query) {
         @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getTopTracksByArtistName", query, ArrayList.class, 24);
         if (!cacheAllocator.exists()) {
@@ -133,8 +152,6 @@ public class LastFmClient {
                     .create();
             List<Track> toptracks = json.fromJson(retrieveReader("method=artist.gettoptracks&artist=" + URLEncoder.encode(query)), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
             cacheAllocator.cacheObject(toptracks);
-            session.save(toptracks);
-            session.flush();
             return toptracks;
         }
         return (List<Track>) cacheAllocator.getObject();
@@ -145,24 +162,33 @@ public class LastFmClient {
         @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getTopTracksByArtistID", query, ArrayList.class, 24);
         if (!cacheAllocator.exists()) {
             try {
-                 EntityManager entityManager = Connection.getEntityManager();
-                List <Track> result = (List <Track>) entityManager.createQuery("from Track where artist.mbid = :mbid").setParameter("mbid", query).getResultList();
-                if (result.size() == 0){
+                EntityManager entityManager = Connection.getEntityManager();
+                List<Track> result = (List<Track>) entityManager.createQuery("from Track where artist.mbid = :mbid").setParameter("mbid", query).getResultList();
+                if (result.size() == 0) {
+                    entityManager.close();
                     throw new Exception("lol");
                 }
+                entityManager.close();
+
                 return result;
             } catch (Exception e) {
-                Session session = Connection.getSession();
-
                 final Gson json = new GsonBuilder()
                         .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
                         .create();
                 List<Track> toptracks = json.fromJson(retrieveReader("method=artist.gettoptracks&mbid=" + query), ArtistTopTracksSearchResult.class).getToptracks().getTrack();
                 cacheAllocator.cacheObject(toptracks);
+
+                Session session = Connection.getSession();
+                Transaction transaction = session.beginTransaction();
                 for (Track track : toptracks) {
+                    if (track.getMbid().equals("")) {
+                        track.setMbid(MD5.getMD5(track.getName()));
+                    }
                     session.save(track);
                 }
-                session.flush();
+                transaction.commit();
+                session.close();
+
                 return toptracks;
             }
         }
@@ -183,6 +209,7 @@ public class LastFmClient {
     //}.getType();
 
     @Nullable
+    //TODO: Hibernate this
     public List<Artist> SearchArtist(@NotNull String query) {
         query = query.toLowerCase();
         @NotNull CacheAllocator cacheAllocator = cache.getAllocator("SearchArtist", query, ArrayList.class);
@@ -211,6 +238,7 @@ public class LastFmClient {
     }
 
     @Nullable
+    //TODO: Hibernate this
     public List<Track> SearchTrack(@NotNull String query) {
         query = query.toLowerCase();
         @NotNull CacheAllocator cacheAllocator = cache.getAllocator("SearchTrack", query, ArrayList.class);
@@ -279,6 +307,18 @@ public class LastFmClient {
     public List<Artist> getTopArtists() {
         @NotNull CacheAllocator cacheAllocator = cache.getAllocator("getTopArtists", "", ArrayList.class, 12);
         if (!cacheAllocator.exists()) {
+            {
+                EntityManager entityManager = Connection.getEntityManager();
+                List<TopArtistsEntity> topArtist = (List<TopArtistsEntity>) entityManager.createQuery("from TopArtistsEntity").getResultList();
+                entityManager.close();
+                if (topArtist.size() > 0) {
+                    List<Artist> artists = new ArrayList<Artist>();
+                    for (TopArtistsEntity entity : topArtist) {
+                        artists.add(entity.getArtist());
+                    }
+                    return artists;
+                }
+            }
             final Gson json = new GsonBuilder()
                     .setExclusionStrategies(new BasicSerialisationExclusionStrategy())
                     .registerTypeAdapter(locationInfoListType, new ArtistTypeAdapter())
@@ -290,11 +330,14 @@ public class LastFmClient {
 
             Session session = Connection.getSession();
 
+            Transaction transaction = session.beginTransaction();
             for (Artist artist : searchresult) {
+                TopArtistsEntity topArtists = new TopArtistsEntity();
                 artist.setData();
-                session.saveOrUpdate(artist);
+                topArtists.setArtist(artist);
+                session.saveOrUpdate(topArtists);
             }
-            session.flush();
+            transaction.commit();
             session.close();
 
             return searchresult;

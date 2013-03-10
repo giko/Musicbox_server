@@ -24,7 +24,7 @@ public class Connection {
         return (Session) getEntityManager().getDelegate();
     }
 
-    public static Session getSessionByEntityManager(EntityManager entityManager){
+    public static Session getSessionByEntityManager(EntityManager entityManager) {
         return (Session) entityManager.getDelegate();
     }
 

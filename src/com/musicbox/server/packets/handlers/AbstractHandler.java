@@ -1,10 +1,10 @@
 package com.musicbox.server.packets.handlers;
 
 import com.musicbox.model.lastfm.LastFmClient;
-import com.musicbox.server.MusicboxServer;
-import com.musicbox.server.packets.Packets;
 import com.musicbox.model.vkontakte.OAuthToken;
 import com.musicbox.model.vkontakte.structure.profiles.Profile;
+import com.musicbox.server.MusicboxServer;
+import com.musicbox.server.packets.Packets;
 import org.jboss.netty.channel.UpstreamMessageEvent;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;

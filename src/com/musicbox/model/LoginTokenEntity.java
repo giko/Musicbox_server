@@ -17,10 +17,10 @@ public class LoginTokenEntity {
     @Id
     private String token;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "oauthtokenid")
+    @JoinColumn(name = "oauthtokenid", nullable = false)
     private OAuthToken oAuthToken;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "userid", nullable = false)
     private UserEntity user;
 
     public UserEntity getUser() {

@@ -6,6 +6,8 @@
         <!--<jta-data-source>java:/DefaultDS</jta-data-source>-->
         <class>com.musicbox.model.UserEntity</class>
         <class>com.musicbox.model.LoginTokenEntity</class>
+        <class>com.musicbox.model.lastfm.TopArtistsEntity</class>
+
         <class>com.musicbox.model.lastfm.structure.artist.Artist</class>
         <class>com.musicbox.model.lastfm.structure.artist.Image</class>
         <class>com.musicbox.model.lastfm.structure.artist.Bio</class>
@@ -22,7 +24,7 @@
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.connection.username" value="postgres"/>
             <property name="hibernate.connection.password" value="pass"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
 </persistence>

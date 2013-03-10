@@ -3,6 +3,7 @@ package com.musicbox.model.lastfm.structure.artist;
 import com.google.gson.annotations.SerializedName;
 import com.musicbox.model.lastfm.LastFmClient;
 import com.musicbox.model.lastfm.structure.track.Track;
+import com.musicbox.server.logic.tools.MD5;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,15 +13,12 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "artist", schema = "public", catalog = "musicbox", uniqueConstraints = {@UniqueConstraint(columnNames={"mbid"})})
+@Table(name = "artist", schema = "public", catalog = "musicbox", uniqueConstraints = {@UniqueConstraint(columnNames = {"mbid"})})
 public class Artist implements Serializable {
     //private int listeners;
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private int id;
     @Column(name = "name")
     private String name;
+    @Id
     @Column(name = "mbid")
     private String mbid;
     //private String url;
@@ -79,20 +77,15 @@ public class Artist implements Serializable {
     }
 
     public void setData() {
+        if (getMbid().equals("")) {
+            setMbid(MD5.getMD5(getName()));
+        }
         for (Image image : images) {
             image.setArtist(this);
         }
         if (bio != null) {
             bio.setArtist(this);
         }
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override
@@ -102,7 +95,6 @@ public class Artist implements Serializable {
 
         Artist artist = (Artist) o;
 
-        if (id != artist.id) return false;
         if (bio != null ? !bio.equals(artist.bio) : artist.bio != null) return false;
         if (images != null ? !images.equals(artist.images) : artist.images != null) return false;
         if (mbid != null ? !mbid.equals(artist.mbid) : artist.mbid != null) return false;
@@ -113,8 +105,7 @@ public class Artist implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
+        int result = name.hashCode();
         result = 31 * result + (mbid != null ? mbid.hashCode() : 0);
         result = 31 * result + (bio != null ? bio.hashCode() : 0);
         result = 31 * result + (images != null ? images.hashCode() : 0);

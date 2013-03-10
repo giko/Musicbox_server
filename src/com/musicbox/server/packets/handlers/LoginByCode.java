@@ -1,13 +1,13 @@
 package com.musicbox.server.packets.handlers;
 
 import com.musicbox.model.LoginTokenEntity;
+import com.musicbox.model.vkontakte.OAuthToken;
+import com.musicbox.model.vkontakte.VkontakteClient;
 import com.musicbox.server.Config;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.db.Connection;
 import com.musicbox.server.logic.tools.MD5;
 import com.musicbox.server.packets.Packets;
-import com.musicbox.model.vkontakte.OAuthToken;
-import com.musicbox.model.vkontakte.VkontakteClient;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;

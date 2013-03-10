@@ -1,10 +1,10 @@
 package com.musicbox.server;
 
 import com.google.gson.Gson;
-import com.musicbox.server.packets.Packets;
-import com.musicbox.server.packets.handlers.*;
 import com.musicbox.model.vkontakte.OAuthToken;
 import com.musicbox.model.vkontakte.structure.profiles.Profile;
+import com.musicbox.server.packets.Packets;
+import com.musicbox.server.packets.handlers.*;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.BaseWebSocketHandler;
 import org.webbitserver.WebSocketConnection;
