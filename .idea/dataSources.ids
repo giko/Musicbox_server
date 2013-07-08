@@ -2,6 +2,7 @@
   <data-source source="LOCAL" name="Data Source" product="PostgreSQL" version="9.2.3" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.2 JDBC4 (build 1002)" uuid="9a05fd03-e7b7-4a0e-931e-bb5ec4adfd80">
     <identifier-quote-string>"</identifier-quote-string>
     <synchronize>true</synchronize>
+    <auto-commit>false</auto-commit>
     <jdbc-driver>org.postgresql.Driver</jdbc-driver>
     <jdbc-url>jdbc:postgresql://localhost/musicbox</jdbc-url>
     <user-name>postgres</user-name>
@@ -2308,9 +2309,8 @@
       <column name="mbid" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
       <column name="name" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
       <primary-key name="artist_pkey" columns="mbid" />
-      <exported-key name="fk5faa95bf4408564" table="image" schema="public" catalog="musicbox" columns="artistid" />
-      <exported-key name="fka618cdcf4408564" table="topartist" schema="public" catalog="musicbox" columns="artistid" />
-      <exported-key name="fk697f14bf4408564" table="track" schema="public" catalog="musicbox" columns="artistid" />
+      <exported-key name="fk_9f697976c908418db3fe8831b63" table="topartist" schema="public" catalog="musicbox" columns="artistid" />
+      <exported-key name="fk_6826ed54f3154d77a9126c0b3cb" table="track" schema="public" catalog="musicbox" columns="artistid" />
     </table>
     <table name="bio" schema="public" catalog="musicbox" type="TABLE">
       <column name="id" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
@@ -2330,29 +2330,45 @@
       <column name="is_cycled" sqlType="bool" length="1" precision="0" nullable="false" jdbcType="-7" />
       <column name="is_called" sqlType="bool" length="1" precision="0" nullable="false" jdbcType="-7" />
     </table>
-    <table name="image" schema="public" catalog="musicbox" type="TABLE">
-      <column name="link" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
-      <column name="size" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="artistid" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
-      <column name="trackid" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
-      <primary-key name="image_pkey" columns="link" />
-      <foreign-key name="fk5faa95bf4408564" columns="artistid" ref-table="artist" ref-schema="public" ref-catalog="" ref-columns="mbid" update-rule="3" delete-rule="3" deferrability="2" />
-      <foreign-key name="fk5faa95b6a262242" columns="trackid" ref-table="track" ref-schema="public" ref-catalog="" ref-columns="mbid" update-rule="3" delete-rule="3" deferrability="2" />
-    </table>
     <table name="logintoken" schema="public" catalog="musicbox" type="TABLE">
       <column name="token" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
-      <column name="oauthtokenid" sqlType="int4" length="10" precision="0" nullable="true" jdbcType="4" />
-      <column name="userid" sqlType="int4" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="oauthtokenid" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="userid" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
       <primary-key name="logintoken_pkey" columns="token" />
-      <foreign-key name="fk98fb04306e0ac932" columns="oauthtokenid" ref-table="ouathtoken" ref-schema="public" ref-catalog="" ref-columns="user_id" update-rule="3" delete-rule="3" deferrability="2" />
-      <foreign-key name="fk98fb043053aca6f4" columns="userid" ref-table="user" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk_cfc40e069e3f418e9ed554ea2a4" columns="oauthtokenid" ref-table="ouathtoken" ref-schema="public" ref-catalog="" ref-columns="user_id" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk_4de240189a26431aa69a48b1b9c" columns="userid" ref-table="user" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
     </table>
     <table name="ouathtoken" schema="public" catalog="musicbox" type="TABLE">
       <column name="user_id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
       <column name="access_token" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="expires_in" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
       <primary-key name="ouathtoken_pkey" columns="user_id" />
-      <exported-key name="fk98fb04306e0ac932" table="logintoken" schema="public" catalog="musicbox" columns="oauthtokenid" />
+      <exported-key name="fk_cfc40e069e3f418e9ed554ea2a4" table="logintoken" schema="public" catalog="musicbox" columns="oauthtokenid" />
+    </table>
+    <table name="playlist" schema="public" catalog="musicbox" type="TABLE">
+      <column name="id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="name" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="visible" sqlType="bool" length="1" precision="0" nullable="true" jdbcType="-7" />
+      <primary-key name="playlist_pkey" columns="id" />
+      <exported-key name="fk_d0ddb370d87b4af0b958c34fc80" table="playlist_usertrack" schema="public" catalog="musicbox" columns="playlist_id" />
+    </table>
+    <table name="playlist_usertrack" schema="public" catalog="musicbox" type="TABLE">
+      <column name="playlist_id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="tracks_id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <foreign-key name="fk_d0ddb370d87b4af0b958c34fc80" columns="playlist_id" ref-table="playlist" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk_3df1b0085ac347c68fe81db7f7a" columns="tracks_id" ref-table="usertrack" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
+      <index name="uk_0ab91d820c5e4272831cb130da1" unique="true" columns="tracks_id" />
+      <index name="uk_0ec3aec6fb21450fad87cd5be71" unique="true" columns="tracks_id" />
+      <index name="uk_111db3104d23470696357a71651" unique="true" columns="tracks_id" />
+      <index name="uk_19a588598c8f4d0aae8bf6952ea" unique="true" columns="tracks_id" />
+      <index name="uk_2e9dab26ca604d65a1459f8c14b" unique="true" columns="tracks_id" />
+      <index name="uk_7ce6e9ad29f946f8a588869f20c" unique="true" columns="tracks_id" />
+      <index name="uk_9189883a83854f3781d0ba7b342" unique="true" columns="tracks_id" />
+      <index name="uk_ad362fef67f540a194a2696c0d9" unique="true" columns="tracks_id" />
+      <index name="uk_bb0fa9914e094d80ac15444d86a" unique="true" columns="tracks_id" />
+      <index name="uk_dd25d6718c4947a88e14999f8ad" unique="true" columns="tracks_id" />
+      <index name="uk_e6486d229125459e83d8811c41d" unique="true" columns="tracks_id" />
+      <index name="uk_fbd4608648be4d4a9626c795c9b" unique="true" columns="tracks_id" />
     </table>
     <table name="profile" schema="public" catalog="musicbox" type="TABLE">
       <column name="id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
@@ -2364,13 +2380,27 @@
       <column name="photo_big" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="sex" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
       <primary-key name="profile_pkey" columns="id" />
-      <exported-key name="fk36ebcb3cf47063" table="user" schema="public" catalog="musicbox" columns="vkid" />
+      <exported-key name="fk_87fd514af36f4384863eca506a7" table="user" schema="public" catalog="musicbox" columns="vkid" />
     </table>
     <table name="topartist" schema="public" catalog="musicbox" type="TABLE">
       <column name="id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
-      <column name="artistid" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="artistid" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
       <primary-key name="topartist_pkey" columns="id" />
-      <foreign-key name="fka618cdcf4408564" columns="artistid" ref-table="artist" ref-schema="public" ref-catalog="" ref-columns="mbid" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk_9f697976c908418db3fe8831b63" columns="artistid" ref-table="artist" ref-schema="public" ref-catalog="" ref-columns="mbid" update-rule="3" delete-rule="3" deferrability="2" />
+      <index name="uk_122efae48781480194d5e360069" unique="true" columns="artistid" />
+      <index name="uk_1c7e76364d934314b5145803edc" unique="true" columns="artistid" />
+      <index name="uk_2b9004b95de44b9a8912c37686c" unique="true" columns="artistid" />
+      <index name="uk_44d8b687aba446d0bfd541b264c" unique="true" columns="artistid" />
+      <index name="uk_5d42a7596e1b4c4d88a94b9c238" unique="true" columns="artistid" />
+      <index name="uk_616bc32d902f43de92d2ec51033" unique="true" columns="artistid" />
+      <index name="uk_70695aa31ec24e38adb83e2d5de" unique="true" columns="artistid" />
+      <index name="uk_8ed7e484e9054eb2adfe11346af" unique="true" columns="artistid" />
+      <index name="uk_926ba3e12ce14f82b126ad43ce5" unique="true" columns="artistid" />
+      <index name="uk_9414641c4df5486cb3bbcaff44f" unique="true" columns="artistid" />
+      <index name="uk_9ce22408f98d4434b42ea83968b" unique="true" columns="artistid" />
+      <index name="uk_e148e33ee9dd4e01aff1355384d" unique="true" columns="artistid" />
+      <index name="uk_e4b7a01726b24277b7d01f5c723" unique="true" columns="artistid" />
+      <index name="uk_e9b0a3249a994ef89d64c03f30d" unique="true" columns="artistid" />
     </table>
     <table name="track" schema="public" catalog="musicbox" type="TABLE">
       <column name="mbid" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
@@ -2378,19 +2408,41 @@
       <column name="listeners" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="name" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="playcount" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="url" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="artistid" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="artistid" sqlType="varchar" length="255" precision="0" nullable="false" jdbcType="12" />
       <primary-key name="track_pkey" columns="mbid" />
-      <foreign-key name="fk697f14bf4408564" columns="artistid" ref-table="artist" ref-schema="public" ref-catalog="" ref-columns="mbid" update-rule="3" delete-rule="3" deferrability="2" />
-      <exported-key name="fk5faa95b6a262242" table="image" schema="public" catalog="musicbox" columns="trackid" />
+      <foreign-key name="fk_6826ed54f3154d77a9126c0b3cb" columns="artistid" ref-table="artist" ref-schema="public" ref-catalog="" ref-columns="mbid" update-rule="3" delete-rule="3" deferrability="2" />
+      <exported-key name="fk_e1b29aad08364fc2b28e5556068" table="usertrack" schema="public" catalog="musicbox" columns="track_mbid" />
     </table>
     <table name="user" schema="public" catalog="musicbox" type="TABLE">
       <column name="id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
       <column name="name" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="vkid" sqlType="int4" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="vkid" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
       <primary-key name="user_pkey" columns="id" />
-      <foreign-key name="fk36ebcb3cf47063" columns="vkid" ref-table="profile" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
-      <exported-key name="fk98fb043053aca6f4" table="logintoken" schema="public" catalog="musicbox" columns="userid" />
+      <foreign-key name="fk_87fd514af36f4384863eca506a7" columns="vkid" ref-table="profile" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
+      <exported-key name="fk_4de240189a26431aa69a48b1b9c" table="logintoken" schema="public" catalog="musicbox" columns="userid" />
+      <exported-key name="fk_03214abab82a4f2d9b92c0bdaf5" table="usertrack" schema="public" catalog="musicbox" columns="user_id" />
+      <index name="uk_068707513ee44651acf13f17320" unique="true" columns="name,vkid" />
+      <index name="uk_18c5c572c46c483c9dd96897f6d" unique="true" columns="name,vkid" />
+      <index name="uk_1d78b6e96eca48a59da06c09af2" unique="true" columns="name,vkid" />
+      <index name="uk_2c20c215d91940f3b486581e3b8" unique="true" columns="name,vkid" />
+      <index name="uk_422ef354a8a14f8c9456ecadc0a" unique="true" columns="name,vkid" />
+      <index name="uk_53f2d9e203d9499babef08e4b99" unique="true" columns="name,vkid" />
+      <index name="uk_64f57bdcb1394268ae9e70592a2" unique="true" columns="name,vkid" />
+      <index name="uk_94759bc4b5654636bccdd91e56e" unique="true" columns="name,vkid" />
+      <index name="uk_96bf85a278e3462ea1bc4437b33" unique="true" columns="name,vkid" />
+      <index name="uk_ad44197b081b4696a584c26d50d" unique="true" columns="name,vkid" />
+      <index name="uk_c0634cd2893d464b901b9bdeca5" unique="true" columns="name,vkid" />
+      <index name="uk_effee22e29654875bcc791e32b0" unique="true" columns="name,vkid" />
+    </table>
+    <table name="usertrack" schema="public" catalog="musicbox" type="TABLE">
+      <column name="id" sqlType="int4" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="playscount" sqlType="int4" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="track_mbid" sqlType="varchar" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="user_id" sqlType="int4" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="usertrack_pkey" columns="id" />
+      <foreign-key name="fk_e1b29aad08364fc2b28e5556068" columns="track_mbid" ref-table="track" ref-schema="public" ref-catalog="" ref-columns="mbid" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk_03214abab82a4f2d9b92c0bdaf5" columns="user_id" ref-table="user" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2" />
+      <exported-key name="fk_3df1b0085ac347c68fe81db7f7a" table="playlist_usertrack" schema="public" catalog="musicbox" columns="tracks_id" />
     </table>
     <procedure name="_pg_char_max_length" schema="information_schema" catalog="musicbox" type="2">
       <prototype return="true">
