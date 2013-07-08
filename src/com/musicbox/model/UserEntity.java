@@ -3,6 +3,7 @@ package com.musicbox.model;
 import com.musicbox.model.vkontakte.structure.profiles.Profile;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,25 +12,30 @@ import javax.persistence.*;
  * Time: 12:45 AM
  * To change this template use File | Settings | File Templates.
  */
-@javax.persistence.Table(name = "user", schema = "public", catalog = "musicbox", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "vkid"})})
+@Table(name = "user", schema = "public", catalog = "musicbox", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "vkid"})})
 @Entity
 public class UserEntity {
     @javax.persistence.Column(name = "id")
     @Id
     @GeneratedValue
     private int id;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "vkid", nullable = false)
     private Profile profile;
     private String name;
-    @OneToOne(mappedBy = "user")
-    private LoginTokenEntity loginToken;
+    @OneToMany(mappedBy = "user")
+    private List<LoginTokenEntity> loginToken;
 
-    public LoginTokenEntity getLoginToken() {
+    public void addLoginToken(LoginTokenEntity tokenEntity){
+        loginToken.add(tokenEntity);
+        tokenEntity.setUser(this);
+    }
+
+    public List<LoginTokenEntity> getLoginToken() {
         return loginToken;
     }
 
-    public void setLoginToken(LoginTokenEntity loginToken) {
+    public void setLoginToken(List<LoginTokenEntity> loginToken) {
         this.loginToken = loginToken;
     }
 

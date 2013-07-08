@@ -6,24 +6,33 @@
  */
 
 function MainCtrl($scope, $location, $http, socket) {
+    var messages = [];
+    $scope.messages = messages;
+
+/*
     socket.on("MESSAGE", function (data) {
         $scope.msg = data.message;
     });
+*/
 
     socket.on("CRITICALERROR", function (data) {
         $scope.error = true;
         $scope.error_msg = data.message;
     });
 
+    socket.on("MESSAGE", function (data) {
+        messages.push(data.message);
+    });
+
 
     socket.on("REDIRECTTOVK", function (data) {
         window.localStorage.token = "";
-        location.replace('https://oauth.vk.com/authorize?client_id=' + data.message + '&scope=audio,offline&redirect_uri=http://' + document.domain + '/&response_type=code&display=page');
+        location.replace('https://oauth.vk.com/authorize?client_id=' + data.vkappid + '&scope=audio,offline&redirect_uri=http://' + document.domain + '/&response_type=code&display=page');
     });
 
     socket.on("TOKEN", function (data) {
-        window.localStorage.token = data.message;
-        socket.send({action: "LOGIN", message: data.message});
+        window.localStorage.token = data.token;
+        socket.send({action: "LOGIN", message: data.token});
     });
 
     socket.on("LOGINSUCCESS", function () {
@@ -46,6 +55,10 @@ function MainCtrl($scope, $location, $http, socket) {
         }
     }
 
+    $scope.sendMessage = function(text){
+        socket.send({action:"CHATMESSAGE", message:text});
+    }
+
     $scope.left_bar = "/partials/left-bar.html";
 }
 
@@ -56,6 +69,10 @@ function ArtistCtrl($scope, $location, $routeParams, socket, player, ArtistCache
 
     $scope.findSimilar = function (artist) {
         $location.path("/artist/" + artist.name + "/similar");
+    }
+
+    $scope.addToFavorites = function(artist){
+        socket.send({action:"ADDARTISTTOFAVORITES", message: artist})
     }
 
     if (angular.isDefined($routeParams.query)) {
@@ -71,17 +88,30 @@ function ArtistCtrl($scope, $location, $routeParams, socket, player, ArtistCache
     }
 
     if (angular.isUndefined(cache)) {
-        socket.on("SEARCHRESULT", function (data) {
+        socket.on("ARTISTSONGS", function (data) {
             ArtistCache.put($routeParams.query || $routeParams.id, data);
             $scope.loading = false;
-            $scope.artist = data.artists[0];
-            $scope.playlist = {name: data.artists[0].name, songs: data.songs};
+            $scope.artist = data.artist;
+            $scope.playlist = {name: data.artist.name, songs: data.songs};
         });
     } else {
         $scope.loading = false;
-        $scope.artist = cache.artists[0];
-        $scope.playlist = {name: cache.artists[0].name, songs: cache.songs};
+        $scope.artist = cache.artist;
+        $scope.playlist = {name: cache.artist.name, songs: cache.songs};
     }
+}
+
+function UserCtrl($scope, $location, $routeParams, socket, player, ArtistCache) {
+    $scope.loading = true;
+
+    if (angular.isDefined($routeParams.id)) {
+            socket.send({action: "GETUSER", message: $routeParams.id});
+    }
+
+    socket.on("USER", function (data) {
+        $scope.loading = false;
+        $scope.user = data.user;
+    });
 }
 
 function HomeCtrl($scope, $location, socket, GlobalCache) {
@@ -106,6 +136,12 @@ function PlayListCtrl($scope, $location, player, socket) {
         if (angular.isUndefined(query)) return;
 
         $location.path("/search/" + query);
+    }
+
+    $scope.searchuser = function (query) {
+        if (angular.isUndefined(query)) return;
+
+        $location.path("/user/" + query);
     }
 }
 

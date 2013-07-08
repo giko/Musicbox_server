@@ -8,6 +8,8 @@ import com.musicbox.model.vkontakte.structure.audio.AudioSearch;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.ExecuteRequest;
 import com.musicbox.server.packets.Packets;
+import com.musicbox.server.packets.outgoing.AudioPacket;
+import com.musicbox.server.packets.outgoing.ExecuteRequestPacket;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
@@ -50,7 +52,7 @@ public class GetAudioByTrack extends AbstractHandler {
                 incoming.getMessage() + connections_.get(connection).getId() + getIpByConnection(connection), Audio.class);
 
         if (!cacheAllocator.exists()) {
-            @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.EXECUTEREQUEST);
+            ExecuteRequestPacket packet = new ExecuteRequestPacket();
 
             ExecuteRequest request = new ExecuteRequest();
             request.setAction(Packets.Incoming.Action.GETAUDIOBYTRACK);
@@ -61,13 +63,11 @@ public class GetAudioByTrack extends AbstractHandler {
 
             packet.setMessage(incoming.getMessage());
             packet.setRequest(request);
-            connection.send(packet.toJson());
+            packet.send(connection);
             return;
         }
 
-        @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.AUDIO);
-        packet.setAudio((Audio) cacheAllocator.getObject());
-        connection.send(packet.toJson());
+        (new AudioPacket((Audio) cacheAllocator.getObject())).send(connection);
     }
 
     @Override
@@ -83,8 +83,6 @@ public class GetAudioByTrack extends AbstractHandler {
 
         cacheAllocator.cacheObject(respond.getData().getResponse());
 
-        @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.AUDIO);
-        packet.setAudio((Audio) cacheAllocator.getObject());
-        connection.send(packet.toJson());
+        (new AudioPacket((Audio) cacheAllocator.getObject())).send(connection);
     }
 }

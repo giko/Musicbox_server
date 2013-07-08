@@ -21,7 +21,7 @@ public class Profile implements Serializable {
     @SerializedName("uid")
     @Id
     private int id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private OAuthToken token;
 
@@ -92,6 +92,10 @@ public class Profile implements Serializable {
 
     public void setSex(int sex) {
         this.sex = sex;
+    }
+
+    public boolean isMen() {
+        return this.sex == 1;
     }
 
     public int getId() {

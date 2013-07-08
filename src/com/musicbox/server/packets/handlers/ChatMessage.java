@@ -2,6 +2,7 @@ package com.musicbox.server.packets.handlers;
 
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets;
+import com.musicbox.server.packets.outgoing.MessagePacket;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
@@ -19,9 +20,7 @@ public class ChatMessage extends AbstractHandler {
 
     @Override
     public void HandlePacket(WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
-        @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.MESSAGE);
-        packet.setMessage(connections_.get(connection).getFirst_name() + " " + connections_.get(connection).getLast_name() +
-                " написал: " + incoming.getMessage());
-        server_.broadcast(packet);
+        server_.broadcast(new MessagePacket(connections_.get(connection).getFirst_name() + " " + connections_.get(connection).getLast_name() +
+                " написал: " + incoming.getMessage()));
     }
 }

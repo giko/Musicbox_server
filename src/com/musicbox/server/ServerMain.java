@@ -6,6 +6,8 @@ import org.webbitserver.handler.StaticFileHandler;
 import org.webbitserver.handler.logging.LoggingHandler;
 import org.webbitserver.handler.logging.SimpleLogSink;
 
+import java.io.File;
+
 import static org.webbitserver.WebServers.createWebServer;
 
 public class ServerMain {
@@ -24,7 +26,7 @@ public class ServerMain {
 
         webServer.add("/musicbox", new MusicboxServer())
                 .add(new StaticFileHandler(
-                        "./content"));
+                        new File(ServerMain.class.getResource("/content").toURI())));
 
         webServer.start().get();
 

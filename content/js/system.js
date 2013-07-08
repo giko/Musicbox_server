@@ -16,6 +16,7 @@ var mbApp = angular.module('mbApp', [], function ($locationProvider, $routeProvi
         when('/artist/id/:id', {templateUrl: '/partials/artist.html', controller: ArtistCtrl}).
         when('/artist/id/:id/similar', {templateUrl: '/partials/search-result.html', controller: SearchResultCtrl}).
         when('/artist/:id/similar', {templateUrl: '/partials/search-result.html', controller: SearchResultCtrl}).
+        when('/user/:id/', {templateUrl: '/partials/user.html', controller: UserCtrl}).
 
         otherwise({redirectTo: '/'});
 });

@@ -7,6 +7,9 @@ import com.musicbox.server.Config;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.db.Connection;
 import com.musicbox.server.packets.Packets;
+import com.musicbox.server.packets.outgoing.CriticalErrorPacket;
+import com.musicbox.server.packets.outgoing.LoginSuccessPacket;
+import com.musicbox.server.packets.outgoing.RedirectToVKPacket;
 import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
@@ -48,10 +51,9 @@ public class Login extends AbstractHandler {
 
             if (!exists) {
                 connections_.put(connection, vkclient.getProfile());
-                Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.LOGINSUCCESS);
-                connection.send(packet.toJson());
+                (new LoginSuccessPacket()).send(connection);
             } else {
-                connection.send(new Packets.Outgoing(Packets.Outgoing.Action.CRITICALERROR, "Already Logged in").toJson());
+                (new CriticalErrorPacket("Already Logged in")).send(connection);
             }
         } else {
             EntityManager entityManager = Connection.getEntityManager();
@@ -66,10 +68,9 @@ public class Login extends AbstractHandler {
                 loginTokenEntity.getoAuthToken().setProfile(profile);
                 ((Session) entityManager.getDelegate()).flush();
 
-                Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.LOGINSUCCESS);
-                connection.send(packet.toJson());
+                (new LoginSuccessPacket()).send(connection);
             } catch (Exception e) {
-                connection.send(new Packets.Outgoing(Packets.Outgoing.Action.REDIRECTTOVK, Config.getInstance().getVkappid()).toJson());
+                (new RedirectToVKPacket()).send(connection);
             }
         }
     }

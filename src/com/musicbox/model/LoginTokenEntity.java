@@ -1,8 +1,11 @@
 package com.musicbox.model;
 
+import com.musicbox.ExcludeFromSerialisation;
 import com.musicbox.model.vkontakte.OAuthToken;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,14 +16,15 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "logintoken", schema = "public", catalog = "musicbox")
-public class LoginTokenEntity {
+public class LoginTokenEntity implements Serializable{
     @Id
     private String token;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "oauthtokenid", nullable = false)
     private OAuthToken oAuthToken;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "userid", nullable = false)
+    @ExcludeFromSerialisation
     private UserEntity user;
 
     public UserEntity getUser() {
@@ -28,6 +32,10 @@ public class LoginTokenEntity {
     }
 
     public void setUser(UserEntity user) {
+        if (user.getLoginToken() == null){
+            user.setLoginToken(new ArrayList<LoginTokenEntity>());
+        }
+        user.getLoginToken().add(this);
         this.user = user;
     }
 

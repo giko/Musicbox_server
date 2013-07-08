@@ -5,6 +5,7 @@
         <button class="control prev" ng-click="player.previous()">Prev</button>
         <button class="control next" ng-click="player.next()">Next</button>
     </nav>
+    <button ng-click="searchuser(1)">bla</button>
     <div style="width: 230px; margin: auto; margin-top: 10px;" class="playlist">
         <input ng-model="query" ui-keypress="{13 : 'search(query)'}">
         <button ng-click="search(query)">search</button>

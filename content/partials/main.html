@@ -1,5 +1,17 @@
 <div class="playlist" style="background-color: red;" ng-show="error">{{error_msg}}</div>
 
+<div class="playlist">
+    <h1 class="Three-Dee" style="margin-top: 10px; margin-bottom: 20px;">Chat</h1>
+
+    <div class="playlist" ng-repeat="message in messages">
+        <h5>{{message}}</h5>
+    </div>
+    <div style="width: 230px; margin: auto; margin-top: 10px;" class="playlist">
+        <input ng-model="usertext">
+        <button ng-click="sendMessage(usertext)">search</button>
+    </div>
+</div>
+
 <div class="playlist" ng-show="!error">
     <h1 class="Three-Dee" style="margin-top: 10px; margin-bottom: 20px;">Top Artists</h1>
 

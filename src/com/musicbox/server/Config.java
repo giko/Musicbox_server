@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -75,7 +76,7 @@ public class Config {
     private Config() {
         try {
             @NotNull Properties configuration = new Properties();
-            @NotNull FileInputStream inputStream = new FileInputStream("./config/main.properties");
+            @NotNull InputStream inputStream = this.getClass().getResourceAsStream("/config/main.properties"); //new FileInputStream("config/main.properties");
 
             configuration.load(inputStream);
 

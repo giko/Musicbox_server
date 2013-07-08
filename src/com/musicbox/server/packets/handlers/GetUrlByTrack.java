@@ -3,6 +3,7 @@ package com.musicbox.server.packets.handlers;
 import com.musicbox.model.vkontakte.VkontakteClient;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets;
+import com.musicbox.server.packets.outgoing.SongUrlPacket;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
@@ -21,8 +22,7 @@ public class GetUrlByTrack extends AbstractHandler {
     @Override
     public void HandlePacket(@NotNull WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
         @NotNull VkontakteClient vkclient = new VkontakteClient(connections_.get(connection).getToken());
-        @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.SONGURL);
-        packet.setMessage(vkclient.getAudioByTrack(incoming.getMessage()).getUrl());
-        connection.send(packet.toJson());
+
+        (new SongUrlPacket(vkclient.getAudioByTrack(incoming.getMessage()).getUrl())).send(connection);
     }
 }

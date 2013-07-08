@@ -3,6 +3,7 @@ package com.musicbox.server.packets.handlers;
 import com.musicbox.model.lastfm.structure.artist.Artist;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets;
+import com.musicbox.server.packets.outgoing.*;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
@@ -23,13 +24,9 @@ public class GetTopSongsByArtistId extends AbstractHandler {
 
     @Override
     public void HandlePacket(@NotNull WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
-
-
-        @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.SEARCHRESULT);
-        List<Artist> artist = new ArrayList<Artist>();
-        artist.add(lfclient.getArtistInfoById(incoming.getMessage()));
+        ArtistSongsPacket packet = new ArtistSongsPacket();
+        packet.setArtist(lfclient.getArtistInfoById(incoming.getMessage()));
         packet.setSongs(lfclient.getTopTracksByArtistID(incoming.getMessage()));
-        packet.setArtists(artist);
-        connection.send(packet.toJson());
+        packet.send(connection);
     }
 }

@@ -5,6 +5,8 @@ import com.musicbox.model.vkontakte.OAuthToken;
 import com.musicbox.model.vkontakte.structure.profiles.Profile;
 import com.musicbox.server.packets.Packets;
 import com.musicbox.server.packets.handlers.*;
+import com.musicbox.server.packets.outgoing.AbstractOutgoing;
+import com.musicbox.server.packets.outgoing.LeavePacket;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.BaseWebSocketHandler;
 import org.webbitserver.WebSocketConnection;
@@ -38,6 +40,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
         packethandlers.put(Packets.Incoming.Action.GETAUDIOBYTRACK, new GetAudioByTrack(this));
         packethandlers.put(Packets.Incoming.Action.SEARCHSIMILARARTISTSBYNAME, new SearchSimilarArtistsByName(this));
         packethandlers.put(Packets.Incoming.Action.EXECUTEREQUESTRESULT, new ExecuteRequestResult(this));
+        packethandlers.put(Packets.Incoming.Action.GETUSER, new GetUser(this));
     }
 
     @NotNull
@@ -86,12 +89,11 @@ public class MusicboxServer extends BaseWebSocketHandler {
         }
     }
 
-    public void broadcast(@NotNull Packets.Outgoing packet) {
-        String jsonStr = this.json.toJson(packet);
+    public void broadcast(@NotNull AbstractOutgoing packet) {
         for (@NotNull WebSocketConnection connection : new ArrayList<WebSocketConnection>(
                 connections.keySet())) {
-            if (connection.data(USERNAME_KEY) != null) {
-                connection.send(jsonStr);
+            if (connections.get(connection) != null) {
+                packet.send(connection);
             }
         }
     }
@@ -104,9 +106,7 @@ public class MusicboxServer extends BaseWebSocketHandler {
     @Override
     public void onClose(@NotNull WebSocketConnection connection) throws Exception {
         if (connection.data(USERNAME_KEY) != null) {
-            Packets.Outgoing outgoing = new Packets.Outgoing(Packets.Outgoing.Action.LEAVE);
-            outgoing.setMessage(connections.get(connection).getFirst_name());
-            broadcast(outgoing);
+            broadcast(new LeavePacket(connections.get(connection).getFirst_name()));
         }
         connections.remove(connection);
     }

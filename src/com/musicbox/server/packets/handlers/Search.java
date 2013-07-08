@@ -5,6 +5,7 @@ import com.musicbox.model.lastfm.structure.tag.Tag;
 import com.musicbox.model.lastfm.structure.track.Track;
 import com.musicbox.server.MusicboxServer;
 import com.musicbox.server.packets.Packets;
+import com.musicbox.server.packets.outgoing.SearchResultPacket;
 import org.jetbrains.annotations.NotNull;
 import org.webbitserver.WebSocketConnection;
 
@@ -24,7 +25,7 @@ public class Search extends AbstractHandler {
 
     @Override
     public void HandlePacket(@NotNull WebSocketConnection connection, @NotNull Packets.Incoming incoming) {
-        @NotNull Packets.Outgoing packet = new Packets.Outgoing(Packets.Outgoing.Action.SEARCHRESULT);
+        SearchResultPacket packet = new SearchResultPacket();
         if (incoming.getMessage().equals("")) {
             packet.setArtists(lfclient.getTopArtists());
         } else {
@@ -41,6 +42,6 @@ public class Search extends AbstractHandler {
                 packet.setTags(tags);
             }
         }
-        connection.send(packet.toJson());
+        packet.send(connection);
     }
 }
