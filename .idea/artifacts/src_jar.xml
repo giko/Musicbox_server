@@ -8,11 +8,6 @@
         <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/persistence.xml" />
       </element>
       <element id="module-output" name="Musicbox_server" />
-      <element id="library" level="project" name="annotations" />
-      <element id="library" level="project" name="org.hibernate:hibernate-entitymanager:4.1.9.Final" />
-      <element id="library" level="project" name="postgresql-9.2-1002.jdbc4" />
-      <element id="library" level="project" name="webbit" />
-      <element id="library" level="project" name="gson-2.2.2" />
     </root>
   </artifact>
 </component>
